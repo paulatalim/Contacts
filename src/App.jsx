@@ -1,15 +1,15 @@
 import React from 'react';
 // import { Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import home from './views/home';
-import editCamp from './views/manageIdenty/editCamp';
-import editIndenty from './views/manageIdenty/editIndenty';
-import newIdenty from './views/manageIdenty/newIdenty';
-import identy from './views/identy';
+import editCamp from './views/identyManage/identyEditCamp';
+import editIndenty from './views/identyManage/identyEdit';
+import newIdenty from './views/identyManage/identyNew';
+import identy from './views/identyManage/identyInfo';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const App = () => {
 	return (
