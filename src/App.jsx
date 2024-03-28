@@ -19,6 +19,19 @@ const App = () => {
 				<Stack.Screen
 					name="Home"
 					component={home}
+					options={() => {
+						return {
+							title: 'Identidades',
+							headerStyle: {
+								backgroundColor: '#ffc700',
+							},
+							headerTitleStyle: {
+								fontFamily: 'Poppins-Medium',
+								fontSize: 20,
+							},
+							headerTitleAlign: 'center',
+						};
+					}}
 				/>
 				<Stack.Screen
 					name="IndentidadeInfo"
@@ -40,5 +53,11 @@ const App = () => {
 		</NavigationContainer>
 	);
 };
+
+// const screenOptions = {{
+// 	headerStyle: {
+// 		backgroundColor: '#A00',
+// 	},
+// }};
 
 export default App;
