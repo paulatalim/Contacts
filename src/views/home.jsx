@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { View, FlatList, Text, Image, StyleSheet } from 'react-native';
 
 import identy from '../data/identyList';
@@ -38,11 +38,12 @@ const style = StyleSheet.create({
         alignContent: 'center',
         paddingVertical: 15,
         paddingHorizontal: 25,
-        gap: 10,
+        gap: 20,
     },
     identyText: {
         display: 'flex',
         flexDirection: 'column',
+        justifyContent: 'center',
     },
     identyImage: {
         width: 50,
@@ -52,10 +53,11 @@ const style = StyleSheet.create({
     identyName: {
         fontSize: 20,
         color: '#000',
-        fontWeight: '500',
-        fontFamily: "Montserrat-Bold",
+        fontFamily: 'Montserrat-Bold',
     },
     identyCaract: {
         fontSize: 15,
+        color: '#4D4D4D',
+        fontFamily: 'Montserrat-Medium',
     },
 });
