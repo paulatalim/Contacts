@@ -58,6 +58,7 @@ const style = StyleSheet.create({
     identyCaract: {
         fontSize: 15,
         color: '#4D4D4D',
-        fontFamily: 'Montserrat-Medium',
+        fontFamily: 'Roboto-Bold',
+        fontWeight: '700',
     },
 });
