@@ -3,7 +3,7 @@ import { View, StyleSheet, ImageBackground } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons/faCamera';
 
-import Campo from '../../components/identyEditInfo';
+import Campo from '../components/identyEditInfo';
 
 export default props => {
     const identy = props.route.params;

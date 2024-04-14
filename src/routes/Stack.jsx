@@ -2,10 +2,10 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import home from '../views/home';
-import editCamp from '../views/identyManage/identyEditCamp';
-import editIndenty from '../views/identyManage/identyEdit';
-import newIdenty from '../views/identyManage/identyNew';
-import identy from '../views/identyManage/identyInfo';
+import editCamp from '../views/identyEditCamp';
+import editIndenty from '../views/identyEdit';
+import newIdenty from '../views/identyNew';
+import identy from '../views/identyInfo';
 
 const Stack = createNativeStackNavigator();
 

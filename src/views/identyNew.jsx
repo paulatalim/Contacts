@@ -6,7 +6,7 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons/faAngleDown';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons/faAngleUp';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 
-import TagInput from '../../components/tagInput';
+import TagInput from '../components/tagInput';
 
 export default props  => {
     const pronomes = [
