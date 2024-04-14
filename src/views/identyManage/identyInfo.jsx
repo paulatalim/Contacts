@@ -2,31 +2,33 @@ import React from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { Image } from 'react-native-elements';
 
-import identy from '../../data/identyList';
+// import identy from '../../data/identyList';
 
 export default props => {
+    const identy = props.route.params;
+
     return (
         <ScrollView>
             <View style={style.principal}>
-                <Text style={style.name}>{identy[0].name}</Text>
-                <Text style={style.pronome}>{identy[0].pronome}</Text>
-                <Image style={style.img} source={{uri: identy[0].photo}}/>
-                <Text style={style.carac}>{identy[0].caracteristica}</Text>
+                <Text style={style.name}>{identy.name}</Text>
+                <Text style={style.pronome}>{identy.pronome}</Text>
+                <Image style={style.img} source={{uri: identy.photo}}/>
+                <Text style={style.carac}>{identy.caracteristica}</Text>
             </View>
 
             <View style={style.info}>
                 <Text style={style.title}>idade</Text>
-                <Text style={style.idade}>{identy[0].idade}</Text>
+                <Text style={style.idade}>{identy.idade} anos</Text>
             </View>
 
             <View style={style.info}>
                 <Text style={style.title}>gênero</Text>
-                <Text style={style.genero}>{identy[0].genero}</Text>
+                <Text style={style.genero}>{identy.genero}</Text>
             </View>
 
             <View style={style.descricaoContainer}>
                 <Text style={style.title}>descrição</Text>
-                <Text style={style.descricao}>{identy[0].descricao}</Text>
+                <Text style={style.descricao}>{identy.descricao}</Text>
             </View>
         </ScrollView>
     );
@@ -39,6 +41,7 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: '50vh',
+        marginTop: 50,
     },
     name: {
         fontFamily:'Montserrat-ExtraBold',
@@ -46,7 +49,7 @@ const style = StyleSheet.create({
         color: '#000',
     },
     pronome: {
-        fontFamily:'Montserrat-Regular',
+        fontFamily:'Montserrat-Medium',
         fontSize: 22,
         color: '#4D4D4D',
     },
@@ -60,6 +63,7 @@ const style = StyleSheet.create({
     carac: {
         marginBottom: 60,
         fontFamily:'Montserrat-Medium',
+        fontWeight: '500',
         fontSize: 25,
         color: '#000',
     },
@@ -69,24 +73,27 @@ const style = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 15,
-        paddingHorizontal: 40,
+        paddingHorizontal: 25,
     },
     title: {
-        fontFamily:'Montserrat-Bold',
-        fontSize: 20,
+        fontFamily:'Roboto-Bold',
+        fontWeight: '700',
+        fontSize: 22,
         textTransform: 'capitalize',
         color: '#000',
     },
     idade: {
-        fontFamily:'Montserrat-Regular',
-        fontSize: 20,
-        color: '#000',
+        fontFamily:'Roboto',
+        fontWeight: '700',
+        fontSize: 22,
+        color: '#434343',
     },
     genero: {
-        fontFamily:'Montserrat-Regular',
-        fontSize: 20,
+        fontFamily:'Roboto',
+        fontWeight: '700',
+        fontSize: 22,
         textTransform: 'capitalize',
-        color: '#000',
+        color: '#434343',
     },
     descricaoContainer: {
         paddingVertical: 15,
@@ -96,9 +103,11 @@ const style = StyleSheet.create({
         gap: 15,
     },
     descricao: {
-        fontFamily:'Montserrat-Regular',
+        fontFamily:'Roboto',
+        fontWeight: '700',
         fontSize: 20,
+        lineHeight: 28,
         textTransform: 'capitalize',
-        color: '#000',
+        color: '#434343',
     },
 });

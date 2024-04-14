@@ -1,32 +1,47 @@
 import React from 'react';
-import { View, FlatList, Text, Image, StyleSheet } from 'react-native';
+import { View, FlatList, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import identy from '../data/identyList';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
 
 export default props => {
-    function getIdenty({item}) {
+    const getIdenty = ({item}) => {
         return (
-            <View style={style.identyContainer}>
-                <Image
-                    style={style.identyImage}
-                    source={{uri: item.photo}}
-                />
-                <View style={style.identyText}>
-                    <Text style={style.identyName}>{item.name}</Text>
-                    <Text style={style.identyCaract}>{item.caracteristica}</Text>
+            <TouchableOpacity
+                onPress={() => {
+                    props.navigation.push('IndentidadeInfo', {identy: item});
+                }}>
+                <View style={style.identyContainer}>
+                    <Image
+                        style={style.identyImage}
+                        source={{uri: item.photo}}
+                    />
+                    <View style={style.identyText}>
+                        <Text style={style.identyName}>{item.name}</Text>
+                        <Text style={style.identyCaract}>{item.caracteristica}</Text>
+                    </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
-    }
+    };
 
     return (
-        <View>
+        <>
             <FlatList
-                keyExtractor={id => identy.id}
                 data={identy}
                 renderItem={getIdenty}
+                keyExtractor={item => item.id}
             />
-        </View>
+            <TouchableOpacity
+                style={style.floatActionButton}
+                onPress={() => {
+                    props.navigation.navigate('IdentidadeCriar');
+                }}
+            >
+                <FontAwesomeIcon icon={faAdd} size={30} color="#FFF" />
+            </TouchableOpacity>
+        </>
     );
 };
 
@@ -60,5 +75,16 @@ const style = StyleSheet.create({
         color: '#4D4D4D',
         fontFamily: 'Roboto-Bold',
         fontWeight: '700',
+    },
+    floatActionButton: {
+        position: 'absolute',
+        backgroundColor: '#ffc700',
+        width: 70,
+        height: 70,
+        borderRadius: 20,
+        bottom: 50,
+        right: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
