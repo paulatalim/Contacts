@@ -2,17 +2,22 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import home from '../views/home';
-import editCamp from '../views/identyEditCamp';
 import editIndenty from '../views/identyEdit';
 import newIdenty from '../views/identyNew';
 import identy from '../views/identyInfo';
+import editName from '../views/editViews/editName';
+import editTag from '../views/editViews/editTag';
+import editTextArea from '../views/editViews/editTextArea';
+import editSelesct from '../views/editViews/editSelect';
+import editIdade from '../views/editViews/editIdade';
+import editGenero from '../views/editViews/editGenero';
 
 const Stack = createNativeStackNavigator();
 
 export default props => {
     return (
         <Stack.Navigator
-            initialRouteName="IdentidadeCriar">
+            initialRouteName="EditarMultiSelect">
             <Stack.Screen
                 name="Home"
                 component={home}
@@ -59,8 +64,58 @@ export default props => {
                 }}
             />
             <Stack.Screen
-                name="IdentidadeCampo"
-                component={editCamp}
+                name="EditarNome"
+                component={editName}
+                options={() => {
+                    return {
+                        headerShown: false,
+                    };
+                }}
+            />
+            <Stack.Screen
+                name="EditarIdade"
+                component={editIdade}
+                options={() => {
+                    return {
+                        headerShown: false,
+                    };
+                }}
+            />
+            <Stack.Screen
+                name="EditarGenero"
+                component={editGenero}
+                options={() => {
+                    return {
+                        headerShown: false,
+                    };
+                }}
+            />
+            <Stack.Screen
+                name="EditarTagInput"
+                component={editTag}
+                options={() => {
+                    return {
+                        headerShown: false,
+                    };
+                }}
+            />
+            <Stack.Screen
+                name="EditarMultiSelect"
+                component={editSelesct}
+                options={() => {
+                    return {
+                        headerShown: false,
+                    };
+                }}
+            />
+            <Stack.Screen
+                name="EditarAreaTextInput"
+                component={editTextArea}
+                options={() => {
+                    return {
+                        headerShown: false,
+                    };
+                }}
             />
         </Stack.Navigator>
     );

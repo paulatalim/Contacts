@@ -11,8 +11,8 @@ import TagInput from '../components/tagInput';
 export default props  => {
     const pronomes = [
         {key: 0, value: 'Ele/dele'},
-        {key: 0, value: 'Ela/dela'},
-        {key: 0, value: 'Elu/delu'},
+        {key: 1, value: 'Ela/dela'},
+        {key: 2, value: 'Elu/delu'},
     ];
 
     const [name, setName] = useState();
@@ -82,6 +82,7 @@ export default props  => {
                     dropdownStyles={style.multiDropdown}
                     dropdownTextStyles={style.multiDropdownText}
                     checkBoxStyles={style.multiCheck}
+                    placeholder="Selecionar pronome"
                 />
             </View>
 
