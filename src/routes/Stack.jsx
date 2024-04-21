@@ -35,11 +35,7 @@ export default props => {
                     };
                 }}
             />
-            <Stack.Screen
-                name="IndentidadeInfo"
-                component={identy}
-                options={{ headerShown: false}}
-            />
+            <Stack.Screen name="IndentidadeInfo" component={identy} options={{ headerShown: false}} />
             <Stack.Screen
                 name="IndentidadeEdit"
                 component={editIndenty}
@@ -50,41 +46,13 @@ export default props => {
                     };
                 }}
             />
-            <Stack.Screen
-                name="IdentidadeCriar"
-                component={newIdenty}
-                options={{ headerShown: false}}
-            />
-            <Stack.Screen
-                name="EditarNome"
-                component={editName}
-                options={{ headerShown: false}}
-            />
-            <Stack.Screen
-                name="EditarIdade"
-                component={editIdade}
-                options={{ headerShown: false}}
-            />
-            <Stack.Screen
-                name="EditarGenero"
-                component={editGenero}
-                options={{ headerShown: false}}
-            />
-            <Stack.Screen
-                name="EditarTagInput"
-                component={editTag}
-                options={{ headerShown: false}}
-            />
-            <Stack.Screen
-                name="EditarMultiSelect"
-                component={editSelesct}
-                options={{ headerShown: false}}
-            />
-            <Stack.Screen
-                name="EditarAreaTextInput"
-                component={editTextArea}
-                options={{ headerShown: false}} 
-            />
+            <Stack.Screen name="IdentidadeCriar" component={newIdenty} options={{ headerShown: false}} />
+            <Stack.Screen name="EditarNome" component={editName} options={{ headerShown: false}} />
+            <Stack.Screen name="EditarIdade" component={editIdade} options={{ headerShown: false}} />
+            <Stack.Screen name="EditarGenero" component={editGenero} options={{ headerShown: false}} />
+            <Stack.Screen name="EditarTagInput" component={editTag} options={{ headerShown: false}} />
+            <Stack.Screen name="EditarMultiSelect" component={editSelesct} options={{ headerShown: false}} />
+            <Stack.Screen name="EditarAreaTextInput" component={editTextArea} options={{ headerShown: false}} />
         </Stack.Navigator>
     );
 };
