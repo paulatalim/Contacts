@@ -16,7 +16,7 @@ export default props => {
             <View style={style.principal}>
                 <View style={style.header}>
                     <TouchableOpacity
-                        onPress={() => {props.navigation.goBack() }}
+                        onPress={() => {props.navigation.goBack();}}
                     >
                         <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
                     </TouchableOpacity>
@@ -25,7 +25,7 @@ export default props => {
                         <Text style={style.pronome}>{identy.pronome}</Text>
                     </View>
                     <TouchableOpacity
-                        onPress={ () => {props.navigation.navigate('IndentidadeEdit', identy) }}
+                        onPress={ () => {props.navigation.navigate('IndentidadeEdit', identy);}}
                     >
                         <FontAwesomeIcon icon={faPen} size={20} color="#696969"/>
                     </TouchableOpacity>
@@ -82,9 +82,9 @@ const style = StyleSheet.create({
         color: '#4D4D4D',
     },
     img: {
-        width: 200,
-        height: 200,
-        borderRadius: 100,
+        width: 300,
+        height: 300,
+        borderRadius: 250,
         marginTop: 30,
         marginBottom: 30,
     },
