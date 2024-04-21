@@ -1,8 +1,8 @@
+import React from 'react';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import React, { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import TagInput from '../../components/tagInput';
 // import identy from '../../data/identyList';
 

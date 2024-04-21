@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default props => {
-    const [gender, setGender] = useState();
+    const [descrip, setDescrip] = useState(props.route.params.descricao);
 
     return (
         <>
@@ -31,8 +31,8 @@ export default props => {
                 style={style.input}
                 placeholder="Descrição"
                 placeholderTextColor={'#333'}
-                onChangeText={setGender}
-                value={gender}
+                onChangeText={setDescrip}
+                value={descrip}
                 multiline={true}
             />
         </>

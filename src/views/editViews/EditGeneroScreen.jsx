@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default props => {
-    const [gender, setGender] = useState();
+    const [gender, setGender] = useState(props.route.params.genero);
 
     return (
         <>

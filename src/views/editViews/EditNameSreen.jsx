@@ -3,10 +3,11 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React, { useState } from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-// import identy from '../../data/identyList';
+import identy from '../../data/identyList';
 
 export default props => {
-    const [name, setName] = useState();
+    const param = props.route.params;
+    const [name, setName] = useState(param.name);
 
     return (
         <>
@@ -24,6 +25,7 @@ export default props => {
                 <TouchableOpacity
                     style={style.btnSave}
                     onPress={() => {
+                        identy[param.id].name = name;
                         props.navigation.goBack();
                     }}
                 >
@@ -51,9 +53,6 @@ const style = StyleSheet.create({
         paddingVertical: 50,
     },
     btnCancel: {
-        // flexDirection: 'row',
-        // alignItems: 'center',
-        // gap: 8,
         marginRight: 10,
     },
     title: {

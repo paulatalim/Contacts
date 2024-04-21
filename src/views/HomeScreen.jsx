@@ -10,7 +10,7 @@ export default props => {
         return (
             <TouchableOpacity
                 onPress={() => {
-                    props.navigation.push('IndentidadeInfo', {identy: item});
+                    props.navigation.push('VizualizarIdentidade', {identy: item});
                 }}>
                 <View style={style.identyContainer}>
                     <Image
@@ -36,7 +36,7 @@ export default props => {
             <TouchableOpacity
                 style={style.floatActionButton}
                 onPress={() => {
-                    props.navigation.navigate('IdentidadeCriar');
+                    props.navigation.navigate('CriarIdentidade');
                 }}
             >
                 <FontAwesomeIcon icon={faAdd} size={30} color="#FFF" />

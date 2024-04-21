@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default props => {
-    const [idade, setIdade] = useState();
+    const [idade, setIdade] = useState(props.route.params.idade.toString());
 
     return (
         <>

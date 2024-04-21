@@ -1,16 +1,16 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import home from '../views/home';
-import editIndenty from '../views/identyEdit';
-import newIdenty from '../views/identyNew';
-import identy from '../views/identyInfo';
-import editName from '../views/editViews/editName';
-import editTag from '../views/editViews/editTag';
-import editTextArea from '../views/editViews/editTextArea';
-import editSelesct from '../views/editViews/editSelect';
-import editIdade from '../views/editViews/editIdade';
-import editGenero from '../views/editViews/editGenero';
+import home from '../views/HomeScreen';
+import editIndenty from '../views/EditIdentyScreen';
+import newIdenty from '../views/CreateIdentyScreen';
+import identy from '../views/ViewIdentyScreen';
+import editName from '../views/editViews/EditNameSreen';
+import EditCarac from '../views/editViews/EditCaracScreen';
+import EditDescrip from '../views/editViews/EditDescripScreen';
+import EditPronome from '../views/editViews/EditPronomeScreen';
+import editIdade from '../views/editViews/EditIdadeScreen';
+import editGenero from '../views/editViews/EditGeneroScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +35,7 @@ export default props => {
                     };
                 }}
             />
-            <Stack.Screen name="IndentidadeInfo" component={identy} options={{ headerShown: false}} />
+            <Stack.Screen name="VizualizarIdentidade" component={identy} options={{ headerShown: false}} />
             <Stack.Screen
                 name="IndentidadeEdit"
                 component={editIndenty}
@@ -46,13 +46,13 @@ export default props => {
                     };
                 }}
             />
-            <Stack.Screen name="IdentidadeCriar" component={newIdenty} options={{ headerShown: false}} />
+            <Stack.Screen name="CriarIdentidade" component={newIdenty} options={{ headerShown: false}} />
             <Stack.Screen name="EditarNome" component={editName} options={{ headerShown: false}} />
             <Stack.Screen name="EditarIdade" component={editIdade} options={{ headerShown: false}} />
             <Stack.Screen name="EditarGenero" component={editGenero} options={{ headerShown: false}} />
-            <Stack.Screen name="EditarTagInput" component={editTag} options={{ headerShown: false}} />
-            <Stack.Screen name="EditarMultiSelect" component={editSelesct} options={{ headerShown: false}} />
-            <Stack.Screen name="EditarAreaTextInput" component={editTextArea} options={{ headerShown: false}} />
+            <Stack.Screen name="EditarCaracteristica" component={EditCarac} options={{ headerShown: false}} />
+            <Stack.Screen name="EditarPronome" component={EditPronome} options={{ headerShown: false}} />
+            <Stack.Screen name="EditarDescricao" component={EditDescrip} options={{ headerShown: false}} />
         </Stack.Navigator>
     );
 };

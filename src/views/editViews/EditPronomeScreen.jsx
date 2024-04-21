@@ -1,14 +1,19 @@
-import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from 'react';
+import {
+    Text,
+    View,
+    StyleSheet,
+    TouchableOpacity,
+} from 'react-native';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons/faAngleDown';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons/faAngleUp';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import React, { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { MultipleSelectList } from 'react-native-dropdown-select-list';
 
 export default props => {
-    const pronomes = [
+    const data = [
         {key: 0, value: 'Ele/dele'},
         {key: 1, value: 'Ela/dela'},
         {key: 2, value: 'Elu/delu'},
@@ -39,7 +44,7 @@ export default props => {
             <View style={style.multiContainer}>
                 <MultipleSelectList
                     setSelected={setPronome}
-                    data={pronomes}
+                    data={data}
                     save="value"
                     onSelect={() => {}}
                     search={false}
