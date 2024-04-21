@@ -28,9 +28,11 @@ export default props  => {
             <View style={style.header}>
                 <Text style={style.headerTitle}>Criar nova identidade</Text>
                 <TouchableOpacity
-                    onPress={() => {}}
+                    onPress={() => {
+                        props.navigation.goBack();
+                    }}
                 >
-                    <FontAwesomeIcon icon={faXmark} size={27}/>
+                    <FontAwesomeIcon icon={faXmark} size={27} color="#696969"/>
                 </TouchableOpacity>
             </View>
 

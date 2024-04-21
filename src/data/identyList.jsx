@@ -7,7 +7,7 @@ export default [
         idade: 19,
         caracteristica: 'Extrovertida',
         descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
-        photo: 'https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png',
+        photo: 'https://picsum.photos/50?random=5.jpg',
     },
     {
         id: 2,
@@ -17,7 +17,7 @@ export default [
         idade: 19,
         caracteristica: 'Timido',
         descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
-        photo: 'https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png',
+        photo: 'https://picsum.photos/50?random=1.jpg',
     },
     {
         id: 3,
@@ -27,7 +27,7 @@ export default [
         idade: 19,
         caracteristica: 'Amor',
         descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
-        photo: 'https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png',
+        photo: 'https://picsum.photos/50?random=2.jpg',
     },
     {
         id: 4,
@@ -37,7 +37,7 @@ export default [
         idade: 19,
         caracteristica: 'Legal',
         descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
-        photo: 'https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png',
+        photo: 'https://picsum.photos/50?random=3.jpg',
     },
     {
         id: 5,
@@ -47,6 +47,6 @@ export default [
         idade: 19,
         caracteristica: 'Esquisito',
         descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
-        photo: 'https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png',
+        photo: 'https://picsum.photos/50?random=4.jpg',
     },
 ];

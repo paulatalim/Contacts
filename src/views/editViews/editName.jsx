@@ -1,8 +1,9 @@
-import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React, { useState } from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+// import identy from '../../data/identyList';
 
 export default props => {
     const [name, setName] = useState();
@@ -13,7 +14,7 @@ export default props => {
                 <>
                     <TouchableOpacity
                         style={style.btnCancel}
-                        onPress={() => {}}
+                        onPress={() => {props.navigation.goBack();}}
                     >
                         <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969" />
                     </TouchableOpacity>
@@ -22,10 +23,11 @@ export default props => {
                 </>
                 <TouchableOpacity
                     style={style.btnSave}
-                    onPress={() => {}}
+                    onPress={() => {
+                        props.navigation.goBack();
+                    }}
                 >
-                    <Text style={style.btnSaveContent}>salvar</Text>
-                    <FontAwesomeIcon icon={faCheck} />
+                    <FontAwesomeIcon icon={faCheck} size={20} color="#696969"/>
                 </TouchableOpacity>
             </View>
 
@@ -54,13 +56,6 @@ const style = StyleSheet.create({
         // gap: 8,
         marginRight: 10,
     },
-    // btnCancelContent: {
-    //     color: '#000',
-    //     fontFamily: 'Roboto',
-    //     fontWeight: '600',
-    //     fontSize: 16,
-    //     textTransform: 'capitalize',
-    // },
     title: {
         color: '#000',
         fontFamily: 'Roboto',
@@ -72,13 +67,6 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 8,
-    },
-    btnSaveContent: {
-        textTransform: 'capitalize',
-        color: '#000',
-        fontFamily: 'Roboto',
-        fontWeight: '600',
-        fontSize: 16,
     },
     input: {
         marginHorizontal: 25,

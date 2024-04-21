@@ -1,19 +1,23 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
 
-export default ({name, data}) => {
+export default ({name, data, nav, route} ) => {
     return (
         <View style={style.container}>
             <Text style={style.name}>{name}</Text>
-            <View style={style.containerData}>
+            <TouchableOpacity
+                onPress={() => {
+                    nav(route, data);
+                }}
+                style={style.containerData}>
                 {data == null || data.toString().length < 10
                     ? <Text style={style.data}>{data}</Text>
                     : <Text style={style.data}>{data.toString().substr(0, 10) + ' ...'}</Text>
                 }
                 <FontAwesomeIcon icon={faChevronRight} size={20} color="#696969" />
-            </View>
+            </TouchableOpacity >
         </View>
     );
 };

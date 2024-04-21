@@ -1,17 +1,35 @@
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
+import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { Image } from 'react-native-elements';
 
 // import identy from '../../data/identyList';
 
 export default props => {
-    const identy = props.route.params;
+    const identy = props.route.params.identy;
 
     return (
         <ScrollView>
             <View style={style.principal}>
-                <Text style={style.name}>{identy.name}</Text>
-                <Text style={style.pronome}>{identy.pronome}</Text>
+                <View style={style.header}>
+                    <TouchableOpacity
+                        onPress={() => {props.navigation.goBack() }}
+                    >
+                        <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
+                    </TouchableOpacity>
+                    <View style={style.headerContent}>
+                        <Text style={style.name}>{identy.name}</Text>
+                        <Text style={style.pronome}>{identy.pronome}</Text>
+                    </View>
+                    <TouchableOpacity
+                        onPress={ () => {props.navigation.navigate('IndentidadeEdit', identy) }}
+                    >
+                        <FontAwesomeIcon icon={faPen} size={20} color="#696969"/>
+                    </TouchableOpacity>
+                </View>
                 <Image style={style.img} source={{uri: identy.photo}}/>
                 <Text style={style.carac}>{identy.caracteristica}</Text>
             </View>
@@ -43,6 +61,16 @@ const style = StyleSheet.create({
         height: '50vh',
         marginTop: 50,
     },
+    header: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 25,
+    },
+    headerContent: {
+        alignItems: 'center',
+    },
     name: {
         fontFamily:'Montserrat-ExtraBold',
         fontSize: 25,
@@ -56,7 +84,7 @@ const style = StyleSheet.create({
     img: {
         width: 200,
         height: 200,
-        borderRadius: 50,
+        borderRadius: 100,
         marginTop: 30,
         marginBottom: 30,
     },

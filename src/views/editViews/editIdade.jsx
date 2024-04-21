@@ -1,4 +1,5 @@
-import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React, { useState } from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
@@ -11,20 +12,18 @@ export default props => {
             <View style={style.header}>
                 <TouchableOpacity
                     style={style.btnCancel}
-                    onPress={() => {}}
+                    onPress={() => {props.navigation.goBack();}}
                 >
-                    <FontAwesomeIcon icon={faXmark} />
-                    <Text style={style.btnCancelContent}>cancelar</Text>
+                    <FontAwesomeIcon icon={faChevronLeft}  size={20} color="#696969"/>
                 </TouchableOpacity>
 
                 <Text style={style.title}>editar idade</Text>
 
                 <TouchableOpacity
                     style={style.btnSave}
-                    onPress={() => {}}
+                    onPress={() => {props.navigation.goBack();}}
                 >
-                    <Text style={style.btnSaveContent}>salvar</Text>
-                    <FontAwesomeIcon icon={faCheck} />
+                    <FontAwesomeIcon icon={faCheck}  size={20} color="#696969"/>
                 </TouchableOpacity>
             </View>
 
@@ -53,13 +52,6 @@ const style = StyleSheet.create({
         alignItems: 'center',
         gap: 8,
     },
-    btnCancelContent: {
-        color: '#000',
-        fontFamily: 'Roboto',
-        fontWeight: '600',
-        fontSize: 16,
-        textTransform: 'capitalize',
-    },
     title: {
         color: '#000',
         fontFamily: 'Roboto',
@@ -71,13 +63,6 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 8,
-    },
-    btnSaveContent: {
-        textTransform: 'capitalize',
-        color: '#000',
-        fontFamily: 'Roboto',
-        fontWeight: '600',
-        fontSize: 16,
     },
     input: {
         marginHorizontal: 25,
