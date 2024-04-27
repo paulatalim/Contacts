@@ -38,6 +38,7 @@ export default props => {
                 placeholder="Nome"
                 placeholderTextColor={'#333'}
                 onChangeText={setName}
+                clearTextOnFocus={true}
                 value={name}
             />
         </>

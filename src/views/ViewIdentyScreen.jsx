@@ -5,6 +5,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { Image } from 'react-native-elements';
+import Animated  from 'react-native-reanimated';
 
 // import identy from '../../data/identyList';
 
@@ -30,7 +31,7 @@ export default props => {
                         <FontAwesomeIcon icon={faPen} size={20} color="#696969"/>
                     </TouchableOpacity>
                 </View>
-                <Image style={style.img} source={{uri: identy.photo}}/>
+                <Animated.Image style={style.img} source={{uri: identy.photo}} sharedTransionTag="tag" />
                 <Text style={style.carac}>{identy.caracteristica}</Text>
             </View>
 
@@ -106,20 +107,20 @@ const style = StyleSheet.create({
     title: {
         fontFamily:'Roboto-Bold',
         fontWeight: '700',
-        fontSize: 22,
+        fontSize: 20,
         textTransform: 'capitalize',
         color: '#000',
     },
     idade: {
         fontFamily:'Roboto',
         fontWeight: '700',
-        fontSize: 22,
+        fontSize: 20,
         color: '#434343',
     },
     genero: {
         fontFamily:'Roboto',
         fontWeight: '700',
-        fontSize: 22,
+        fontSize: 20,
         textTransform: 'capitalize',
         color: '#434343',
     },
@@ -133,7 +134,7 @@ const style = StyleSheet.create({
     descricao: {
         fontFamily:'Roboto',
         fontWeight: '700',
-        fontSize: 20,
+        fontSize: 18,
         lineHeight: 28,
         textTransform: 'capitalize',
         color: '#434343',

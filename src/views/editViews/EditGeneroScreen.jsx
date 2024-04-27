@@ -33,6 +33,7 @@ export default props => {
                 placeholderTextColor={'#333'}
                 onChangeText={setGender}
                 value={gender}
+                clearTextOnFocus={true}
                 autoComplete="gender"
             />
         </>

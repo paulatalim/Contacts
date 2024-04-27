@@ -4,6 +4,7 @@ import { View, FlatList, Text, Image, StyleSheet, TouchableOpacity } from 'react
 import identy from '../data/identyList';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
+import Animated from 'react-native-reanimated';
 
 export default props => {
     const getIdenty = ({item}) => {
@@ -13,9 +14,10 @@ export default props => {
                     props.navigation.push('VizualizarIdentidade', {identy: item});
                 }}>
                 <View style={style.identyContainer}>
-                    <Image
+                    <Animated.Image
                         style={style.identyImage}
                         source={{uri: item.photo}}
+                        sharedTransitionTag="tag"
                     />
                     <View style={style.identyText}>
                         <Text style={style.identyName}>{item.name}</Text>
@@ -28,6 +30,9 @@ export default props => {
 
     return (
         <>
+            <View style={style.header}>
+                <Text style={style.headerText}>Identidades</Text>
+            </View>
             <FlatList
                 data={identy}
                 renderItem={getIdenty}
@@ -46,6 +51,16 @@ export default props => {
 };
 
 const style = StyleSheet.create({
+    header: {
+        backgroundColor: '#ffc700',
+        paddingVertical: 20,
+        paddingHorizontal: 25,
+    },
+    headerText: {
+        fontFamily: 'Montserrat-Bold',
+        fontSize: 24,
+        color: '#000',
+    },
     identyContainer: {
         display: 'flex',
         flexDirection: 'row',

@@ -8,7 +8,7 @@ import TagInput from '../../components/tagInput';
 
 export default props => {
     return (
-        <>
+        <View style={style.container}>
             <View style={style.header}>
                 <>
                     <TouchableOpacity
@@ -33,11 +33,15 @@ export default props => {
             <View style={style.input}>
                 <TagInput />
             </View>
-        </>
+        </ View>
     );
 };
 
 const style = StyleSheet.create({
+    container: {
+        backgroundColor: '#FFF',
+        flex: 1,
+    },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',

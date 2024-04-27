@@ -33,6 +33,7 @@ export default props => {
                 placeholderTextColor={'#333'}
                 onChangeText={setIdade}
                 value={idade}
+                clearTextOnFocus={true}
                 keyboardType="numeric"
             />
         </>

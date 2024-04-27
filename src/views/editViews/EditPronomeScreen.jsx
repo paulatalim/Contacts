@@ -99,7 +99,7 @@ const style = StyleSheet.create({
     },
     multiBoxStyles: {
         borderColor: '#FFF',
-        backgroundColor: '#ffffd5',
+        backgroundColor: '#ffc700',
         borderRadius: 20,
     },
     multiLabel: {

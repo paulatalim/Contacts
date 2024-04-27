@@ -33,6 +33,7 @@ export default props => {
                 placeholderTextColor={'#333'}
                 onChangeText={setDescrip}
                 value={descrip}
+                clearTextOnFocus={true}
                 multiline={true}
             />
         </>
