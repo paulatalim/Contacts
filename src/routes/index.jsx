@@ -11,29 +11,18 @@ import EditDescrip from '../views/editViews/EditDescripScreen';
 import EditPronome from '../views/editViews/EditPronomeScreen';
 import editIdade from '../views/editViews/EditIdadeScreen';
 import editGenero from '../views/editViews/EditGeneroScreen';
+import SingIn from '../views/SingIn';
 
 const Stack = createNativeStackNavigator();
 
 export default props => {
     return (
         <Stack.Navigator
-            initialRouteName="Home">
+            initialRouteName="SingIn">
             <Stack.Screen
                 name="Home"
                 component={home}
-                options={() => {
-                    return {
-                        title: 'Identidades',
-                        headerStyle: {
-                            backgroundColor: '#ffc700',
-                        },
-                        headerTitleStyle: {
-                            fontFamily: 'Montserrat-Bold',
-                            fontSize: 22,
-                        },
-                        headerTitleAlign: 'center',
-                    };
-                }}
+                options={{ headerShown: false }}
             />
             <Stack.Screen name="VizualizarIdentidade" component={identy} options={{ headerShown: false}} />
             <Stack.Screen
@@ -53,6 +42,7 @@ export default props => {
             <Stack.Screen name="EditarCaracteristica" component={EditCarac} options={{ headerShown: false}} />
             <Stack.Screen name="EditarPronome" component={EditPronome} options={{ headerShown: false}} />
             <Stack.Screen name="EditarDescricao" component={EditDescrip} options={{ headerShown: false}} />
+            <Stack.Screen name="SingIn" component={SingIn}  options={{ headerShown: false}} />
         </Stack.Navigator>
     );
 };
