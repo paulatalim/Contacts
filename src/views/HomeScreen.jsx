@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, FlatList, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-
-import identy from '../data/identyList';
+import { View, FlatList, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
 import Animated from 'react-native-reanimated';
+
+import identy from '../data/identyList';
 
 export default props => {
     const getIdenty = ({item}) => {

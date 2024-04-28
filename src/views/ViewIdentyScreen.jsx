@@ -1,10 +1,8 @@
+import React from 'react';
+import { Text, View, StyleSheet, ScrollView,TouchableOpacity } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
-import { Image } from 'react-native-elements';
 import Animated  from 'react-native-reanimated';
 
 // import identy from '../../data/identyList';

@@ -1,9 +1,18 @@
 import React from 'react';
-import { View, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, Image, ScrollView, Platform } from 'react-native';
+import {
+    View,
+    ImageBackground,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    Image,
+    ScrollView,
+    Platform,
+    Dimensions,
+} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faApple } from '@fortawesome/free-brands-svg-icons/faApple';
-import {Dimensions} from 'react-native';
-// import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 const SingIn = props => {
     return (

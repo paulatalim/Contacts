@@ -5,8 +5,8 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from 'react-native';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons/faAngleDown';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons/faAngleUp';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
