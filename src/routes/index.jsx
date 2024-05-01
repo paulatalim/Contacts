@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import home from '../views/HomeScreen';
+import Home from '../views/HomeScreen';
 import editIndenty from '../views/EditIdentyScreen';
 import newIdenty from '../views/CreateIdentyScreen';
 import identy from '../views/ViewIdentyScreen';
@@ -14,14 +14,31 @@ import editGenero from '../views/editViews/EditGeneroScreen';
 import SingIn from '../views/SingIn';
 
 const Stack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator();
+const SwitchAuthStack = createNativeStackNavigator();
 
 export default props => {
+    const Auth = () => {
+        <AuthStack.Navigator initialRouteName="SingIn">
+            <AuthStack.Screen name="SingIn" component={SingIn}  options={{ headerShown: false}} />
+        </AuthStack.Navigator>;
+    };
+
+    const AuthOrHome = () => {
+        <SwitchAuthStack.Navigator>
+            {true
+                ? <SwitchAuthStack.Screen name="Home" component={Home} />
+                : <SwitchAuthStack.Screen name="Auth" component={Auth} />
+            }
+        </SwitchAuthStack.Navigator>;
+    };
+
     return (
         <Stack.Navigator
-            initialRouteName="SingIn">
+            initialRouteName="Auth">
             <Stack.Screen
                 name="Home"
-                component={home}
+                component={Home}
                 options={{ headerShown: false }}
             />
             <Stack.Screen name="VizualizarIdentidade" component={identy} options={{ headerShown: false}} />
@@ -42,7 +59,7 @@ export default props => {
             <Stack.Screen name="EditarCaracteristica" component={EditCarac} options={{ headerShown: false}} />
             <Stack.Screen name="EditarPronome" component={EditPronome} options={{ headerShown: false}} />
             <Stack.Screen name="EditarDescricao" component={EditDescrip} options={{ headerShown: false}} />
-            <Stack.Screen name="SingIn" component={SingIn}  options={{ headerShown: false}} />
+            <Stack.Screen name="Auth" component={AuthOrHome} />
         </Stack.Navigator>
     );
 };
