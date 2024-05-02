@@ -10,26 +10,35 @@ import {
     ScrollView,
     Platform,
     Dimensions,
+    StatusBar,
 } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faApple } from '@fortawesome/free-brands-svg-icons/faApple';
+import BoxGlass from '../components/BoxGlass';
 
 const SingIn = props => {
     return (
-        <ScrollView>
+        <ScrollView style={style.scroll}>
             <ImageBackground
                 source={require('../../assets/img/sunflower.png')}
                 resizeMode="cover"
                 style={[
-                    {height: Dimensions.get('window').height},
+                    {height: Dimensions.get('window').height + StatusBar.currentHeight},
                     style.img,
                 ]}
-            >
+                >
+                <StatusBar
+                    translucent={true}
+                    backgroundColor={'transparent'}
+                    />
+                <BoxGlass
+                    width={0.85 * Dimensions.get('window').width} 
+                    height={0.7 * Dimensions.get('window').height}
+                    />
                 <View style={[{height: 0.7 * Dimensions.get('window').height}, style.container]}>
                     <Text style={style.title}>Login</Text>
                     <View style={style.containerInput}>
                         <TextInput
-                            // inlineImageLeft={<FontAwesomeIcon icon={faUser}/>}
                             placeholder="Email"
                             placeholderTextColor={'#FFF'}
                             keyboardType="email-address"
@@ -103,9 +112,7 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
     container: {
-        backgroundColor: '#AA93097F',
-        borderRadius: 40,
-        width: '85%',
+        width: 0.85 * Dimensions.get('window').width,
         justifyContent: 'space-around',
         alignItems: 'center',
         paddingHorizontal: 20,
@@ -121,7 +128,7 @@ const style = StyleSheet.create({
         gap: 20,
     },
     input: {
-        backgroundColor: '#FFFFFF99',
+        backgroundColor: '#FFFFFF66',
         borderRadius: 50,
         paddingVertical: 15,
         paddingHorizontal: 25,

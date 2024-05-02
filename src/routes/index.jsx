@@ -28,14 +28,17 @@ export default props => {
         <SwitchAuthStack.Navigator>
             {true
                 ? <SwitchAuthStack.Screen name="Home" component={Home} />
-                : <SwitchAuthStack.Screen name="Auth" component={Auth} />
+                : console.log('oiii')
             }
         </SwitchAuthStack.Navigator>;
     };
 
     return (
         <Stack.Navigator
-            initialRouteName="Auth">
+            initialRouteName="SingIn"
+            screenOptions={{
+                orientation: 'default',
+            }}>
             <Stack.Screen
                 name="Home"
                 component={Home}
@@ -59,7 +62,8 @@ export default props => {
             <Stack.Screen name="EditarCaracteristica" component={EditCarac} options={{ headerShown: false}} />
             <Stack.Screen name="EditarPronome" component={EditPronome} options={{ headerShown: false}} />
             <Stack.Screen name="EditarDescricao" component={EditDescrip} options={{ headerShown: false}} />
-            <Stack.Screen name="Auth" component={AuthOrHome} />
+            <Stack.Screen name="SingIn" component={SingIn} options={{ headerShown: false}} />
+            {/* <Stack.Screen name="Auth" component={AuthOrHome} /> */}
         </Stack.Navigator>
     );
 };
