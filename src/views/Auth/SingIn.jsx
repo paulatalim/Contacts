@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     View,
-    ImageBackground,
     StyleSheet,
     Text,
     TextInput,
@@ -14,28 +13,22 @@ import {
 } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faApple } from '@fortawesome/free-brands-svg-icons/faApple';
-import BoxGlass from '../components/BoxGlass';
+import BoxGlass from '../../components/BoxGlass';
 
 const SingIn = props => {
     return (
         <ScrollView style={style.scroll}>
-            <ImageBackground
-                source={require('../../assets/img/sunflower.png')}
-                resizeMode="cover"
-                style={[
-                    {height: Dimensions.get('window').height + StatusBar.currentHeight},
-                    style.img,
-                ]}
-                >
+            <View style={style.img}>
+
                 <StatusBar
                     translucent={true}
                     backgroundColor={'transparent'}
                     />
                 <BoxGlass
-                    width={0.85 * Dimensions.get('window').width} 
-                    height={0.7 * Dimensions.get('window').height}
+                    width={0.85 * Dimensions.get('window').width}
+                    height={0.8 * Dimensions.get('window').height}
                     />
-                <View style={[{height: 0.7 * Dimensions.get('window').height}, style.container]}>
+                <View style={[{height: 0.8 * Dimensions.get('window').height}, style.container]}>
                     <Text style={style.title}>Login</Text>
                     <View style={style.containerInput}>
                         <TextInput
@@ -75,27 +68,36 @@ const SingIn = props => {
                                 props.navigation.navigate('Home');
                             }}
                             >
-                            <Image style={style.googleImg} source={require('../../assets/img/google.png')} />
+                            <Image style={style.googleImg} source={require('../../../assets/img/google.png')} />
                             <Text style={style.googleText}>Entrar com o Google</Text>
                             <View />
                         </TouchableOpacity>
 
                         {Platform.OS === 'ios' ?
                             <TouchableOpacity
-                                style={style.btnApple}
-                                onPress={() => {
-                                    props.navigation.navigate('Home');
-                                }}
-                                >
+                            style={style.btnApple}
+                            onPress={() => {
+                                props.navigation.navigate('Home');
+                            }}
+                            >
                                 <FontAwesomeIcon icon={faApple} color="#FFF" size={26}/>
                                 <Text style={style.appleContent}>Entrar com Apple</Text>
                                 <View />
                             </TouchableOpacity>
                             : <></>
                         }
+
+                        <TouchableOpacity
+                            style={style.btnCriarConta}
+                            onPress={() => {
+                                props.navigation.navigate('SingUp');
+                            }}
+                            >
+                            <Text style={style.btnCriarContaText}>Criar conta</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-            </ImageBackground>
+            </View>
         </ScrollView>
     );
 };
@@ -108,6 +110,8 @@ const style = StyleSheet.create({
     },
     img: {
         flex: 1,
+        height: Dimensions.get('window').height + StatusBar.currentHeight,
+        width: Dimensions.get('window').width,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -116,7 +120,7 @@ const style = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         paddingHorizontal: 20,
-        paddingVertical: 15,
+        paddingVertical: 25,
     },
     title: {
         color: '#FFF',
@@ -136,10 +140,8 @@ const style = StyleSheet.create({
         fontSize: 15,
         color: '#FFF',
     },
-    inputPlaceholder: {},
     btnEntrar: {
-        backgroundColor: '#ffc700',
-        opacity: 0.9,
+        backgroundColor: '#ffc700E5',
         borderRadius: 50,
         width: '100%',
         paddingVertical: 15,
@@ -170,7 +172,7 @@ const style = StyleSheet.create({
         fontSize: 18,
     },
     containerBtn: {
-        gap: 20,
+        gap: 15,
     },
     btnGoogle: {
         flexDirection: 'row',
@@ -206,5 +208,18 @@ const style = StyleSheet.create({
         color: '#fff',
         fontWeight: '700',
         fontSize: 18,
+    },
+    btnCriarConta: {
+        backgroundColor: '#ffc700E5',
+        borderRadius: 50,
+        paddingVertical: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 10,
+    },
+    btnCriarContaText: {
+        color: '#FFF',
+        fontFamily: 'Montserrat-Bold',
+        fontSize: 20,
     },
 });

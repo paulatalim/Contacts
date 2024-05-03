@@ -11,11 +11,38 @@ import EditDescrip from '../views/editViews/EditDescripScreen';
 import EditPronome from '../views/editViews/EditPronomeScreen';
 import editIdade from '../views/editViews/EditIdadeScreen';
 import editGenero from '../views/editViews/EditGeneroScreen';
-import SingIn from '../views/SingIn';
+import SingIn from '../views/Auth/SingIn';
+import SingUp from '../views/Auth/SingUp';
+// import HomeScreen from '../views/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 const SwitchAuthStack = createNativeStackNavigator();
+
+// const SignInContext = React.createContext();
+
+// function useIsSignedIn() {
+//   const isSignedIn = React.useContext(SignInContext);
+//   return isSignedIn;
+// }
+
+// function useIsSignedOut() {
+//   const isSignedIn = React.useContext(SignInContext);
+//   return !isSignedIn;
+// }
+
+// const RookSack = createNativeStackNavigator({
+//     groups: {
+//         LoggedIn: {
+//             if: useIsSignedIn,
+//             screen: HomeScreen,
+//         },
+//         SingIn: {
+//             if: useIsSignedOut,
+//             screen: SingIn,
+//         }
+//     }
+// });
 
 export default props => {
     const Auth = () => {
@@ -63,7 +90,8 @@ export default props => {
             <Stack.Screen name="EditarPronome" component={EditPronome} options={{ headerShown: false}} />
             <Stack.Screen name="EditarDescricao" component={EditDescrip} options={{ headerShown: false}} />
             <Stack.Screen name="SingIn" component={SingIn} options={{ headerShown: false}} />
-            {/* <Stack.Screen name="Auth" component={AuthOrHome} /> */}
+            <Stack.Screen name="SingUp" component={SingUp} options={{ headerShown: false}} />
+
         </Stack.Navigator>
     );
 };

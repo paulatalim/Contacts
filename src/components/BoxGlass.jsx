@@ -23,7 +23,13 @@ const BoxGlass = ({width, height}) => {
 
    return (
       <Canvas style={[{ width: Dimensions.get('window').width, height: Dimensions.get('window').height + StatusBar.currentHeight }, style.canvas]}>
-         <Image image={useImage(require('../../assets/img/sunflower.png'))} x={0} y={0} fit="cover" />
+         <Image image={
+            useImage(require('../../assets/img/sunflower.png'))}
+            x={0}
+            y={0}
+            fit="cover"
+            width={Dimensions.get('window').width}
+            height={Dimensions.get('window').height + StatusBar.currentHeight} />
          <BackdropBlur
             blur={40}
             clip={rrect(
