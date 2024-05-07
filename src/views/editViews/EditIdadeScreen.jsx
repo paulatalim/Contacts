@@ -1,44 +1,48 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
-export default props => {
-    const [idade, setIdade] = useState(props.route.params.idade.toString());
+class EditIdade extends Component {
+    state = {
+        idade: this.props.route.params.idade.toString(),
+    };
 
-    return (
-        <>
-            <View style={style.header}>
-                <TouchableOpacity
-                    style={style.btnCancel}
-                    onPress={() => {props.navigation.goBack();}}
-                >
-                    <FontAwesomeIcon icon={faChevronLeft}  size={20} color="#696969"/>
-                </TouchableOpacity>
+    render() {
+        return (
+            <>
+                <View style={style.header}>
+                    <TouchableOpacity
+                        style={style.btnCancel}
+                        onPress={() => {this.props.navigation.goBack();}}
+                        >
+                        <FontAwesomeIcon icon={faChevronLeft}  size={20} color="#696969"/>
+                    </TouchableOpacity>
 
-                <Text style={style.title}>editar idade</Text>
+                    <Text style={style.title}>editar idade</Text>
 
-                <TouchableOpacity
-                    style={style.btnSave}
-                    onPress={() => {props.navigation.goBack();}}
-                >
-                    <FontAwesomeIcon icon={faCheck}  size={20} color="#696969"/>
-                </TouchableOpacity>
-            </View>
+                    <TouchableOpacity
+                        style={style.btnSave}
+                        onPress={() => {this.props.navigation.goBack();}}
+                        >
+                        <FontAwesomeIcon icon={faCheck}  size={20} color="#696969"/>
+                    </TouchableOpacity>
+                </View>
 
-            <TextInput
-                style={style.input}
-                placeholder="Idade"
-                placeholderTextColor={'#333'}
-                onChangeText={setIdade}
-                value={idade}
-                clearTextOnFocus={true}
-                keyboardType="numeric"
-            />
-        </>
-    );
-};
+                <TextInput
+                    style={style.input}
+                    placeholder="Idade"
+                    placeholderTextColor={'#333'}
+                    onChangeText={idade => this.setState({idade})}
+                    value={this.idade}
+                    clearTextOnFocus={true}
+                    keyboardType="numeric"
+                    />
+            </>
+        );
+    }
+}
 
 const style = StyleSheet.create({
     header: {
@@ -78,3 +82,5 @@ const style = StyleSheet.create({
         fontSize: 18,
     },
 });
+
+export default EditIdade;

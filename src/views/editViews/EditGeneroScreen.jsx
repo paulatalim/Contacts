@@ -1,44 +1,48 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
-export default props => {
-    const [gender, setGender] = useState(props.route.params.genero);
+class EditGenero extends Component {
+    state = {
+        gender: this.props.route.params.genero,
+    };
 
-    return (
-        <>
-            <View style={style.header}>
-                <TouchableOpacity
-                    style={style.btnCancel}
-                    onPress={() => {props.navigation.goBack();}}
-                >
-                    <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
-                </TouchableOpacity>
+    render() {
+        return (
+            <>
+                <View style={style.header}>
+                    <TouchableOpacity
+                        style={style.btnCancel}
+                        onPress={() => {this.props.navigation.goBack();}}
+                        >
+                        <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
+                    </TouchableOpacity>
 
-                <Text style={style.title}>editar gênero</Text>
+                    <Text style={style.title}>editar gênero</Text>
 
-                <TouchableOpacity
-                    style={style.btnSave}
-                    onPress={() => {props.navigation.goBack();}}
-                >
-                    <FontAwesomeIcon icon={faCheck} size={20} color="#696969"/>
-                </TouchableOpacity>
-            </View>
+                    <TouchableOpacity
+                        style={style.btnSave}
+                        onPress={() => {this.props.navigation.goBack();}}
+                        >
+                        <FontAwesomeIcon icon={faCheck} size={20} color="#696969"/>
+                    </TouchableOpacity>
+                </View>
 
-            <TextInput
-                style={style.input}
-                placeholder="Gênero"
-                placeholderTextColor={'#333'}
-                onChangeText={setGender}
-                value={gender}
-                clearTextOnFocus={true}
-                autoComplete="gender"
-            />
-        </>
-    );
-};
+                <TextInput
+                    style={style.input}
+                    placeholder="Gênero"
+                    placeholderTextColor={'#333'}
+                    onChangeText={gender => this.setState({gender})}
+                    value={this.gender}
+                    clearTextOnFocus={true}
+                    autoComplete="gender"
+                    />
+            </>
+        );
+    }
+}
 
 const style = StyleSheet.create({
     header: {
@@ -78,3 +82,5 @@ const style = StyleSheet.create({
         fontSize: 18,
     },
 });
+
+export default EditGenero;

@@ -1,40 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import TagInput from '../../components/tagInput';
 
-export default props => {
-    return (
-        <View style={style.container}>
-            <View style={style.header}>
-                <>
+class EditCarac extends Component {
+    render() {
+        return (
+            <View style={style.container}>
+                <View style={style.header}>
+                    <>
+                        <TouchableOpacity
+                            style={style.btnCancel}
+                            onPress={() => {this.props.navigation.goBack();}}
+                            >
+                            <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969" />
+                        </TouchableOpacity>
+
+                        <Text style={style.title}>editar característica</Text>
+                    </>
                     <TouchableOpacity
-                        style={style.btnCancel}
-                        onPress={() => {props.navigation.goBack();}}
-                    >
-                        <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969" />
+                        style={style.btnSave}
+                        onPress={() => {
+                            this.props.navigation.goBack();
+                        }}
+                        >
+                        <FontAwesomeIcon icon={faCheck} size={20} color="#696969"/>
                     </TouchableOpacity>
+                </View>
 
-                    <Text style={style.title}>editar característica</Text>
-                </>
-                <TouchableOpacity
-                    style={style.btnSave}
-                    onPress={() => {
-                        props.navigation.goBack();
-                    }}
-                >
-                    <FontAwesomeIcon icon={faCheck} size={20} color="#696969"/>
-                </TouchableOpacity>
-            </View>
-
-            <View style={style.input}>
-                <TagInput />
-            </View>
-        </ View>
-    );
-};
+                <View style={style.input}>
+                    <TagInput />
+                </View>
+            </ View>
+        );
+    }
+}
 
 const style = StyleSheet.create({
     container: {
@@ -67,3 +69,5 @@ const style = StyleSheet.create({
         paddingHorizontal: 20,
     },
 });
+
+export default EditCarac;

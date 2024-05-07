@@ -1,44 +1,49 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
-export default props => {
-    const [descrip, setDescrip] = useState(props.route.params.descricao);
+class EditDescrip extends Component {
+    state = {
+        descrip: this.props.route.params.descricao,
+    };
 
-    return (
-        <>
-            <View style={style.header}>
-                <TouchableOpacity
-                    style={style.btnCancel}
-                    onPress={() => {props.navigation.goBack();}}
-                >
-                    <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
-                </TouchableOpacity>
+    render() {
 
-                <Text style={style.title}>editar descrição</Text>
+        return (
+            <>
+                <View style={style.header}>
+                    <TouchableOpacity
+                        style={style.btnCancel}
+                        onPress={() => {this.props.navigation.goBack();}}
+                    >
+                        <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
+                    </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={style.btnSave}
-                    onPress={() => {props.navigation.goBack();}}
-                >
-                    <FontAwesomeIcon icon={faCheck} size={20} color="#696969"b/>
-                </TouchableOpacity>
-            </View>
+                    <Text style={style.title}>editar descrição</Text>
 
-            <TextInput
-                style={style.input}
-                placeholder="Descrição"
-                placeholderTextColor={'#333'}
-                onChangeText={setDescrip}
-                value={descrip}
-                clearTextOnFocus={true}
-                multiline={true}
-            />
-        </>
-    );
-};
+                    <TouchableOpacity
+                        style={style.btnSave}
+                        onPress={() => {this.props.navigation.goBack();}}
+                        >
+                        <FontAwesomeIcon icon={faCheck} size={20} color="#696969"b/>
+                    </TouchableOpacity>
+                </View>
+
+                <TextInput
+                    style={style.input}
+                    placeholder="Descrição"
+                    placeholderTextColor={'#333'}
+                    onChangeText={descrip => this.setState({descrip})}
+                    value={this.descrip}
+                    clearTextOnFocus={true}
+                    multiline={true}
+                    />
+            </>
+        );
+    }
+}
 
 const style = StyleSheet.create({
     header: {
@@ -78,3 +83,5 @@ const style = StyleSheet.create({
         fontSize: 18,
     },
 });
+
+export default EditDescrip;
