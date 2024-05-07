@@ -19,30 +19,30 @@ const Stack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 const SwitchAuthStack = createNativeStackNavigator();
 
-// const SignInContext = React.createContext();
+const SignInContext = React.createContext();
 
-// function useIsSignedIn() {
-//   const isSignedIn = React.useContext(SignInContext);
-//   return isSignedIn;
-// }
+function useIsSignedIn() {
+  const isSignedIn = React.useContext(SignInContext);
+  return isSignedIn;
+}
 
-// function useIsSignedOut() {
-//   const isSignedIn = React.useContext(SignInContext);
-//   return !isSignedIn;
-// }
+function useIsSignedOut() {
+  const isSignedIn = React.useContext(SignInContext);
+  return !isSignedIn;
+}
 
-// const RookSack = createNativeStackNavigator({
-//     groups: {
-//         LoggedIn: {
-//             if: useIsSignedIn,
-//             screen: HomeScreen,
-//         },
-//         SingIn: {
-//             if: useIsSignedOut,
-//             screen: SingIn,
-//         }
-//     }
-// });
+const RookSack = createNativeStackNavigator({
+    groups: {
+        LoggedIn: {
+            if: useIsSignedIn,
+            screen: Home,
+        },
+        SingIn: {
+            if: useIsSignedOut,
+            screen: SingIn,
+        }
+    }
+});
 
 export default props => {
     const Auth = () => {
