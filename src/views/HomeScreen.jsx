@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, FlatList, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
@@ -6,49 +6,51 @@ import Animated from 'react-native-reanimated';
 
 import identy from '../data/identyList';
 
-export default props => {
-    const getIdenty = ({item}) => {
-        return (
-            <TouchableOpacity
-                onPress={() => {
-                    props.navigation.push('VizualizarIdentidade', {identy: item});
-                }}>
-                <View style={style.identyContainer}>
-                    <Animated.Image
-                        style={style.identyImage}
-                        source={{uri: item.photo}}
-                        sharedTransitionTag="tag"
-                    />
-                    <View style={style.identyText}>
-                        <Text style={style.identyName}>{item.name}</Text>
-                        <Text style={style.identyCaract}>{item.caracteristica}</Text>
+class Home extends Component {
+    render() {
+        const getIdenty = ({item}) => {
+            return (
+                <TouchableOpacity
+                    onPress={() => {
+                        this.props.navigation.push('VizualizarIdentidade', {identy: item});
+                    }}>
+                    <View style={style.identyContainer}>
+                        <Animated.Image
+                            style={style.identyImage}
+                            source={{uri: item.photo}}
+                            sharedTransitionTag="tag"
+                            />
+                        <View style={style.identyText}>
+                            <Text style={style.identyName}>{item.name}</Text>
+                            <Text style={style.identyCaract}>{item.caracteristica}</Text>
+                        </View>
                     </View>
-                </View>
-            </TouchableOpacity>
-        );
-    };
+                </TouchableOpacity>
+            );
+        };
 
-    return (
-        <>
-            <View style={style.header}>
-                <Text style={style.headerText}>Identidades</Text>
-            </View>
-            <FlatList
-                data={identy}
-                renderItem={getIdenty}
-                keyExtractor={item => item.id}
-            />
-            <TouchableOpacity
-                style={style.floatActionButton}
-                onPress={() => {
-                    props.navigation.navigate('CriarIdentidade');
-                }}
-            >
-                <FontAwesomeIcon icon={faAdd} size={30} color="#FFF" />
-            </TouchableOpacity>
-        </>
-    );
-};
+        return (
+            <>
+                <View style={style.header}>
+                    <Text style={style.headerText}>Identidades</Text>
+                </View>
+                <FlatList
+                    data={identy}
+                    renderItem={getIdenty}
+                    keyExtractor={item => item.id}
+                    />
+                <TouchableOpacity
+                    style={style.floatActionButton}
+                    onPress={() => {
+                        this.props.navigation.navigate('CriarIdentidade');
+                    }}
+                    >
+                    <FontAwesomeIcon icon={faAdd} size={30} color="#FFF" />
+                </TouchableOpacity>
+            </>
+        );
+    }
+}
 
 const style = StyleSheet.create({
     header: {
@@ -103,3 +105,5 @@ const style = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+
+export default Home;

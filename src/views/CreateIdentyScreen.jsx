@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { MultipleSelectList } from 'react-native-dropdown-select-list';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -8,117 +8,120 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 
 import TagInput from '../components/tagInput';
 
-export default props  => {
-    const pronomes = [
-        {key: 0, value: 'Ele/dele'},
-        {key: 1, value: 'Ela/dela'},
-        {key: 2, value: 'Elu/delu'},
-    ];
+class CreateIdentyScreen extends Component {
+    state = {
+        name: '',
+        idade: '',
+        gender: '',
+        pronome: '',
+        descricao: '',
+    };
 
-    const [name, setName] = useState();
-    const [idade, setIdade] = useState();
-    const [gender, setGender] = useState();
-    const [pronome, setPronome] = useState('');
-    const [descricao, setDescricao] = useState();
+    render() {
+        const pronomes = [
+            {key: 0, value: 'Ele/dele'},
+            {key: 1, value: 'Ela/dela'},
+            {key: 2, value: 'Elu/delu'},
+        ];
 
-    return (
-        <ScrollView style={style.container}>
+        return (
+            <ScrollView style={style.container}>
+                {/* Header */}
+                <View style={style.header}>
+                    <Text style={style.headerTitle}>Criar nova identidade</Text>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.navigation.goBack();
+                        }}
+                        >
+                        <FontAwesomeIcon icon={faXmark} size={27} color="#696969"/>
+                    </TouchableOpacity>
+                </View>
 
-            {/* Header */}
-            <View style={style.header}>
-                <Text style={style.headerTitle}>Criar nova identidade</Text>
-                <TouchableOpacity
-                    onPress={() => {
-                        props.navigation.goBack();
-                    }}
-                >
-                    <FontAwesomeIcon icon={faXmark} size={27} color="#696969"/>
-                </TouchableOpacity>
-            </View>
-
-            {/* Nome */}
-            <TextInput
-                style={style.input}
-                placeholder="Nome"
-                placeholderTextColor={'#787855'}
-                onChangeText={setName}
-                value={name}
-            />
-
-            {/* Idade */}
-            <TextInput
-                style={style.input}
-                placeholder="Idade"
-                placeholderTextColor={'#787855'}
-                onEndEditing={setIdade}
-                value={idade}
-                keyboardType="numeric"
-            />
-
-            {/* Genero */}
-            <TextInput
-                style={style.input}
-                placeholder="Gênero"
-                placeholderTextColor={'#787855'}
-                onChangeText={setGender}
-                value={gender}
-                autoComplete="gender"
-            />
-
-            {/* Pronomes */}
-            <View style={style.selectView}>
-                { pronome.toString() === '' ? <Text style={style.selectTitle}>Pronomes</Text> : null }
-                <MultipleSelectList
-                    setSelected={setPronome}
-                    data={pronomes}
-                    save="value"
-                    onSelect={() => {}}
-                    search={false}
-                    label="Pronomes"
-                    arrowicon={<FontAwesomeIcon icon={faAngleDown} size={20}/>}
-                    closeicon={<FontAwesomeIcon icon={faAngleUp} size={20}/>}
-                    boxStyles={style.multiBoxStyles}
-                    labelStyles={style.multiLabel}
-                    badgeStyles={style.multiBadgeStyles}
-                    badgeTextStyles={style.multiBadgeStylesText}
-                    dropdownStyles={style.multiDropdown}
-                    dropdownTextStyles={style.multiDropdownText}
-                    checkBoxStyles={style.multiCheck}
-                    placeholder="Selecionar pronome"
-                />
-            </View>
-
-            {/* Caracteristicas */}
-            <View style={style.selectView}>
-                <Text style={style.selectTitle}>Caracteristicas Principais</Text>
-                <TagInput />
-            </View>
-
-            {/* Descricao */}
-            <View>
-                <Text style={style.selectTitle}>Descrição</Text>
+                {/* Nome */}
                 <TextInput
-                    style={style.areaText}
-                    placeholder="Descrição da identidade ..."
-                    textAlign="left"
+                    style={style.input}
+                    placeholder="Nome"
                     placeholderTextColor={'#787855'}
-                    value={descricao}
-                    onChangeText={setDescricao}
-                    multiline={true}
-                    numberOfLines={1}
-                    maxLength={200}
-                />
-            </View>
+                    onChangeText={name => this.setState(name)}
+                    value={this.name}
+                    />
 
-            {/* Botao Salvar */}
-            <TouchableOpacity style={style.button}
-                onPress={() => {}}
-            >
-                <Text style={style.buttonText}>Criar</Text>
-            </TouchableOpacity>
-        </ScrollView>
-    );
-};
+                {/* Idade */}
+                <TextInput
+                    style={style.input}
+                    placeholder="Idade"
+                    placeholderTextColor={'#787855'}
+                    onEndEditing={idade => this.setState(idade)}
+                    value={this.idade}
+                    keyboardType="numeric"
+                    />
+
+                {/* Genero */}
+                <TextInput
+                    style={style.input}
+                    placeholder="Gênero"
+                    placeholderTextColor={'#787855'}
+                    onChangeText={gender => this.setState(gender)}
+                    value={this.gender}
+                    autoComplete="gender"
+                    />
+
+                {/* Pronomes */}
+                <View style={style.selectView}>
+                    { this.pronome.toString() === '' ? <Text style={style.selectTitle}>Pronomes</Text> : null }
+                    <MultipleSelectList
+                        setSelected={pronome => this.setState(pronome)}
+                        data={this.pronomes}
+                        save="value"
+                        onSelect={() => {}}
+                        search={false}
+                        label="Pronomes"
+                        arrowicon={<FontAwesomeIcon icon={faAngleDown} size={20}/>}
+                        closeicon={<FontAwesomeIcon icon={faAngleUp} size={20}/>}
+                        boxStyles={style.multiBoxStyles}
+                        labelStyles={style.multiLabel}
+                        badgeStyles={style.multiBadgeStyles}
+                        badgeTextStyles={style.multiBadgeStylesText}
+                        dropdownStyles={style.multiDropdown}
+                        dropdownTextStyles={style.multiDropdownText}
+                        checkBoxStyles={style.multiCheck}
+                        placeholder="Selecionar pronome"
+                        />
+                </View>
+
+                {/* Caracteristicas */}
+                <View style={style.selectView}>
+                    <Text style={style.selectTitle}>Caracteristicas Principais</Text>
+                    <TagInput />
+                </View>
+
+                {/* Descricao */}
+                <View>
+                    <Text style={style.selectTitle}>Descrição</Text>
+                    <TextInput
+                        style={style.areaText}
+                        placeholder="Descrição da identidade ..."
+                        textAlign="left"
+                        placeholderTextColor={'#787855'}
+                        value={this.descricao}
+                        onChangeText={descricao => this.setState(descricao)}
+                        multiline={true}
+                        numberOfLines={1}
+                        maxLength={200}
+                        />
+                </View>
+
+                {/* Botao Salvar */}
+                <TouchableOpacity style={style.button}
+                    onPress={() => {}}
+                    >
+                    <Text style={style.buttonText}>Criar</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        );
+    }
+}
 
 const style = StyleSheet.create({
     container: {
@@ -221,3 +224,5 @@ const style = StyleSheet.create({
         color: '#000',
     },
 });
+
+export default CreateIdentyScreen;

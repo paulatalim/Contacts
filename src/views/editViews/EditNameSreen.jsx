@@ -1,49 +1,52 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import identy from '../../data/identyList';
 
-export default props => {
-    const param = props.route.params;
-    const [name, setName] = useState(param.name);
+class EditNameSreen extends Component {
+    state = {
+        name: this.props.route.params.name,
+    };
 
-    return (
-        <>
-            <View style={style.header}>
-                <>
+    render() {
+        return (
+            <>
+                <View style={style.header}>
+                    <>
+                        <TouchableOpacity
+                            style={style.btnCancel}
+                            onPress={() => {this.props.navigation.goBack();}}
+                            >
+                            <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969" />
+                        </TouchableOpacity>
+
+                        <Text style={style.title}>editar nome</Text>
+                    </>
                     <TouchableOpacity
-                        style={style.btnCancel}
-                        onPress={() => {props.navigation.goBack();}}
-                    >
-                        <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969" />
+                        style={style.btnSave}
+                        onPress={() => {
+                            identy[this.props.route.params.id].name = this.name;
+                            this.props.navigation.goBack();
+                        }}
+                        >
+                        <FontAwesomeIcon icon={faCheck} size={20} color="#696969"/>
                     </TouchableOpacity>
+                </View>
 
-                    <Text style={style.title}>editar nome</Text>
-                </>
-                <TouchableOpacity
-                    style={style.btnSave}
-                    onPress={() => {
-                        identy[param.id].name = name;
-                        props.navigation.goBack();
-                    }}
-                >
-                    <FontAwesomeIcon icon={faCheck} size={20} color="#696969"/>
-                </TouchableOpacity>
-            </View>
-
-            <TextInput
-                style={style.input}
-                placeholder="Nome"
-                placeholderTextColor={'#333'}
-                onChangeText={setName}
-                clearTextOnFocus={true}
-                value={name}
-            />
-        </>
-    );
-};
+                <TextInput
+                    style={style.input}
+                    placeholder="Nome"
+                    placeholderTextColor={'#333'}
+                    onChangeText={name => this.setState(name)}
+                    clearTextOnFocus={true}
+                    value={this.name}
+                    />
+            </>
+        );
+    }
+}
 
 const style = StyleSheet.create({
     header: {
@@ -81,3 +84,5 @@ const style = StyleSheet.create({
         fontSize: 18,
     },
 });
+
+export default EditNameSreen;

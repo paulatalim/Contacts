@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import {
     Text,
     View,
@@ -12,58 +12,64 @@ import { faAngleUp } from '@fortawesome/free-solid-svg-icons/faAngleUp';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { MultipleSelectList } from 'react-native-dropdown-select-list';
 
-export default props => {
-    const data = [
-        {key: 0, value: 'Ele/dele'},
-        {key: 1, value: 'Ela/dela'},
-        {key: 2, value: 'Elu/delu'},
-    ];
+class EditPronomeScreen extends Component {
 
-    const [pronome, setPronome] = useState('');
+    state = {
+        pronome: '',
+    };
 
-    return (
-        <View style={style.container}>
-            <View style={style.header}>
-                <TouchableOpacity
-                    style={style.btnCancel}
-                    onPress={() => {props.navigation.goBack();}}
-                >
-                    <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
-                </TouchableOpacity>
+    render() {
 
-                <Text style={style.title}>editar pronome</Text>
+        const data = [
+            {key: 0, value: 'Ele/dele'},
+            {key: 1, value: 'Ela/dela'},
+            {key: 2, value: 'Elu/delu'},
+        ];
 
-                <TouchableOpacity
-                    style={style.btnSave}
-                    onPress={() => {props.navigation.goBack();}}
-                >
-                    <FontAwesomeIcon icon={faCheck} size={20} color="#696969"/>
-                </TouchableOpacity>
+        return (
+            <View style={style.container}>
+                <View style={style.header}>
+                    <TouchableOpacity
+                        style={style.btnCancel}
+                        onPress={() => {this.props.navigation.goBack();}}
+                        >
+                        <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
+                    </TouchableOpacity>
+
+                    <Text style={style.title}>editar pronome</Text>
+
+                    <TouchableOpacity
+                        style={style.btnSave}
+                        onPress={() => {this.props.navigation.goBack();}}
+                        >
+                        <FontAwesomeIcon icon={faCheck} size={20} color="#696969"/>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={style.multiContainer}>
+                    <MultipleSelectList
+                        setSelected={pronome => this.setState(pronome)}
+                        data={data}
+                        save="value"
+                        onSelect={() => {}}
+                        search={false}
+                        label="Pronomes"
+                        arrowicon={<FontAwesomeIcon icon={faAngleDown} size={20}/>}
+                        closeicon={<FontAwesomeIcon icon={faAngleUp} size={20}/>}
+                        boxStyles={style.multiBoxStyles}
+                        labelStyles={style.multiLabel}
+                        badgeStyles={style.multiBadgeStyles}
+                        badgeTextStyles={style.multiBadgeStylesText}
+                        dropdownStyles={style.multiDropdown}
+                        dropdownTextStyles={style.multiDropdownText}
+                        checkBoxStyles={style.multiCheck}
+                        placeholder="Selecionar pronome"
+                        />
+                </View>
             </View>
-
-            <View style={style.multiContainer}>
-                <MultipleSelectList
-                    setSelected={setPronome}
-                    data={data}
-                    save="value"
-                    onSelect={() => {}}
-                    search={false}
-                    label="Pronomes"
-                    arrowicon={<FontAwesomeIcon icon={faAngleDown} size={20}/>}
-                    closeicon={<FontAwesomeIcon icon={faAngleUp} size={20}/>}
-                    boxStyles={style.multiBoxStyles}
-                    labelStyles={style.multiLabel}
-                    badgeStyles={style.multiBadgeStyles}
-                    badgeTextStyles={style.multiBadgeStylesText}
-                    dropdownStyles={style.multiDropdown}
-                    dropdownTextStyles={style.multiDropdownText}
-                    checkBoxStyles={style.multiCheck}
-                    placeholder="Selecionar pronome"
-                />
-            </View>
-        </View>
-    );
-};
+        );
+    }
+}
 
 const style = StyleSheet.create({
     container: {
@@ -134,3 +140,5 @@ const style = StyleSheet.create({
         fontSize: 17,
     },
 });
+
+export default EditPronomeScreen;

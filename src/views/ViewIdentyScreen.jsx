@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View, StyleSheet, ScrollView,TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
@@ -7,49 +7,51 @@ import Animated  from 'react-native-reanimated';
 
 // import identy from '../../data/identyList';
 
-export default props => {
-    const identy = props.route.params.identy;
+class ViewIdenty extends Component {
+    render() {
+        const identy = this.props.route.params.identy;
 
-    return (
-        <ScrollView>
-            <View style={style.principal}>
-                <View style={style.header}>
-                    <TouchableOpacity
-                        onPress={() => {props.navigation.goBack();}}
-                    >
-                        <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
-                    </TouchableOpacity>
-                    <View style={style.headerContent}>
-                        <Text style={style.name}>{identy.name}</Text>
-                        <Text style={style.pronome}>{identy.pronome}</Text>
+        return (
+            <ScrollView>
+                <View style={style.principal}>
+                    <View style={style.header}>
+                        <TouchableOpacity
+                            onPress={() => {this.props.navigation.goBack();}}
+                            >
+                            <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
+                        </TouchableOpacity>
+                        <View style={style.headerContent}>
+                            <Text style={style.name}>{identy.name}</Text>
+                            <Text style={style.pronome}>{identy.pronome}</Text>
+                        </View>
+                        <TouchableOpacity
+                            onPress={ () => {this.props.navigation.navigate('IndentidadeEdit', identy);}}
+                            >
+                            <FontAwesomeIcon icon={faPen} size={20} color="#696969"/>
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity
-                        onPress={ () => {props.navigation.navigate('IndentidadeEdit', identy);}}
-                    >
-                        <FontAwesomeIcon icon={faPen} size={20} color="#696969"/>
-                    </TouchableOpacity>
+                    <Animated.Image style={style.img} source={{uri: identy.photo}} sharedTransionTag="tag" />
+                    <Text style={style.carac}>{identy.caracteristica}</Text>
                 </View>
-                <Animated.Image style={style.img} source={{uri: identy.photo}} sharedTransionTag="tag" />
-                <Text style={style.carac}>{identy.caracteristica}</Text>
-            </View>
 
-            <View style={style.info}>
-                <Text style={style.title}>idade</Text>
-                <Text style={style.idade}>{identy.idade} anos</Text>
-            </View>
+                <View style={style.info}>
+                    <Text style={style.title}>idade</Text>
+                    <Text style={style.idade}>{identy.idade} anos</Text>
+                </View>
 
-            <View style={style.info}>
-                <Text style={style.title}>gênero</Text>
-                <Text style={style.genero}>{identy.genero}</Text>
-            </View>
+                <View style={style.info}>
+                    <Text style={style.title}>gênero</Text>
+                    <Text style={style.genero}>{identy.genero}</Text>
+                </View>
 
-            <View style={style.descricaoContainer}>
-                <Text style={style.title}>descrição</Text>
-                <Text style={style.descricao}>{identy.descricao}</Text>
-            </View>
-        </ScrollView>
-    );
-};
+                <View style={style.descricaoContainer}>
+                    <Text style={style.title}>descrição</Text>
+                    <Text style={style.descricao}>{identy.descricao}</Text>
+                </View>
+            </ScrollView>
+        );
+    }
+}
 
 const style = StyleSheet.create({
     principal: {
@@ -138,3 +140,5 @@ const style = StyleSheet.create({
         color: '#434343',
     },
 });
+
+export default ViewIdenty;
