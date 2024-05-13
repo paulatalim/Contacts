@@ -5,6 +5,7 @@ import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
 import Animated from 'react-native-reanimated';
 
 import identy from '../data/identyList';
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons/faEllipsisVertical';
 
 class Home extends Component {
     render() {
@@ -33,6 +34,12 @@ class Home extends Component {
             <>
                 <View style={style.header}>
                     <Text style={style.headerText}>Identidades</Text>
+                    <TouchableOpacity
+                        style={style.moreOption}
+                        onPress={() => this.props.navigation.navigate('MoreInfo')}
+                    >
+                        <FontAwesomeIcon icon={faEllipsisVertical} color="#000" size={23} style={style.moreOption}/>
+                    </TouchableOpacity>
                 </View>
                 <FlatList
                     data={identy}
@@ -57,12 +64,17 @@ const style = StyleSheet.create({
         backgroundColor: '#ffc700',
         paddingVertical: 20,
         paddingHorizontal: 25,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     headerText: {
         fontFamily: 'Montserrat-Bold',
         fontSize: 24,
         color: '#000',
     },
+    moreOption: {},
+    moreOptionIcon:{},
     identyContainer: {
         display: 'flex',
         flexDirection: 'row',

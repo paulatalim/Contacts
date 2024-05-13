@@ -13,7 +13,7 @@ import editIdade from '../views/editViews/EditIdadeScreen';
 import editGenero from '../views/editViews/EditGeneroScreen';
 import SingIn from '../views/Auth/SingIn';
 import SingUp from '../views/Auth/SingUp';
-// import HomeScreen from '../views/HomeScreen';
+import MoreInfo from '../views/MoreOptionScreen';
 
 const Stack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
@@ -62,7 +62,7 @@ export default props => {
 
     return (
         <Stack.Navigator
-            initialRouteName="SingIn"
+            initialRouteName="Home"
             screenOptions={{
                 orientation: 'default',
             }}>
@@ -91,6 +91,7 @@ export default props => {
             <Stack.Screen name="EditarDescricao" component={EditDescrip} options={{ headerShown: false}} />
             <Stack.Screen name="SingIn" component={SingIn} options={{ headerShown: false}} />
             <Stack.Screen name="SingUp" component={SingUp} options={{ headerShown: false}} />
+            <Stack.Screen name="MoreInfo" component={MoreInfo} options={{ headerShown: false}} />
 
         </Stack.Navigator>
     );
