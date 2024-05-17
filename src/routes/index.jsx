@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from '../views/HomeScreen';
@@ -16,83 +16,47 @@ import SingUp from '../views/Auth/SingUp';
 import MoreInfo from '../views/MoreOptionScreen';
 
 const Stack = createNativeStackNavigator();
-const AuthStack = createNativeStackNavigator();
-const SwitchAuthStack = createNativeStackNavigator();
 
-// const SignInContext = React.createContext();
-
-// function useIsSignedIn() {
-//   const isSignedIn = React.useContext(SignInContext);
-//   return isSignedIn;
-// }
-
-// function useIsSignedOut() {
-//   const isSignedIn = React.useContext(SignInContext);
-//   return !isSignedIn;
-// }
-
-// const RookSack = createNativeStackNavigator({
-//     groups: {
-//         LoggedIn: {
-//             if: useIsSignedIn,
-//             screen: Home,
-//         },
-//         SingIn: {
-//             if: useIsSignedOut,
-//             screen: SingIn,
-//         }
-//     }
-// });
+const getIsSignedIn = () => {
+    // custom logic
+    return true;
+};
 
 export default props => {
-    const Auth = () => {
-        <AuthStack.Navigator initialRouteName="SingIn">
-            <AuthStack.Screen name="SingIn" component={SingIn}  options={{ headerShown: false}} />
-        </AuthStack.Navigator>;
-    };
-
-    const AuthOrHome = () => {
-        <SwitchAuthStack.Navigator>
-            {true
-                ? <SwitchAuthStack.Screen name="Home" component={Home} />
-                : console.log('oiii')
-            }
-        </SwitchAuthStack.Navigator>;
-    };
+    const isSignedIn = getIsSignedIn();
 
     return (
         <Stack.Navigator
-            initialRouteName="Home"
-            screenOptions={{
-                orientation: 'default',
-            }}>
-            <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen name="VizualizarIdentidade" component={identy} options={{ headerShown: false}} />
-            <Stack.Screen
-                name="IndentidadeEdit"
-                component={editIndenty}
-                options={() => {
-                    return {
-                        title: 'Editar Identidade',
-                        headerTitleAlign: 'center',
-                    };
-                }}
-            />
-            <Stack.Screen name="CriarIdentidade" component={newIdenty} options={{ headerShown: false}} />
-            <Stack.Screen name="EditarNome" component={editName} options={{ headerShown: false}} />
-            <Stack.Screen name="EditarIdade" component={editIdade} options={{ headerShown: false}} />
-            <Stack.Screen name="EditarGenero" component={editGenero} options={{ headerShown: false}} />
-            <Stack.Screen name="EditarCaracteristica" component={EditCarac} options={{ headerShown: false}} />
-            <Stack.Screen name="EditarPronome" component={EditPronome} options={{ headerShown: false}} />
-            <Stack.Screen name="EditarDescricao" component={EditDescrip} options={{ headerShown: false}} />
-            <Stack.Screen name="SingIn" component={SingIn} options={{ headerShown: false}} />
-            <Stack.Screen name="SingUp" component={SingUp} options={{ headerShown: false}} />
-            <Stack.Screen name="MoreInfo" component={MoreInfo} options={{ headerShown: false}} />
-
+            initialRouteName={isSignedIn ? 'Home' : 'SingIn'}>
+            {isSignedIn ? (
+                <>
+                    <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+                    <Stack.Screen name="VizualizarIdentidade" component={identy} options={{ headerShown: false }} />
+                    <Stack.Screen
+                        name="IndentidadeEdit"
+                        component={editIndenty}
+                        options={() => {
+                            return {
+                                title: 'Editar Identidade',
+                                headerTitleAlign: 'center',
+                            };
+                        }}
+                    />
+                    <Stack.Screen name="CriarIdentidade" component={newIdenty} options={{ headerShown: false }} />
+                    <Stack.Screen name="EditarNome" component={editName} options={{ headerShown: false }} />
+                    <Stack.Screen name="EditarIdade" component={editIdade} options={{ headerShown: false }} />
+                    <Stack.Screen name="EditarGenero" component={editGenero} options={{ headerShown: false }} />
+                    <Stack.Screen name="EditarCaracteristica" component={EditCarac} options={{ headerShown: false }} />
+                    <Stack.Screen name="EditarPronome" component={EditPronome} options={{ headerShown: false }} />
+                    <Stack.Screen name="EditarDescricao" component={EditDescrip} options={{ headerShown: false }} />
+                    <Stack.Screen name="MoreInfo" component={MoreInfo} options={{ headerShown: false }} />
+                </>
+            ) : (
+                <>
+                    <Stack.Screen name="SingIn" component={SingIn} options={{ headerShown: false }} />
+                    <Stack.Screen name="SingUp" component={SingUp} options={{ headerShown: false }} />
+                </>
+            )}
         </Stack.Navigator>
     );
 };
