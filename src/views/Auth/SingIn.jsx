@@ -14,91 +14,108 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faApple } from '@fortawesome/free-brands-svg-icons/faApple';
 import BoxGlass from '../../components/BoxGlass';
+import { connect } from 'react-redux';
+import { login } from '../../store/actions/user';
 
 class SingIn extends Component {
+    state = {
+        name: 'Aleatorio',
+        email: 'email@gmail.com',
+        password: '',
+    };
+
+    iosLogin = () => {
+        this.props.onLogin({...this.state});
+    };
+
+    googleLogin = () => {
+        this.props.onLogin({...this.state});
+    };
+
+    login = () => {
+        this.props.onLogin({...this.state});
+    };
+
     render() {
         return (
             <ScrollView style={style.scroll}>
                 <View style={style.img}>
 
-                <StatusBar
-                translucent={true}
-                backgroundColor={'transparent'}
-                />
-                <BoxGlass
-                width={0.85 * Dimensions.get('window').width}
-                height={0.8 * Dimensions.get('window').height}
-                />
-                <View style={[{height: 0.8 * Dimensions.get('window').height}, style.container]}>
-                <Text style={style.title}>Login</Text>
-                <View style={style.containerInput}>
-                <TextInput
-                placeholder="Email"
-                placeholderTextColor={'#FFF'}
-                keyboardType="email-address"
-                cursorColor="#FFF"
-                style={style.input}
-                />
-                <TextInput
-                placeholder="Senha"
-                placeholderTextColor={'#FFF'}
-                secureTextEntry
-                cursorColor="#FFF"
-                style={style.input}
-                />
+                    <StatusBar
+                        translucent={true}
+                        backgroundColor={'transparent'}
+                    />
+                    <BoxGlass
+                        width={0.85 * Dimensions.get('window').width}
+                        height={0.8 * Dimensions.get('window').height}
+                    />
+                    <View style={[{height: 0.8 * Dimensions.get('window').height}, style.container]}>
+                        <Text style={style.title}>Login</Text>
+                        <View style={style.containerInput}>
+                            <TextInput
+                                placeholder="Email"
+                                placeholderTextColor={'#FFF'}
+                                keyboardType="email-address"
+                                onChangeText={email => this.setState({email})}
+                                cursorColor="#FFF"
+                                style={style.input}
+                            />
+                            <TextInput
+                                onChangeText={password => this.setState({password})}
+                                placeholder="Senha"
+                                placeholderTextColor={'#FFF'}
+                                secureTextEntry
+                                cursorColor="#FFF"
+                                style={style.input}
+                            />
+                        </View>
+
+                        <TouchableOpacity
+                            style={style.btnEntrar}
+                            onPress={this.login}
+                            >
+                            <Text style={style.btnEntrarText}>Entrar</Text>
+                        </TouchableOpacity>
+
+                        <View style={style.containerLine}>
+                            <View style={style.line} />
+                            <Text style={style.lineText}>ou</Text>
+                            <View style={style.line} />
+                        </View>
+
+                        <View style={style.containerBtn}>
+                            <TouchableOpacity
+                                style={style.btnGoogle}
+                                onPress={this.googleLogin}
+                                >
+                                <Image style={style.googleImg} source={require('../../../assets/img/google.png')} />
+                                <Text style={style.googleText}>Entrar com o Google</Text>
+                                <View />
+                            </TouchableOpacity>
+
+                            {Platform.OS === 'ios' ?
+                                <TouchableOpacity
+                                    style={style.btnApple}
+                                    onPress={this.iosLogin}
+                                >
+                                    <FontAwesomeIcon icon={faApple} color="#FFF" size={26}/>
+                                    <Text style={style.appleContent}>Entrar com Apple</Text>
+                                    <View />
+                                </TouchableOpacity>
+                                : <></>
+                            }
+
+                            <TouchableOpacity
+                                style={style.btnCriarConta}
+                                onPress={() => {
+                                    this.props.navigation.navigate('SingUp');
+                                }}
+                                >
+                                <Text style={style.btnCriarContaText}>Criar conta</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
-                <TouchableOpacity
-                style={style.btnEntrar}
-                onPress={() => {
-                    this.props.navigation.navigate('Home');
-                }}
-                >
-                <Text style={style.btnEntrarText}>Entrar</Text>
-                </TouchableOpacity>
-
-                <View style={style.containerLine}>
-                <View style={style.line} />
-                <Text style={style.lineText}>ou</Text>
-                <View style={style.line} />
-                </View>
-
-                <View style={style.containerBtn}>
-                <TouchableOpacity
-                style={style.btnGoogle}
-                onPress={() => {
-                    this.props.navigation.navigate('Home');
-                }}
-                >
-                <Image style={style.googleImg} source={require('../../../assets/img/google.png')} />
-                <Text style={style.googleText}>Entrar com o Google</Text>
-                <View />
-                </TouchableOpacity>
-
-                {Platform.OS === 'ios' ?
-                <TouchableOpacity
-                style={style.btnApple}
-                onPress={() => {
-                    this.props.navigation.navigate('Home');
-                }}
-                >
-                <FontAwesomeIcon icon={faApple} color="#FFF" size={26}/>
-                <Text style={style.appleContent}>Entrar com Apple</Text>
-                <View />
-                </TouchableOpacity>
-                : <></>
-            }
-
-            <TouchableOpacity
-            style={style.btnCriarConta}
-            onPress={() => {
-                this.props.navigation.navigate('SingUp');
-            }}
-            >
-            <Text style={style.btnCriarContaText}>Criar conta</Text>
-            </TouchableOpacity>
-            </View>
-            </View>
-            </View>
             </ScrollView>
         );
     }
@@ -224,4 +241,11 @@ const style = StyleSheet.create({
     },
 });
 
-export default SingIn;
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogin: user => dispatch(login(user)),
+    };
+};
+
+// export default SingIn;
+export default connect(null, mapDispatchToProps)(SingIn);

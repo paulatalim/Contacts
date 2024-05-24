@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons/faRightFromBracket';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { connect } from 'react-redux';
+import { logout } from '../store/actions/user';
 
 class MoreOptions extends Component {
     state = {
@@ -31,6 +33,10 @@ class MoreOptions extends Component {
         }));
     }
 
+    logout = () => {
+        this.props.onLogout();
+    };
+
    render() {
         return (
             <View style={style.body}>
@@ -44,8 +50,8 @@ class MoreOptions extends Component {
                 </View>
                 <View style={style.perfil}>
                     <Image style={style.img} source={{uri: 'https://picsum.photos/100.jpg'}} resizeMode="cover" borderRadius={50} />
-                    <Text style={style.name}>Nome</Text>
-                    <Text style={style.email}>email@gmail.com</Text>
+                    <Text style={style.name}>{this.props.name}</Text>
+                    <Text style={style.email}>{ this.props.email }</Text>
                 </View>
                 <View style={style.setting}>
                     <Text style={style.settingTitle}>Configurações</Text>
@@ -69,7 +75,7 @@ class MoreOptions extends Component {
                 </View>
                 <TouchableOpacity
                     style={style.logout}
-                    onPress={() => this.props.navigation.navigate('SingIn')}
+                    onPress={this.logout}
                 >
                     <FontAwesomeIcon icon={faRightFromBracket} size={20} color="#A00" />
                     <Text style={style.logoutButton}>Sair da Conta</Text>
@@ -178,4 +184,17 @@ const style = StyleSheet.create({
     },
 });
 
-export default MoreOptions;
+const mapStateToProps = ({ user }) => {
+    return {
+        email: user.email,
+        name: user.name,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogout: () => dispatch(logout()),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoreOptions);

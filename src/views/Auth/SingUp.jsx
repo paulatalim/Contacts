@@ -11,6 +11,10 @@ class SingUp extends Component {
         password: '',
     };
 
+    register = () => {
+        // this.props.onRegister({...state})
+    };
+
     render() {
       return (
         <ScrollView style={style.scroll}>
