@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { connect } from 'react-redux';
 
 import Home from '../views/HomeScreen';
 import editIndenty from '../views/EditIdentyScreen';
@@ -17,13 +18,12 @@ import MoreInfo from '../views/MoreOptionScreen';
 
 const Stack = createNativeStackNavigator();
 
-const getIsSignedIn = () => {
-    // custom logic
-    return true;
-};
+const getIsSignedIn = props => {
+    return props.user.email ? true : false;
+}
 
-export default props => {
-    const isSignedIn = getIsSignedIn();
+const Routes = props => {
+    const isSignedIn = props.email ? true : false;
 
     return (
         <Stack.Navigator
@@ -60,3 +60,12 @@ export default props => {
         </Stack.Navigator>
     );
 };
+
+const mapStateToProps = ({ user }) => {
+    return {
+        email: user.email,
+    };
+};
+
+export default connect(mapStateToProps)(Routes);
+
