@@ -3,9 +3,11 @@ import { View, FlatList, Text, StyleSheet, TouchableOpacity } from 'react-native
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
 import Animated from 'react-native-reanimated';
+import { connect } from 'react-redux';
 
-import identy from '../data/identyList';
+// import identy from '../data/identyList';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons/faEllipsisVertical';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 class Home extends Component {
     render() {
@@ -16,11 +18,16 @@ class Home extends Component {
                         this.props.navigation.push('VizualizarIdentidade', {identy: item});
                     }}>
                     <View style={style.identyContainer}>
-                        <Animated.Image
-                            style={style.identyImage}
-                            source={{uri: item.photo}}
-                            sharedTransitionTag="tag"
+                        {item.photo !== '' ?
+                            <Animated.Image
+                                style={style.identyImage}
+                                source={{uri: item.photo}}
+                                sharedTransitionTag="tag"
                             />
+                            : <View style={style.identyNoImage}>
+                                <FontAwesomeIcon icon={faUser} color="#fff" size={25}/>
+                            </View>
+                        }
                         <View style={style.identyText}>
                             <Text style={style.identyName}>{item.name}</Text>
                             <Text style={style.identyCaract}>{item.caracteristica}</Text>
@@ -42,7 +49,7 @@ class Home extends Component {
                     </TouchableOpacity>
                 </View>
                 <FlatList
-                    data={identy}
+                    data={this.props.identy}
                     renderItem={getIdenty}
                     keyExtractor={item => item.id}
                     />
@@ -94,6 +101,14 @@ const style = StyleSheet.create({
         height: 50,
         borderRadius: 50,
     },
+    identyNoImage: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        borderRadius: 50,
+        width: 50,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     identyName: {
         fontSize: 20,
         color: '#000',
@@ -118,4 +133,10 @@ const style = StyleSheet.create({
     },
 });
 
-export default Home;
+const mapStateToProps = ({ identy }) => {
+    return {
+        identy: identy.identys,
+    };
+};
+
+export default connect(mapStateToProps)(Home);
