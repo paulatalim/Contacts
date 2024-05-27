@@ -10,20 +10,32 @@ export default props => {
 	const [text, setText] = useState('');
 	const [editIndex, setEditIndex] = useState(null);
 
+	const save = tag => {
+		let str = tag[0];
+
+		for (let i = 1; i < tag.length; i++) {
+			str += ', ' + tag[i];
+		}
+
+		props.save(str);
+	};
+
 	const addTag = () => {
 		if (text.trim() !== '') {
 			setText(text.trim());
 
 			if (editIndex !== null) {
-
 				// If editing an existing tag
 				const newTags = [...tags];
 				newTags[editIndex] = text.charAt(0).toUpperCase() + text.slice(1);
 				setTags(newTags);
+				save(newTags);
 				setEditIndex(null);
 			} else {
 				// If adding a new tag
-				setTags([...tags, text.charAt(0).toUpperCase() + text.slice(1)]);
+				const newTags = [...tags, text.charAt(0).toUpperCase() + text.slice(1)];
+				setTags(newTags);
+				save(newTags);
 			}
 			setText('');
 		}
@@ -32,7 +44,7 @@ export default props => {
 	const removeTag = (index) =>{
 		const newTags = [...tags];
 		newTags.splice(index, 1);
-		setTags(newTags);
+		save(newTags);
 	};
 
 	const editTag = (index) =>{
