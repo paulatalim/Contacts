@@ -1,31 +1,66 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { MultipleSelectList } from 'react-native-dropdown-select-list';
+import DropDownPicker from 'react-native-dropdown-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons/faAngleDown';
-import { faAngleUp } from '@fortawesome/free-solid-svg-icons/faAngleUp';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
-
+import { connect } from 'react-redux';
+import { addIdenty } from '../store/actions/identys';
 import TagInput from '../components/tagInput';
 
 class CreateIdentyScreen extends Component {
     state = {
+        open: false,
         name: '',
         idade: '',
         gender: '',
-        pronome: '',
+        pronome: [],
+        caracteristica: '',
         descricao: '',
     };
 
-    render() {
-        const pronomes = [
-            {key: 0, value: 'Ele/dele'},
-            {key: 1, value: 'Ela/dela'},
-            {key: 2, value: 'Elu/delu'},
-        ];
+    pronomes = [
+        {label: 'Ele/dele', value: 'Ele/dele'},
+        {label: 'Ela/dela', value: 'Ela/dela'},
+        {label: 'Elu/delu', value: 'Elu/delu'},
+    ];
 
+    setValue(callback) {
+        this.setState(state => ({
+          pronome: callback(state.pronome),
+        }));
+    }
+
+    updateCarac = (caracteristica) => {
+        this.setState({caracteristica: caracteristica});
+    };
+
+    formatPronome = () => {
+        let str = this.state.pronome[0];
+
+        for (let i = 1; i < this.state.pronome.length; i++) {
+            str += ', ' + this.state.pronome[i];
+        }
+
+        return str;
+    };
+
+    addIdenty = () => {
+        this.props.onAddIdenty({
+            id: this.props.identy.length + 1,
+            name: this.state.name,
+            idade: this.state.idade,
+            gender: this.state.gender,
+            pronome: this.formatPronome,
+            caracteristica: this.state.caracteristica,
+            descricao: this.state.descricao,
+            photo: '',
+        });
+        this.props.navigation.goBack();
+    };
+
+    render() {
         return (
-            <ScrollView style={style.container}>
+            <ScrollView nestedScrollEnabled={this.state.open ? false : true} style={style.container}>
                 {/* Header */}
                 <View style={style.header}>
                     <Text style={style.headerTitle}>Criar nova identidade</Text>
@@ -43,7 +78,7 @@ class CreateIdentyScreen extends Component {
                     style={style.input}
                     placeholder="Nome"
                     placeholderTextColor={'#787855'}
-                    onChangeText={name => this.setState(name)}
+                    onChangeText={name => this.setState({name})}
                     value={this.name}
                     />
 
@@ -52,7 +87,7 @@ class CreateIdentyScreen extends Component {
                     style={style.input}
                     placeholder="Idade"
                     placeholderTextColor={'#787855'}
-                    onEndEditing={idade => this.setState(idade)}
+                    onEndEditing={idade => this.setState({idade})}
                     value={this.idade}
                     keyboardType="numeric"
                     />
@@ -62,38 +97,42 @@ class CreateIdentyScreen extends Component {
                     style={style.input}
                     placeholder="Gênero"
                     placeholderTextColor={'#787855'}
-                    onChangeText={gender => this.setState(gender)}
+                    onChangeText={gender => this.setState({gender})}
                     value={this.gender}
                     autoComplete="gender"
                     />
 
                 {/* Pronomes */}
                 <View style={style.selectView}>
-                    { this.pronome.toString() === '' ? <Text style={style.selectTitle}>Pronomes</Text> : null }
-                    <MultipleSelectList
-                        setSelected={pronome => this.setState(pronome)}
-                        data={this.pronomes}
-                        save="value"
-                        onSelect={() => {}}
-                        search={false}
-                        label="Pronomes"
-                        arrowicon={<FontAwesomeIcon icon={faAngleDown} size={20}/>}
-                        closeicon={<FontAwesomeIcon icon={faAngleUp} size={20}/>}
-                        boxStyles={style.multiBoxStyles}
-                        labelStyles={style.multiLabel}
-                        badgeStyles={style.multiBadgeStyles}
-                        badgeTextStyles={style.multiBadgeStylesText}
-                        dropdownStyles={style.multiDropdown}
-                        dropdownTextStyles={style.multiDropdownText}
-                        checkBoxStyles={style.multiCheck}
-                        placeholder="Selecionar pronome"
+                    { this.pronome === '' ? <Text style={style.selectTitle}>Pronomes</Text> : <></> }
+
+                    <Text style={style.selectTitle}>Pronomes</Text>
+                        <DropDownPicker
+                            open={this.state.open}
+                            value={this.state.pronome}
+                            items={this.pronomes}
+                            setOpen={open => this.setState({open})}
+                            setValue={value => this.setValue(value)}
+                            multiple
+                            listMode="SCROLLVIEW"
+                            mode="BADGE"
+                            placeholder="Selecionar pronome"
+                            arrowIconStyle={style.dropDownIcon}
+                            style={style.dropDown}
+                            dropDownContainerStyle={style.dropDownContainerStyle}
+                            labelStyle={style.dropDownLabelStyle}
+                            containerStyle={style.dropDownContainer}
+                            listItemLabelStyle={style.dropDownItemLabelStyle}
+                            badgeColors="#ffff00"
+                            badgeDotColors="#FFF"
+                            badgeTextStyle={style.dropDownBadgeTextStyle}
                         />
                 </View>
 
                 {/* Caracteristicas */}
                 <View style={style.selectView}>
                     <Text style={style.selectTitle}>Caracteristicas Principais</Text>
-                    <TagInput />
+                    <TagInput save={this.updateCarac}/>
                 </View>
 
                 {/* Descricao */}
@@ -105,7 +144,7 @@ class CreateIdentyScreen extends Component {
                         textAlign="left"
                         placeholderTextColor={'#787855'}
                         value={this.descricao}
-                        onChangeText={descricao => this.setState(descricao)}
+                        onChangeText={descricao => this.setState({descricao})}
                         multiline={true}
                         numberOfLines={1}
                         maxLength={200}
@@ -114,7 +153,7 @@ class CreateIdentyScreen extends Component {
 
                 {/* Botao Salvar */}
                 <TouchableOpacity style={style.button}
-                    onPress={() => {}}
+                    onPress={this.addIdenty}
                     >
                     <Text style={style.buttonText}>Criar</Text>
                 </TouchableOpacity>
@@ -156,48 +195,34 @@ const style = StyleSheet.create({
         fontWeight: '600',
         fontSize: 18,
     },
-    selectTitle: {
-        color: '#000',
-        fontFamily: 'Roboto',
-        fontWeight: '700',
-        fontSize: 20,
-        marginBottom: 20,
+    dropDown: {
+        borderColor: 'rgb(0,0,0,0.2)',
+        backgroundColor: '#fffff0',
     },
-    multiBoxStyles: {
-        borderColor: '#FFF',
-        backgroundColor: '#ffffd5',
+    dropDownContainerStyle: {
         borderRadius: 20,
+        borderColor: 'rgb(0,0,0,0.2)',
+        backgroundColor: '#fffff0',
+        elevation: 5,
     },
-    multiLabel: {
+    dropDownLabelStyle: {
+        fontSize: 18,
+        fontWeight: '400',
         color: '#000',
-        fontFamily: 'Roboto',
-        fontWeight: '700',
-        fontSize: 20,
     },
-    multiBadgeStyles: {
-        backgroundColor: '#ffff00',
-        paddingVertical: 10,
-    },
-    multiBadgeStylesText: {
+    dropDownItemLabelStyle: {
+        fontSize: 18,
+        fontWeight: '400',
         color: '#000',
-        fontFamily: 'Roboto',
-        fontWeight: '600',
-        fontSize: 17,
     },
-    multiDropdown: {
-        borderColor: '#FFF',
-        backgroundColor: '#ffffb0',
-        borderRadius: 20,
-    },
-    multiDropdownText: {
+    dropDownBadgeTextStyle: {
         color: '#000',
-        fontFamily: 'Roboto',
+        fontSize: 18,
         fontWeight: '600',
-        fontSize: 17,
     },
-    multiCheck: {
-        fontWeight: '600',
-        fontSize: 17,
+    dropDownIcon: {
+        tintColor: '#00000090',
+        width: 26,
     },
     areaText: {
         backgroundColor: '#ffffc0',
@@ -225,4 +250,17 @@ const style = StyleSheet.create({
     },
 });
 
-export default CreateIdentyScreen;
+const mapStateToProps = ({ identy }) => {
+    return {
+        identy: identy.identys,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddIdenty: identy => dispatch(addIdenty(identy)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateIdentyScreen);
+// export default CreateIdentyScreen;
