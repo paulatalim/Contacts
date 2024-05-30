@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, FlatList, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
-import Animated from 'react-native-reanimated';
 import { connect } from 'react-redux';
 
-// import identy from '../data/identyList';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons/faEllipsisVertical';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 
@@ -19,7 +17,7 @@ class Home extends Component {
                     }}>
                     <View style={style.identyContainer}>
                         {item.photo !== '' ?
-                            <Animated.Image
+                            <Image
                                 style={style.identyImage}
                                 source={{uri: item.photo}}
                                 sharedTransitionTag="tag"
@@ -116,7 +114,7 @@ const style = StyleSheet.create({
     },
     identyCaract: {
         fontSize: 15,
-        color: '#4D4D4D',
+        color: 'rgba(0, 0, 0, 0.6)',
         fontFamily: 'Roboto-Bold',
         fontWeight: '700',
     },

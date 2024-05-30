@@ -17,19 +17,9 @@ class MoreOptions extends Component {
         ],
     };
 
-    setOpen(open) {
-        this.setState({open});
-    }
-
     setValue(callback) {
         this.setState(state => ({
           value: callback(state.value),
-        }));
-      }
-
-    setItems(callback) {
-        this.setState(state => ({
-            items: callback(state.items),
         }));
     }
 
@@ -45,7 +35,7 @@ class MoreOptions extends Component {
                     <TouchableOpacity
                         onPress={() => this.props.navigation.goBack()}
                     >
-                        <FontAwesomeIcon icon={faXmark} size={25} color="#000" />
+                        <FontAwesomeIcon icon={faXmark} size={25} color="rgba(0, 0, 0, 0.6)" />
                     </TouchableOpacity>
                 </View>
                 <View style={style.perfil}>
@@ -61,10 +51,9 @@ class MoreOptions extends Component {
                             open={this.state.open}
                             value={this.state.value}
                             items={this.state.items}
-                            setOpen={open => this.setOpen(open)}
+                            setOpen={open => this.setState({open})}
                             setValue={value => this.setValue(value)}
-                            setItems={items => this.setItems(items)}
-                            arrowIconStyle={{tintColor: '#00000090', width: 26}}
+                            arrowIconStyle={style.dropDownIcon}
                             style={style.dropDown}
                             dropDownContainerStyle={style.dropDownContainerStyle}
                             labelStyle={style.dropDownLabelStyle}
@@ -137,7 +126,6 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        // gap: 100,
     },
     idioma: {
         color: '#000',
@@ -145,14 +133,12 @@ const style = StyleSheet.create({
         fontSize: 20,
     },
     dropDown: {
-        // width: '50%',
         borderColor: 'transparent',
     },
     dropDownContainer: {
         width: '50%',
     },
     dropDownContainerStyle: {
-        // width: '50%',
         borderRadius: 20,
         borderColor: '#00000000',
         backgroundColor: '#fffff0',
@@ -167,6 +153,10 @@ const style = StyleSheet.create({
         fontSize: 18,
         fontWeight: '400',
         color: '#000',
+    },
+    dropDownIcon: {
+        tintColor: '#00000090',
+        width: 26,
     },
     logout: {
         flexDirection: 'row',

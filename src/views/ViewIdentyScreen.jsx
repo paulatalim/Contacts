@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ScrollView,TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
-import Animated  from 'react-native-reanimated';
-
-// import identy from '../../data/identyList';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 class ViewIdenty extends Component {
     render() {
@@ -30,7 +28,13 @@ class ViewIdenty extends Component {
                             <FontAwesomeIcon icon={faPen} size={20} color="#696969"/>
                         </TouchableOpacity>
                     </View>
-                    <Animated.Image style={style.img} source={{uri: identy.photo}} sharedTransionTag="tag" />
+                    {identy.photo !== '' ?
+                        <Image style={style.img} source={{uri: identy.photo}} sharedTransionTag="tag" />
+
+                        : <View style={style.imgUser}>
+                            <FontAwesomeIcon icon={faUser} color="#fff" size={150}/>
+                        </View>
+                    }
                     <Text style={style.carac}>{identy.caracteristica}</Text>
                 </View>
 
@@ -88,6 +92,16 @@ const style = StyleSheet.create({
         borderRadius: 250,
         marginTop: 30,
         marginBottom: 30,
+    },
+    imgUser: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        borderRadius: 250,
+        width: 300,
+        height: 300,
+        marginTop: 30,
+        marginBottom: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     carac: {
         marginBottom: 60,
