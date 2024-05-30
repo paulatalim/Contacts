@@ -13,7 +13,7 @@ class Home extends Component {
             return (
                 <TouchableOpacity
                     onPress={() => {
-                        this.props.navigation.push('VizualizarIdentidade', {identy: item});
+                        this.props.navigation.push('VizualizarIdentidade', {id: item.id});
                     }}>
                     <View style={style.identyContainer}>
                         {item.photo !== '' ?
