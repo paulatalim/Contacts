@@ -58,14 +58,15 @@ const reducer = (state = initState, action) => {
         case ADD_IDENTY:
             return {
                 ...state,
-                identys: state.identys.concat({id: state.identys.length, ...action.payload, photo: ''}),
+                identys: state.identys.concat({...action.payload}),
             };
         case EDIT_IDENTY:
             return {
                 ...state,
                 identys: () => {
-                    state.identys[action.payload.id - 1] = action.payload;
-                    return state.identys;
+                    const newIdentys = [...state.identys];
+                    newIdentys[action.payload.id - 1] = action.payload;
+                    return newIdentys;
                 },
             };
         default:
