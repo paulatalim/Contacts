@@ -11,7 +11,7 @@ class CreateIdentyScreen extends Component {
     state = {
         open: false,
         name: '',
-        idade: '',
+        idade: 0,
         gender: '',
         pronome: [],
         caracteristica: '',
@@ -44,13 +44,13 @@ class CreateIdentyScreen extends Component {
         return str;
     };
 
-    addIdenty = () => {
+    addIdenty = async () => {
         this.props.onAddIdenty({
             id: this.props.identy.length + 1,
             name: this.state.name,
+            pronome: this.formatPronome(),
+            genero: this.state.gender,
             idade: this.state.idade,
-            gender: this.state.gender,
-            pronome: this.formatPronome,
             caracteristica: this.state.caracteristica,
             descricao: this.state.descricao,
             photo: '',
@@ -87,7 +87,7 @@ class CreateIdentyScreen extends Component {
                     style={style.input}
                     placeholder="Idade"
                     placeholderTextColor={'#787855'}
-                    onEndEditing={idade => this.setState({idade})}
+                    onChangeText={idade => this.setState({idade: parseInt(idade, 10)})}
                     value={this.idade}
                     keyboardType="numeric"
                     />
@@ -104,34 +104,32 @@ class CreateIdentyScreen extends Component {
 
                 {/* Pronomes */}
                 <View style={style.selectView}>
-                    { this.pronome === '' ? <Text style={style.selectTitle}>Pronomes</Text> : <></> }
-
                     <Text style={style.selectTitle}>Pronomes</Text>
-                        <DropDownPicker
-                            open={this.state.open}
-                            value={this.state.pronome}
-                            items={this.pronomes}
-                            setOpen={open => this.setState({open})}
-                            setValue={value => this.setValue(value)}
-                            multiple
-                            listMode="SCROLLVIEW"
-                            mode="BADGE"
-                            placeholder="Selecionar pronome"
-                            arrowIconStyle={style.dropDownIcon}
-                            style={style.dropDown}
-                            dropDownContainerStyle={style.dropDownContainerStyle}
-                            labelStyle={style.dropDownLabelStyle}
-                            containerStyle={style.dropDownContainer}
-                            listItemLabelStyle={style.dropDownItemLabelStyle}
-                            badgeColors="#ffff00"
-                            badgeDotColors="#FFF"
-                            badgeTextStyle={style.dropDownBadgeTextStyle}
-                        />
+                    <DropDownPicker
+                        open={this.state.open}
+                        value={this.state.pronome}
+                        items={this.pronomes}
+                        setOpen={open => this.setState({open})}
+                        setValue={value => this.setValue(value)}
+                        multiple
+                        listMode="SCROLLVIEW"
+                        mode="BADGE"
+                        placeholder="Selecionar pronome"
+                        arrowIconStyle={style.dropDownIcon}
+                        style={style.dropDown}
+                        dropDownContainerStyle={style.dropDownContainerStyle}
+                        labelStyle={style.dropDownLabelStyle}
+                        containerStyle={style.dropDownContainer}
+                        listItemLabelStyle={style.dropDownItemLabelStyle}
+                        badgeColors="#ffff00"
+                        badgeDotColors="#FFF"
+                        badgeTextStyle={style.dropDownBadgeTextStyle}
+                    />
                 </View>
 
                 {/* Caracteristicas */}
                 <View style={style.selectView}>
-                    <Text style={style.selectTitle}>Caracteristicas Principais</Text>
+                    <Text style={style.selectTitle}>Características Principais</Text>
                     <TagInput save={this.updateCarac}/>
                 </View>
 
@@ -184,6 +182,12 @@ const style = StyleSheet.create({
         fontFamily: 'Roboto',
         fontWeight: '800',
         fontSize: 26,
+    },
+    selectTitle: {
+        marginBottom: 10,
+        fontSize: 18,
+        fontWeight: '700',
+        color: '#000',
     },
     input: {
         backgroundColor: '#ffffc0',
