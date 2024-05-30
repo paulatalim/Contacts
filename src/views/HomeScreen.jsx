@@ -13,7 +13,7 @@ class Home extends Component {
             return (
                 <TouchableOpacity
                     onPress={() => {
-                        this.props.navigation.push('VizualizarIdentidade', {id: item.id});
+                        this.props.navigation.navigate('VizualizarIdentidade', {id: item.id});
                     }}>
                     <View style={style.identyContainer}>
                         {item.photo !== '' ?
@@ -100,7 +100,7 @@ const style = StyleSheet.create({
         borderRadius: 50,
     },
     identyNoImage: {
-        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         borderRadius: 50,
         width: 50,
         height: 50,
@@ -114,7 +114,7 @@ const style = StyleSheet.create({
     },
     identyCaract: {
         fontSize: 15,
-        color: 'rgba(0, 0, 0, 0.6)',
+        color: 'rgba(0, 0, 0, 0.5)',
         fontFamily: 'Roboto-Bold',
         fontWeight: '700',
     },

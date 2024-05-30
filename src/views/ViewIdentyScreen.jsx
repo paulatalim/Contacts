@@ -19,7 +19,7 @@ class ViewIdenty extends Component {
                 <View style={style.principal}>
                     <View style={style.header}>
                         <TouchableOpacity
-                            onPress={() => {this.props.navigation.goBack();}}
+                            onPress={() => this.props.navigation.goBack()}
                             >
                             <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
                         </TouchableOpacity>
@@ -28,7 +28,7 @@ class ViewIdenty extends Component {
                             <Text style={style.pronome}>{this.state.identy[id].pronome}</Text>
                         </View>
                         <TouchableOpacity
-                            onPress={ () => {this.props.navigation.navigate('IndentidadeEdit', this.state.identy[id]);}}
+                            onPress={ () => this.props.navigation.navigate('IndentidadeEdit', {id: id})}
                             >
                             <FontAwesomeIcon icon={faPen} size={20} color="#696969"/>
                         </TouchableOpacity>
