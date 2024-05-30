@@ -4,10 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { connect } from 'react-redux';
 
 class ViewIdenty extends Component {
+    state = {
+        identy: this.props.actualIdenty,
+    };
+
     render() {
-        const identy = this.props.route.params.identy;
+        const id = this.props.route.params.id - 1;
 
         return (
             <ScrollView>
@@ -19,38 +24,38 @@ class ViewIdenty extends Component {
                             <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
                         </TouchableOpacity>
                         <View style={style.headerContent}>
-                            <Text style={style.name}>{identy.name}</Text>
-                            <Text style={style.pronome}>{identy.pronome}</Text>
+                            <Text style={style.name}>{this.state.identy[id].name}</Text>
+                            <Text style={style.pronome}>{this.state.identy[id].pronome}</Text>
                         </View>
                         <TouchableOpacity
-                            onPress={ () => {this.props.navigation.navigate('IndentidadeEdit', identy);}}
+                            onPress={ () => {this.props.navigation.navigate('IndentidadeEdit', this.state.identy[id]);}}
                             >
                             <FontAwesomeIcon icon={faPen} size={20} color="#696969"/>
                         </TouchableOpacity>
                     </View>
-                    {identy.photo !== '' ?
-                        <Image style={style.img} source={{uri: identy.photo}} sharedTransionTag="tag" />
+                    {this.state.identy[id].photo !== '' ?
+                        <Image style={style.img} source={{uri: this.state.identy[id].photo}} sharedTransionTag="tag" />
 
                         : <View style={style.imgUser}>
                             <FontAwesomeIcon icon={faUser} color="#fff" size={150}/>
                         </View>
                     }
-                    <Text style={style.carac}>{identy.caracteristica}</Text>
+                    <Text style={style.carac}>{this.state.identy[id].caracteristica}</Text>
                 </View>
 
                 <View style={style.info}>
                     <Text style={style.title}>idade</Text>
-                    <Text style={style.idade}>{identy.idade} anos</Text>
+                    <Text style={style.idade}>{this.state.identy[id].idade} anos</Text>
                 </View>
 
                 <View style={style.info}>
                     <Text style={style.title}>gênero</Text>
-                    <Text style={style.genero}>{identy.genero}</Text>
+                    <Text style={style.genero}>{this.state.identy[id].genero}</Text>
                 </View>
 
                 <View style={style.descricaoContainer}>
                     <Text style={style.title}>descrição</Text>
-                    <Text style={style.descricao}>{identy.descricao}</Text>
+                    <Text style={style.descricao}>{this.state.identy[id].descricao}</Text>
                 </View>
             </ScrollView>
         );
@@ -155,4 +160,12 @@ const style = StyleSheet.create({
     },
 });
 
-export default ViewIdenty;
+const mapStateToProps = ({identy}) => {
+    return {
+        actualIdenty: identy.identys,
+    };
+};
+
+export default connect(mapStateToProps)(ViewIdenty);
+
+// export default ViewIdenty;
