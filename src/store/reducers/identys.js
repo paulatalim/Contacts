@@ -63,11 +63,17 @@ const reducer = (state = initState, action) => {
         case EDIT_IDENTY:
             return {
                 ...state,
-                identys: () => {
-                    const newIdentys = [...state.identys];
-                    newIdentys[action.payload.id - 1] = action.payload;
-                    return newIdentys;
-                },
+                // identys: () => {
+                //     const newIdentys = [...state.identys];
+                //     newIdentys[action.payload.id - 1] = action.payload;
+                //     return newIdentys;
+                // },
+                identy: state.identys.map(item => item.id === action.payload.id ? action.payload : item),
+            };
+        case ADD_IDENTY:
+            return {
+                ...state,
+                identys: state.identys.filter(identy => identy.id !== action.payload),
             };
         default:
             return state;
