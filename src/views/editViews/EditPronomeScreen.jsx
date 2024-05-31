@@ -7,31 +7,63 @@ import {
 } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons/faAngleDown';
-import { faAngleUp } from '@fortawesome/free-solid-svg-icons/faAngleUp';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
-import { MultipleSelectList } from 'react-native-dropdown-select-list';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { connect } from 'react-redux';
+import { editIdenty } from '../../store/actions/identys';
+import { changeActualIdenty } from '../../store/actions/viewIdenty';
 
 class EditPronomeScreen extends Component {
-
     state = {
-        pronome: '',
+        pronome: this.props.actualIdenty.pronome !== '' ? this.props.actualIdenty.pronome.split(', ') : [],
+        open: false,
+    };
+
+    data = [
+        {label: 'Ele/dele', value: 'Ele/dele'},
+        {label: 'Ela/dela', value: 'Ela/dela'},
+        {label: 'Elu/delu', value: 'Elu/delu'},
+    ];
+
+    setValue(callback) {
+        this.setState(state => ({
+          pronome: callback(state.pronome),
+        }));
+    }
+
+    formatPronome = () => {
+        let str = this.state.pronome[0];
+
+        for (let i = 1; i < this.state.pronome.length; i++) {
+            str += ', ' + this.state.pronome[i];
+        }
+
+        return str;
+    };
+
+    editPronome = async () => {
+        const item = {
+            id: this.props.actualIdenty.id,
+            name: this.props.actualIdenty.name,
+            pronome: this.formatPronome(),
+            genero: this.props.actualIdenty.genero,
+            idade: this.props.actualIdenty.idade,
+            caracteristica: this.props.actualIdenty.caracteristica,
+            descricao: this.props.actualIdenty.descricao,
+            photo: this.props.actualIdenty.photo,
+        };
+        this.props.onEdit(item);
+        this.props.onChange(item);
+        this.props.navigation.goBack();
     };
 
     render() {
-
-        const data = [
-            {key: 0, value: 'Ele/dele'},
-            {key: 1, value: 'Ela/dela'},
-            {key: 2, value: 'Elu/delu'},
-        ];
-
         return (
             <View style={style.container}>
                 <View style={style.header}>
                     <TouchableOpacity
                         style={style.btnCancel}
-                        onPress={() => {this.props.navigation.goBack();}}
+                        onPress={() => this.props.navigation.goBack()}
                         >
                         <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
                     </TouchableOpacity>
@@ -40,30 +72,32 @@ class EditPronomeScreen extends Component {
 
                     <TouchableOpacity
                         style={style.btnSave}
-                        onPress={() => {this.props.navigation.goBack();}}
+                        onPress={this.editPronome}
                         >
                         <FontAwesomeIcon icon={faCheck} size={20} color="#696969"/>
                     </TouchableOpacity>
                 </View>
 
                 <View style={style.multiContainer}>
-                    <MultipleSelectList
-                        setSelected={pronome => this.setState(pronome)}
-                        data={data}
-                        save="value"
-                        onSelect={() => {}}
-                        search={false}
-                        label="Pronomes"
-                        arrowicon={<FontAwesomeIcon icon={faAngleDown} size={20}/>}
-                        closeicon={<FontAwesomeIcon icon={faAngleUp} size={20}/>}
-                        boxStyles={style.multiBoxStyles}
-                        labelStyles={style.multiLabel}
-                        badgeStyles={style.multiBadgeStyles}
-                        badgeTextStyles={style.multiBadgeStylesText}
-                        dropdownStyles={style.multiDropdown}
-                        dropdownTextStyles={style.multiDropdownText}
-                        checkBoxStyles={style.multiCheck}
-                        placeholder="Selecionar pronome"
+                    <DropDownPicker
+                            open={this.state.open}
+                            value={this.state.pronome}
+                            items={this.data}
+                            setOpen={open => this.setState({open})}
+                            setValue={value => this.setValue(value)}
+                            multiple
+                            listMode="SCROLLVIEW"
+                            mode="BADGE"
+                            placeholder="Selecionar pronome"
+                            arrowIconStyle={style.dropDownIcon}
+                            style={style.dropDown}
+                            dropDownContainerStyle={style.dropDownContainerStyle}
+                            labelStyle={style.dropDownLabelStyle}
+                            containerStyle={style.dropDownContainer}
+                            listItemLabelStyle={style.dropDownItemLabelStyle}
+                            badgeColors="#ffff00"
+                            badgeDotColors="#FFF"
+                            badgeTextStyle={style.dropDownBadgeTextStyle}
                         />
                 </View>
             </View>
@@ -100,45 +134,49 @@ const style = StyleSheet.create({
         alignItems: 'center',
         gap: 8,
     },
-    multiContainer: {
-        marginHorizontal: 20,
+    dropDown: {
+        borderColor: 'rgb(0,0,0,0.2)',
+        backgroundColor: '#fffff0',
     },
-    multiBoxStyles: {
-        borderColor: '#FFF',
-        backgroundColor: '#ffc700',
+    dropDownContainerStyle: {
         borderRadius: 20,
+        borderColor: 'rgb(0,0,0,0.2)',
+        backgroundColor: '#fffff0',
+        elevation: 5,
     },
-    multiLabel: {
+    dropDownLabelStyle: {
+        fontSize: 18,
+        fontWeight: '400',
         color: '#000',
-        fontFamily: 'Roboto',
-        fontWeight: '700',
-        fontSize: 20,
     },
-    multiBadgeStyles: {
-        backgroundColor: '#ffff00',
-        paddingVertical: 10,
-    },
-    multiBadgeStylesText: {
+    dropDownItemLabelStyle: {
+        fontSize: 18,
+        fontWeight: '400',
         color: '#000',
-        fontFamily: 'Roboto',
-        fontWeight: '600',
-        fontSize: 17,
     },
-    multiDropdown: {
-        borderColor: '#FFF',
-        backgroundColor: '#ffffb0',
-        borderRadius: 20,
-    },
-    multiDropdownText: {
+    dropDownBadgeTextStyle: {
         color: '#000',
-        fontFamily: 'Roboto',
+        fontSize: 18,
         fontWeight: '600',
-        fontSize: 17,
     },
-    multiCheck: {
-        fontWeight: '600',
-        fontSize: 17,
+    dropDownIcon: {
+        tintColor: '#00000090',
+        width: 26,
     },
 });
 
-export default EditPronomeScreen;
+const mapStateToProps = ({actualIdenty}) => {
+    return {
+        actualIdenty: actualIdenty.identy,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onEdit: identy => dispatch(editIdenty(identy)),
+        onChange: identy => dispatch(changeActualIdenty(identy)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditPronomeScreen);
+
