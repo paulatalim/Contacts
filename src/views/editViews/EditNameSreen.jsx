@@ -3,11 +3,30 @@ import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import identy from '../../data/identyList';
+
+import { connect } from 'react-redux';
+import { editIdenty } from '../../store/actions/identys';
+import { changeActualIdenty } from '../../store/actions/viewIdenty';
 
 class EditNameSreen extends Component {
     state = {
-        name: this.props.route.params.name,
+        name: this.props.actualIdenty.name,
+    };
+
+    editName = async () => {
+        const item = {
+            id: this.props.actualIdenty.id,
+            name: this.state.name,
+            pronome: this.props.actualIdenty.pronome,
+            genero: this.props.actualIdenty.genero,
+            idade: this.props.actualIdenty.idade,
+            caracteristica: this.props.actualIdenty.caracteristica,
+            descricao: this.props.actualIdenty.descricao,
+            photo: this.props.actualIdenty.photo,
+        };
+        this.props.onEdit(item);
+        this.props.onChange(item);
+        this.props.navigation.goBack();
     };
 
     render() {
@@ -26,10 +45,7 @@ class EditNameSreen extends Component {
                     </>
                     <TouchableOpacity
                         style={style.btnSave}
-                        onPress={() => {
-                            identy[this.props.route.params.id].name = this.name;
-                            this.props.navigation.goBack();
-                        }}
+                        onPress={this.editName}
                         >
                         <FontAwesomeIcon icon={faCheck} size={20} color="#696969"/>
                     </TouchableOpacity>
@@ -39,9 +55,9 @@ class EditNameSreen extends Component {
                     style={style.input}
                     placeholder="Nome"
                     placeholderTextColor={'#333'}
-                    onChangeText={name => this.setState(name)}
+                    onChangeText={name => this.setState({name})}
                     clearTextOnFocus={true}
-                    value={this.name}
+                    value={this.state.name}
                     />
             </>
         );
@@ -85,4 +101,17 @@ const style = StyleSheet.create({
     },
 });
 
-export default EditNameSreen;
+const mapStateToProps = ({actualIdenty}) => {
+    return {
+        actualIdenty: actualIdenty.identy,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onEdit: identy => dispatch(editIdenty(identy)),
+        onChange: identy => dispatch(changeActualIdenty(identy)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditNameSreen);

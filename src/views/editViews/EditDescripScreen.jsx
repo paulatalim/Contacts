@@ -3,14 +3,32 @@ import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import { editIdenty } from '../../store/actions/identys';
+import { changeActualIdenty } from '../../store/actions/viewIdenty';
 
 class EditDescrip extends Component {
     state = {
-        descrip: this.props.route.params.descricao,
+        descrip: this.props.actualIdenty.descricao,
+    };
+
+    editDescrip = async () => {
+        const item = {
+            id: this.props.actualIdenty.id,
+            name: this.props.actualIdenty.name,
+            pronome: this.props.actualIdenty.pronome,
+            genero: this.props.actualIdenty.genero,
+            idade: this.props.actualIdenty.idade,
+            caracteristica: this.props.actualIdenty.caracteristica,
+            descricao: this.state.descrip,
+            photo: this.props.actualIdenty.photo,
+        };
+        this.props.onEdit(item);
+        this.props.onChange(item);
+        this.props.navigation.goBack();
     };
 
     render() {
-
         return (
             <>
                 <View style={style.header}>
@@ -25,7 +43,7 @@ class EditDescrip extends Component {
 
                     <TouchableOpacity
                         style={style.btnSave}
-                        onPress={() => {this.props.navigation.goBack();}}
+                        onPress={this.editDescrip}
                         >
                         <FontAwesomeIcon icon={faCheck} size={20} color="#696969"b/>
                     </TouchableOpacity>
@@ -36,7 +54,7 @@ class EditDescrip extends Component {
                     placeholder="Descrição"
                     placeholderTextColor={'#333'}
                     onChangeText={descrip => this.setState({descrip})}
-                    value={this.descrip}
+                    value={this.state.descrip}
                     clearTextOnFocus={true}
                     multiline={true}
                     />
@@ -84,4 +102,17 @@ const style = StyleSheet.create({
     },
 });
 
-export default EditDescrip;
+const mapStateToProps = ({actualIdenty}) => {
+    return {
+        actualIdenty: actualIdenty.identy,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onEdit: identy => dispatch(editIdenty(identy)),
+        onChange: identy => dispatch(changeActualIdenty(identy)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditDescrip);

@@ -4,9 +4,30 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
+import { connect } from 'react-redux';
+import { editIdenty } from '../../store/actions/identys';
+import { changeActualIdenty } from '../../store/actions/viewIdenty';
+
+
 class EditIdade extends Component {
     state = {
-        idade: this.props.route.params.idade.toString(),
+        idade: this.props.actualIdenty.idade.toString(),
+    };
+
+    editIdade = async () => {
+        const item = {
+            id: this.props.actualIdenty.id,
+            name: this.props.actualIdenty.name,
+            pronome: this.props.actualIdenty.pronome,
+            genero: this.props.actualIdenty.genero,
+            idade: parseInt(this.state.idade, 10),
+            caracteristica: this.props.actualIdenty.caracteristica,
+            descricao: this.props.actualIdenty.descricao,
+            photo: this.props.actualIdenty.photo,
+        };
+        this.props.onEdit(item);
+        this.props.onChange(item);
+        this.props.navigation.goBack();
     };
 
     render() {
@@ -24,7 +45,7 @@ class EditIdade extends Component {
 
                     <TouchableOpacity
                         style={style.btnSave}
-                        onPress={() => {this.props.navigation.goBack();}}
+                        onPress={this.editIdade}
                         >
                         <FontAwesomeIcon icon={faCheck}  size={20} color="#696969"/>
                     </TouchableOpacity>
@@ -35,7 +56,7 @@ class EditIdade extends Component {
                     placeholder="Idade"
                     placeholderTextColor={'#333'}
                     onChangeText={idade => this.setState({idade})}
-                    value={this.idade}
+                    value={this.state.idade}
                     clearTextOnFocus={true}
                     keyboardType="numeric"
                     />
@@ -83,4 +104,17 @@ const style = StyleSheet.create({
     },
 });
 
-export default EditIdade;
+const mapStateToProps = ({actualIdenty}) => {
+    return {
+        actualIdenty: actualIdenty.identy,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onEdit: identy => dispatch(editIdenty(identy)),
+        onChange: identy => dispatch(changeActualIdenty(identy)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditIdade);
