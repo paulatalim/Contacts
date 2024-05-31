@@ -3,6 +3,7 @@ import { View, FlatList, Text, StyleSheet, TouchableOpacity, Image } from 'react
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
 import { connect } from 'react-redux';
+import { changeActualIdenty } from '../store/actions/viewIdenty';
 
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons/faEllipsisVertical';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
@@ -13,6 +14,7 @@ class Home extends Component {
             return (
                 <TouchableOpacity
                     onPress={() => {
+                        this.props.onSelectIdenty({...item});
                         this.props.navigation.navigate('VizualizarIdentidade', {id: item.id});
                     }}>
                     <View style={style.identyContainer}>
@@ -137,4 +139,10 @@ const mapStateToProps = ({ identy }) => {
     };
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = dispatch => {
+    return {
+        onSelectIdenty: identy => dispatch(changeActualIdenty(identy)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
