@@ -1,4 +1,4 @@
-import { ADD_IDENTY, EDIT_IDENTY } from '../actions/actionTypes';
+import { ADD_IDENTY, EDIT_IDENTY, DELETE_IDENTY } from '../actions/actionTypes';
 
 const initState = {
     identys: [{
@@ -68,9 +68,9 @@ const reducer = (state = initState, action) => {
                 //     newIdentys[action.payload.id - 1] = action.payload;
                 //     return newIdentys;
                 // },
-                identy: state.identys.map(item => item.id === action.payload.id ? action.payload : item),
+                identys: state.identys.map(item => item.id === action.payload.id ? action.payload : item),
             };
-        case ADD_IDENTY:
+        case DELETE_IDENTY:
             return {
                 ...state,
                 identys: state.identys.filter(identy => identy.id !== action.payload),
