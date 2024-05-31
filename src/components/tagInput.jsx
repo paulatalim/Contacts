@@ -5,19 +5,19 @@ import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons/faArrowsRotate
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
 
-export default props => {
-	const [tags, setTags] = useState([]);
+export default ({init = null, save}) => {
+	const [tags, setTags] = useState(init === null ? [] : init.split(', '));
 	const [text, setText] = useState('');
 	const [editIndex, setEditIndex] = useState(null);
 
-	const save = tag => {
+	const saved = tag => {
 		let str = tag[0];
 
 		for (let i = 1; i < tag.length; i++) {
 			str += ', ' + tag[i];
 		}
 
-		props.save(str);
+		save(str);
 	};
 
 	const addTag = () => {
@@ -29,22 +29,23 @@ export default props => {
 				const newTags = [...tags];
 				newTags[editIndex] = text.charAt(0).toUpperCase() + text.slice(1);
 				setTags(newTags);
-				save(newTags);
+				saved(newTags);
 				setEditIndex(null);
 			} else {
 				// If adding a new tag
 				const newTags = [...tags, text.charAt(0).toUpperCase() + text.slice(1)];
 				setTags(newTags);
-				save(newTags);
+				saved(newTags);
 			}
 			setText('');
 		}
 	};
 
-	const removeTag = (index) =>{
+	const removeTag = (index) => {
 		const newTags = [...tags];
 		newTags.splice(index, 1);
-		save(newTags);
+		setTags(newTags);
+		saved(newTags);
 	};
 
 	const editTag = (index) =>{
