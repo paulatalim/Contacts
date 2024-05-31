@@ -18,10 +18,6 @@ import MoreInfo from '../views/MoreOptionScreen';
 
 const Stack = createNativeStackNavigator();
 
-const getIsSignedIn = props => {
-    return props.user.email ? true : false;
-}
-
 const Routes = props => {
     const isSignedIn = props.email ? true : false;
 
