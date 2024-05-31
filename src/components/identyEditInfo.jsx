@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
 import { useNavigation } from '@react-navigation/native';
 
-export default ({name, data, nav, route} ) => {
+export default ({name, data, route} ) => {
     const navigation = useNavigation();
 
     return (
@@ -48,6 +48,6 @@ const style = StyleSheet.create({
         fontFamily:'Roboto-Bold',
         fontSize: 20,
         fontWeight: '900',
-        color: 'rgba(0, 0, 0.4)',
+        color: 'rgba(0, 0, 0, 0.4)',
     },
 });
