@@ -55,7 +55,6 @@ class CreateIdentyScreen extends Component {
             descricao: this.state.descricao,
             photo: '',
         });
-        this.props.navigation.goBack();
     };
 
     render() {
@@ -151,8 +150,10 @@ class CreateIdentyScreen extends Component {
 
                 {/* Botao Salvar */}
                 <TouchableOpacity style={style.button}
-                    onPress={this.addIdenty}
-                    >
+                    onPress={() => {
+                        this.addIdenty();
+                        this.props.navigation.goBack();
+                    }}>
                     <Text style={style.buttonText}>Criar</Text>
                 </TouchableOpacity>
             </ScrollView>

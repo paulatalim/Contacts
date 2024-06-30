@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "897362002662",
+    "firebase_url": "https://identy-cd856-default-rtdb.firebaseio.com",
+    "project_id": "identy-cd856",
+    "storage_bucket": "identy-cd856.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897362002662:android:96d38247b25d701ca83127",
+        "android_client_info": {
+          "package_name": "com.identy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3cwdCNTaMFtiVUMkATZPykYiuR1WhktY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897362002662:android:8c771f1fb5ea3f43a83127",
+        "android_client_info": {
+          "package_name": "com.paulatalim.identy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3cwdCNTaMFtiVUMkATZPykYiuR1WhktY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
