@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, ImageBackground, PermissionsAndroid, Platform } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 import { connect } from 'react-redux';
 import { addIdenty } from '../store/actions/identys';
+import { faImage } from '@fortawesome/free-regular-svg-icons';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import BottomSheet from '@nonam4/react-native-bottom-sheet';
 import TagInput from '../components/tagInput';
 
 class CreateIdentyScreen extends Component {
     state = {
         open: false,
+        photo: null,
         name: '',
         idade: 0,
         gender: '',
@@ -23,6 +28,81 @@ class CreateIdentyScreen extends Component {
         {label: 'Ela/dela', value: 'Ela/dela'},
         {label: 'Elu/delu', value: 'Elu/delu'},
     ];
+
+    requestCameraPermission = async () => {
+        if (Platform.OS === 'android') {
+            try {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.CAMERA, {
+                        title: 'Camera Permission',
+                        message: 'App needs camera permission',
+                    },
+                );
+                return granted === PermissionsAndroid.RESULTS.GRANTED;
+            } catch (e) {
+                console.warn(e);
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    requestExternalWritePermission = async () => {
+        if (Platform.OS === 'android') {
+          try {
+            const granted = await PermissionsAndroid.request(
+              PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+              {
+                title: 'External Storage Write Permission',
+                message: 'App needs write permission',
+              },
+            );
+
+            return granted === PermissionsAndroid.RESULTS.GRANTED;
+          } catch (e) {
+            console.warn(e);
+          }
+          return false;
+        }
+
+        return true;
+    };
+
+    pickImage = async () => {
+        const isCameraPermitted = await this.requestCameraPermission();
+        const isStoragePermitted = await this.requestExternalWritePermission();
+
+        if (isCameraPermitted && isStoragePermitted) {
+            const result = await launchCamera({
+                mediaType: 'photo',
+                maxHeight: 300,
+                maxWidth: 300,
+            });
+
+            if (!result.didCancel) {
+                this.setState({photo: result.assets[0].uri});
+                this.save();
+            }
+        }
+    };
+
+    pickImageLibrary = async () => {
+        const result = await launchImageLibrary({
+            mediaType: 'photo',
+            maxHeight: 300,
+            maxWidth: 300,
+        });
+
+        if (!result.didCancel) {
+            this.setState({photo: result.assets[0].uri});
+            this.save();
+        }
+    };
+
+    save = async () => {
+        console.log('Imagem adicionada');
+    };
 
     setValue(callback) {
         this.setState(state => ({
@@ -69,6 +149,22 @@ class CreateIdentyScreen extends Component {
                         }}
                         >
                         <FontAwesomeIcon icon={faXmark} size={27} color="#696969"/>
+                    </TouchableOpacity>
+                </View>
+
+                {/* Imagem */}
+                <View style={style.containerImg}>
+                    <TouchableOpacity onPress={() => this.takePhoto.open()} >
+                        {this.state.photo !== null ?
+                                <ImageBackground source={{uri: this.state.photo}} resizeMode="cover" style={style.img} imageStyle={style.imgSty}>
+                                    <View style={style.imgFiltro}>
+                                        <FontAwesomeIcon icon={faCamera} color="#FFF" size={40}/>
+                                    </View>
+                                </ImageBackground>
+                            : <View style={style.identyNoImage}>
+                                <FontAwesomeIcon icon={faCamera} color="#fff" size={40}/>
+                            </View>
+                        }
                     </TouchableOpacity>
                 </View>
 
@@ -156,6 +252,39 @@ class CreateIdentyScreen extends Component {
                     }}>
                     <Text style={style.buttonText}>Criar</Text>
                 </TouchableOpacity>
+
+                <BottomSheet
+                    ref={ref => {
+                        this.takePhoto = ref;
+                    }}
+                    height={110}
+                    closeOnDragDown
+                    customStyles={{
+                        wrapper: {
+                            backgroundColor: 'transparent',
+                        },
+                        draggableIcon: {
+                            backgroundColor: '#00000000',
+                        },
+                        container: {
+                            borderTopLeftRadius: 30,
+                            borderTopRightRadius: 30,
+                            backgroundColor: '#ffc700',
+                        },
+                    }}
+                >
+                    <View style={style.bottomSheet}>
+                        <TouchableOpacity onPress={this.pickImage} style={style.bottomSheetBtn}>
+                            <FontAwesomeIcon icon={faCamera} size={25}/>
+                            <Text style={style.bottomSheetText}>Tirar foto</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={this.pickImageLibrary} style={style.bottomSheetBtn}>
+                            <FontAwesomeIcon icon={faImage} size={25}/>
+                            <Text style={style.bottomSheetText}>Selecionar foto</Text>
+                        </TouchableOpacity>
+                    </View>
+                </BottomSheet>
             </ScrollView>
         );
     }
@@ -172,7 +301,7 @@ const style = StyleSheet.create({
         marginBottom: 40,
     },
     header: {
-        marginBottom: 20,
+        // marginBottom: 1,
         paddingVertical: 40,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -252,6 +381,54 @@ const style = StyleSheet.create({
         fontWeight: '900',
         fontSize: 20,
         color: '#000',
+    },
+    containerImg: {
+        marginBottom: 40,
+        paddingVertical: 15,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    img: {
+        width: 150,
+        height: 150,
+        borderRadius: 75,
+    },
+    imgSty: {
+        borderRadius: 150,
+    },
+    imgFiltro: {
+        backgroundColor: '#0000004D',
+        width: 150,
+        height: 150,
+        borderRadius: 75,
+        display:'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    identyNoImage: {
+        backgroundColor: 'rgba(255, 199, 0, 0.6)',
+        width: 150,
+        height: 150,
+        borderRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    bottomSheet: {
+        flexDirection: 'row',
+        paddingHorizontal: 70,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 10,
+    },
+    bottomSheetBtn: {
+        alignItems: 'center',
+        gap: 15,
+    },
+    bottomSheetText: {
+        color: '#000',
+        fontSize: 15,
+        fontWeight: '700',
     },
 });
 

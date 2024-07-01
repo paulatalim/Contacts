@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Image, Text, View, StatusBar  } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, StatusBar  } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons/faRightFromBracket';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
@@ -39,7 +39,6 @@ class MoreOptions extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={style.perfil}>
-                    <Image style={style.img} source={{uri: 'https://picsum.photos/100.jpg'}} resizeMode="cover" borderRadius={50} />
                     <Text style={style.name}>{this.props.name}</Text>
                     <Text style={style.email}>{ this.props.email }</Text>
                 </View>
@@ -85,17 +84,12 @@ const style = StyleSheet.create({
     },
     perfil: {
         backgroundColor: '#FFF',
-        alignItems: 'center',
+        alignItems: 'left',
         borderRadius: 10,
         elevation: 15,
         paddingVertical: 40,
+        paddingHorizontal: 20,
         gap: 10,
-    },
-    img: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        marginBottom: 20,
     },
     name: {
         color: '#000',

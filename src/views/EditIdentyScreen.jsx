@@ -106,18 +106,18 @@ class EditIdentyScreen extends Component {
                     <View />
                 </View>
                 <View style={style.containerImg}>
-                    {this.props.actualIdenty.photo !== '' ?
-                        <TouchableOpacity onPress={() => this.takePhoto.open()} >
-                            <ImageBackground source={{uri: this.state.image}} resizeMode="cover" style={style.img} imageStyle={style.imgSty}>
-                                <View style={style.imgFiltro}>
-                                    <FontAwesomeIcon icon={faCamera} color="#FFF" size={40}/>
-                                </View>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        : <View style={style.identyNoImage}>
-                            <FontAwesomeIcon icon={faUser} color="#fff" size={60}/>
-                        </View>
-                    }
+                    <TouchableOpacity onPress={() => this.takePhoto.open()} >
+                        {this.props.actualIdenty.photo !== '' ?
+                                <ImageBackground source={{uri: this.state.image}} resizeMode="cover" style={style.img} imageStyle={style.imgSty}>
+                                    <View style={style.imgFiltro}>
+                                        <FontAwesomeIcon icon={faCamera} color="#FFF" size={40}/>
+                                    </View>
+                                </ImageBackground>
+                            : <View style={style.identyNoImage}>
+                                <FontAwesomeIcon icon={faUser} color="#fff" size={60}/>
+                            </View>
+                        }
+                    </TouchableOpacity>
                 </View>
                 <Campo name="Nome" data={this.props.actualIdenty.name} route="EditarNome" />
                 <Campo name="Pronome" data={this.props.actualIdenty.pronome} route="EditarPronome" />

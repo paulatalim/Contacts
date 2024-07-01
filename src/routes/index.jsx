@@ -28,16 +28,7 @@ const Routes = props => {
                 <>
                     <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
                     <Stack.Screen name="VizualizarIdentidade" component={identy} options={{ headerShown: false }} />
-                    <Stack.Screen
-                        name="IndentidadeEdit"
-                        component={editIndenty}
-                        options={() => {
-                            return {
-                                title: 'Editar Identidade',
-                                headerTitleAlign: 'center',
-                            };
-                        }}
-                    />
+                    <Stack.Screen name="IndentidadeEdit" component={editIndenty} options={{ headerShown: false }}/>
                     <Stack.Screen name="CriarIdentidade" component={newIdenty} options={{ headerShown: false }} />
                     <Stack.Screen name="EditarNome" component={editName} options={{ headerShown: false }} />
                     <Stack.Screen name="EditarIdade" component={editIdade} options={{ headerShown: false }} />

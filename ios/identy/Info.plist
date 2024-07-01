@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key> NSPhotoLibraryUsageDescription</key>
+	<string>Voce permite acessar sua galeria</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Permite usar a camera</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Desaja savar fotos em sua galeria</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
