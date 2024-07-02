@@ -129,14 +129,14 @@ class EditIdentyScreen extends Component {
                     ref={ref => {
                         this.takePhoto = ref;
                     }}
-                    height={110}
+                    height={130}
                     closeOnDragDown
                     customStyles={{
                         wrapper: {
                             backgroundColor: 'transparent',
                         },
                         draggableIcon: {
-                            backgroundColor: '#00000000',
+                            backgroundColor: 'rgba(0, 0, 0, 0.4)',
                         },
                         container: {
                             borderTopLeftRadius: 30,
@@ -147,12 +147,12 @@ class EditIdentyScreen extends Component {
                 >
                     <View style={style.bottomSheet}>
                         <TouchableOpacity onPress={this.pickImage} style={style.bottomSheetBtn}>
-                            <FontAwesomeIcon icon={faCamera} size={25}/>
+                            <FontAwesomeIcon icon={faCamera} size={25} color="rgba(0, 0, 0, 0.8)"/>
                             <Text style={style.bottomSheetText}>Tirar foto</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={this.pickImageLibrary} style={style.bottomSheetBtn}>
-                            <FontAwesomeIcon icon={faImage} size={25}/>
+                            <FontAwesomeIcon icon={faImage} size={25} color="rgba(0, 0, 0, 0.8)"/>
                             <Text style={style.bottomSheetText}>Selecionar foto</Text>
                         </TouchableOpacity>
                     </View>
@@ -216,7 +216,7 @@ const style = StyleSheet.create({
     },
     bottomSheet: {
         flexDirection: 'row',
-        paddingHorizontal: 70,
+        paddingHorizontal: 40,
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 10,
@@ -227,7 +227,7 @@ const style = StyleSheet.create({
     },
     bottomSheetText: {
         color: '#000',
-        fontSize: 15,
+        fontSize: 18,
         fontWeight: '700',
     },
 });

@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		marginVertical: 5,
 		marginRight: 5,
-        backgroundColor: '#ffff00',
+        backgroundColor: '#ffc700',
         paddingVertical: 5,
         paddingHorizontal: 10,
         borderRadius: 50,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		flex: 1,
-		backgroundColor: '#ffffc0',
+		backgroundColor: '#ffc7004C',
         borderRadius: 15,
         padding: 15,
         color: '#000',
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
 	},
 	addButton: {
-		backgroundColor: '#ffff00',
+		backgroundColor: '#ffc700',
 		paddingHorizontal: 15,
 		paddingVertical: 15,
 		borderRadius: 15,

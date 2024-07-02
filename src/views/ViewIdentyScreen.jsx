@@ -5,6 +5,9 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { connect } from 'react-redux';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
+import BottomSheet from '@nonam4/react-native-bottom-sheet';
+import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 
 class ViewIdenty extends Component {
     render() {
@@ -15,16 +18,16 @@ class ViewIdenty extends Component {
                         <TouchableOpacity
                             onPress={() => this.props.navigation.goBack()}
                             >
-                            <FontAwesomeIcon icon={faChevronLeft} size={20} color="#696969"/>
+                            <FontAwesomeIcon icon={faChevronLeft} size={20} color="rgba(0, 0, 0, 0.5)"/>
                         </TouchableOpacity>
                         <View style={style.headerContent}>
                             <Text style={style.name}>{this.props.actualIdenty.name}</Text>
                             <Text style={style.pronome}>{this.props.actualIdenty.pronome}</Text>
                         </View>
                         <TouchableOpacity
-                            onPress={ () => this.props.navigation.navigate('IndentidadeEdit')}
+                            onPress={() => this.manageIdenty.open()}
                             >
-                            <FontAwesomeIcon icon={faPen} size={20} color="#696969"/>
+                            <FontAwesomeIcon icon={faEllipsisV} size={20} color="rgba(0, 0, 0, 0.5)"/>
                         </TouchableOpacity>
                     </View>
                     {this.props.actualIdenty.photo !== '' ?
@@ -51,6 +54,38 @@ class ViewIdenty extends Component {
                     <Text style={style.title}>descrição</Text>
                     <Text style={style.descricao}>{this.props.actualIdenty.descricao}</Text>
                 </View>
+                <BottomSheet
+                    ref={ref => {
+                        this.manageIdenty = ref;
+                    }}
+                    height={180}
+                    closeOnDragDown
+                    customStyles={{
+                        wrapper: {
+                            backgroundColor: 'transparent',
+                        },
+                        draggableIcon: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                        },
+                        container: {
+                            borderTopLeftRadius: 30,
+                            borderTopRightRadius: 30,
+                            backgroundColor: '#ffc700',
+                        },
+                    }}
+                >
+                    <View style={style.bottomSheet}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('IndentidadeEdit')} style={style.bottomSheetBtn}>
+                            <FontAwesomeIcon icon={faPen} size={18} color="rgba(0, 0, 0, 0.6)"/>
+                            <Text style={style.bottomSheetText}>Editar</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={() => {}} style={style.bottomSheetBtn}>
+                            <FontAwesomeIcon icon={faTrash} size={18} color="rgba(0, 0, 0, 0.6)"/>
+                            <Text style={style.bottomSheetText}>Excluir</Text>
+                        </TouchableOpacity>
+                    </View>
+                </BottomSheet>
             </ScrollView>
         );
     }
@@ -128,14 +163,14 @@ const style = StyleSheet.create({
         fontFamily:'Roboto',
         fontWeight: '700',
         fontSize: 20,
-        color: '#434343',
+        color: 'rgba(0, 0, 0, 0.6)',
     },
     genero: {
         fontFamily:'Roboto',
         fontWeight: '700',
         fontSize: 20,
         textTransform: 'capitalize',
-        color: '#434343',
+        color: 'rgba(0, 0, 0, 0.6)',
     },
     descricaoContainer: {
         paddingVertical: 15,
@@ -150,7 +185,23 @@ const style = StyleSheet.create({
         fontSize: 18,
         lineHeight: 28,
         textTransform: 'capitalize',
-        color: '#434343',
+        color: 'rgba(0, 0, 0, 0.6)',
+    },
+    bottomSheet: {
+        paddingHorizontal: 40,
+        alignItems: 'flex-start',
+        paddingVertical: 20,
+        gap: 40,
+    },
+    bottomSheetBtn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 30,
+    },
+    bottomSheetText: {
+        color: '#000',
+        fontSize: 18,
+        fontWeight: '700',
     },
 });
 
