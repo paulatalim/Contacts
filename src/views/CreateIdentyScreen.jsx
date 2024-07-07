@@ -16,7 +16,7 @@ class CreateIdentyScreen extends Component {
         open: false,
         photo: null,
         name: '',
-        idade: 0,
+        idade: -1,
         gender: '',
         pronome: [],
         caracteristica: '',
