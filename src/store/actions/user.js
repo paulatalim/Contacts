@@ -1,14 +1,71 @@
-import { USER_LOGGED_IN, USER_LOGGED_OUT } from './actionTypes';
-
-export const login = user => {
-    return {
-        type: USER_LOGGED_IN,
-        payload: user,
-    };
-};
+import { SET_USER, USER_LOGGED_OUT } from './actionTypes';
+import axios from 'axios';
 
 export const logout = () => {
     return {
         type: USER_LOGGED_OUT,
+    };
+};
+
+export const singup = user => {
+    return dispatch => {
+        axios.get('/user.json')
+            .catch(err => console.log(err))
+            .then(res => {
+                const rawUser = res.data || [];
+
+                if (rawUser.filter(users => users.email === user.email).length === 0) {
+                    axios.post('/user.json', { ...user })
+                        .catch(err => console.log(err))
+                        .then(() => {
+                            axios.get('/user.json')
+                                .catch(err => console.log(err))
+                                .then(result => {
+                                    const users = result.data;
+
+                                    for (let key in users) {
+                                        if (rawUser[key].email === user.email) {
+                                            dispatch(setUser({ ...rawUser[key], id: key}));
+                                            break;
+                                        }
+                                    }
+                                });
+                    });
+                }
+            });
+    };
+};
+
+export const setUser = user => {
+    return {
+        type: SET_USER,
+        payload: user,
+    };
+};
+
+export const fetchUser = user => {
+    if (user.id === 0) {
+        return dispatch => {
+            axios.get('/user.json')
+                .catch(err => console.log(err))
+                .then(res => {
+                    const rawUser = res.data;
+
+                    for (let key in rawUser) {
+                        if (rawUser[key].email === user.email) {
+                            dispatch(setUser({ ...rawUser[key], id: key}));
+                            break;
+                        }
+                    }
+                });
+        };
+    }
+
+    return dispatch => {
+        axios.get('/user.json')
+            .catch(err => console.log(err))
+            .then(res => {
+                dispatch(setUser({...res.data[user.id], id: user.id}));
+            });
     };
 };
