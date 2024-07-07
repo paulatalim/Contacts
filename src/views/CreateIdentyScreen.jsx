@@ -50,16 +50,14 @@ class CreateIdentyScreen extends Component {
 
     requestExternalWritePermission = async () => {
         if (Platform.OS === 'android') {
-          try {
-            const granted = await PermissionsAndroid.request(
-              PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-              {
-                title: 'External Storage Write Permission',
-                message: 'App needs write permission',
-              },
-            );
+            try {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
+                        title: 'External Storage Write Permission',
+                        message: 'App needs write permission',
+                    });
 
-            return granted === PermissionsAndroid.RESULTS.GRANTED;
+                return granted === PermissionsAndroid.RESULTS.GRANTED;
           } catch (e) {
             console.warn(e);
           }
@@ -76,13 +74,13 @@ class CreateIdentyScreen extends Component {
         if (isCameraPermitted && isStoragePermitted) {
             const result = await launchCamera({
                 mediaType: 'photo',
+                includeBase64: true,
                 maxHeight: 300,
                 maxWidth: 300,
             });
 
             if (!result.didCancel) {
-                this.setState({photo: result.assets[0].uri});
-                this.save();
+                this.setState({photo: `data:image/png;base64,${result.assets[0].base64}`});
             }
         }
     };
@@ -90,18 +88,14 @@ class CreateIdentyScreen extends Component {
     pickImageLibrary = async () => {
         const result = await launchImageLibrary({
             mediaType: 'photo',
+            includeBase64: true,
             maxHeight: 300,
             maxWidth: 300,
         });
 
         if (!result.didCancel) {
-            this.setState({photo: result.assets[0].uri});
-            this.save();
+            this.setState({photo: `data:image/png;base64,${result.assets[0].base64}`});
         }
-    };
-
-    save = async () => {
-        console.log('Imagem adicionada');
     };
 
     setValue(callback) {
@@ -126,14 +120,17 @@ class CreateIdentyScreen extends Component {
 
     addIdenty = async () => {
         this.props.onAddIdenty({
-            id: this.props.identy.length + 1,
-            name: this.state.name,
-            pronome: this.formatPronome(),
-            genero: this.state.gender,
-            idade: this.state.idade,
-            caracteristica: this.state.caracteristica,
-            descricao: this.state.descricao,
-            photo: '',
+            id: this.props.id,
+            identy: {
+                id: this.props.identy ? this.props.identy[this.props.identy.length - 1].id + 1 : 0,
+                name: this.state.name,
+                pronome: this.formatPronome(),
+                genero: this.state.gender,
+                idade: this.state.idade,
+                caracteristica: this.state.caracteristica,
+                descricao: this.state.descricao,
+                photo: this.state.photo != null ? this.state.photo : '',
+            },
         });
     };
 
@@ -154,13 +151,13 @@ class CreateIdentyScreen extends Component {
 
                 {/* Imagem */}
                 <View style={style.containerImg}>
-                    <TouchableOpacity onPress={() => this.takePhoto.open()} >
+                    <TouchableOpacity onPress={() => this.takePhoto_uri.open()} >
                         {this.state.photo !== null ?
-                                <ImageBackground source={{uri: this.state.photo}} resizeMode="cover" style={style.img} imageStyle={style.imgSty}>
-                                    <View style={style.imgFiltro}>
-                                        <FontAwesomeIcon icon={faCamera} color="#FFF" size={40}/>
-                                    </View>
-                                </ImageBackground>
+                            <ImageBackground source={{ uri: this.state.photo }} resizeMode="cover" style={style.img} imageStyle={style.imgSty}>
+                                <View style={style.imgFiltro}>
+                                    <FontAwesomeIcon icon={faCamera} color="#FFF" size={40}/>
+                                </View>
+                            </ImageBackground>
                             : <View style={style.identyNoImage}>
                                 <FontAwesomeIcon icon={faCamera} color="#fff" size={40}/>
                             </View>
@@ -216,7 +213,7 @@ class CreateIdentyScreen extends Component {
                         labelStyle={style.dropDownLabelStyle}
                         containerStyle={style.dropDownContainer}
                         listItemLabelStyle={style.dropDownItemLabelStyle}
-                        badgeColors="#ffff00"
+                        badgeColors="#ffc700"
                         badgeDotColors="#FFF"
                         badgeTextStyle={style.dropDownBadgeTextStyle}
                     />
@@ -255,16 +252,16 @@ class CreateIdentyScreen extends Component {
 
                 <BottomSheet
                     ref={ref => {
-                        this.takePhoto = ref;
+                        this.takePhoto_uri = ref;
                     }}
-                    height={110}
+                    height={130}
                     closeOnDragDown
                     customStyles={{
                         wrapper: {
                             backgroundColor: 'transparent',
                         },
                         draggableIcon: {
-                            backgroundColor: '#00000000',
+                            backgroundColor: 'rgba(0, 0, 0, 0.4)',
                         },
                         container: {
                             borderTopLeftRadius: 30,
@@ -275,12 +272,12 @@ class CreateIdentyScreen extends Component {
                 >
                     <View style={style.bottomSheet}>
                         <TouchableOpacity onPress={this.pickImage} style={style.bottomSheetBtn}>
-                            <FontAwesomeIcon icon={faCamera} size={25}/>
+                            <FontAwesomeIcon icon={faCamera} size={25} color="rgba(0, 0, 0, 0.8)"/>
                             <Text style={style.bottomSheetText}>Tirar foto</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={this.pickImageLibrary} style={style.bottomSheetBtn}>
-                            <FontAwesomeIcon icon={faImage} size={25}/>
+                            <FontAwesomeIcon icon={faImage} size={25} color="rgba(0, 0, 0, 0.8)"/>
                             <Text style={style.bottomSheetText}>Selecionar foto</Text>
                         </TouchableOpacity>
                     </View>
@@ -301,7 +298,6 @@ const style = StyleSheet.create({
         marginBottom: 40,
     },
     header: {
-        // marginBottom: 1,
         paddingVertical: 40,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -320,7 +316,7 @@ const style = StyleSheet.create({
         color: '#000',
     },
     input: {
-        backgroundColor: '#ffffc0',
+        backgroundColor: '#ffc7004C',
         borderRadius: 15,
         padding: 15,
         marginBottom: 40,
@@ -359,7 +355,7 @@ const style = StyleSheet.create({
         width: 26,
     },
     areaText: {
-        backgroundColor: '#ffffc0',
+        backgroundColor: '#ffc7004C',
         borderRadius: 15,
         padding: 20,
         marginBottom: 60,
@@ -369,18 +365,19 @@ const style = StyleSheet.create({
         fontSize: 18,
     },
     button: {
-        backgroundColor: '#ffff00',
+        backgroundColor: '#ffc700',
         borderRadius: 50,
         marginBottom: 100,
         paddingVertical: 15,
         justifyContent: 'center',
         alignItems: 'center',
+        elevation: 10,
     },
     buttonText: {
         fontFamily: 'Roboto',
         fontWeight: '900',
         fontSize: 20,
-        color: '#000',
+        color: '#FFF',
     },
     containerImg: {
         marginBottom: 40,
@@ -416,7 +413,7 @@ const style = StyleSheet.create({
     },
     bottomSheet: {
         flexDirection: 'row',
-        paddingHorizontal: 70,
+        paddingHorizontal: 40,
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 10,
@@ -427,14 +424,17 @@ const style = StyleSheet.create({
     },
     bottomSheetText: {
         color: '#000',
-        fontSize: 15,
+        fontSize: 18,
         fontWeight: '700',
     },
 });
 
-const mapStateToProps = ({ identy }) => {
+const mapStateToProps = ({ user }) => {
     return {
-        identy: identy.identys,
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        identy: user.identy,
     };
 };
 
@@ -445,4 +445,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateIdentyScreen);
-// export default CreateIdentyScreen;
