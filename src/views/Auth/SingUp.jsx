@@ -1,7 +1,18 @@
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, StatusBar,ScrollView } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    Dimensions,
+    StatusBar,
+    ScrollView,
+} from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
+import { connect } from 'react-redux';
+import { singup } from '../../store/actions/user';
 import BoxGlass from '../../components/BoxGlass';
 
 class SingUp extends Component {
@@ -12,7 +23,12 @@ class SingUp extends Component {
     };
 
     register = () => {
-        // this.props.onRegister({...state})
+        this.props.onSingUp({
+            id: 0,
+            name: this.state.name,
+            email: this.state.email,
+            identy: null,
+         });
     };
 
     render() {
@@ -58,7 +74,7 @@ class SingUp extends Component {
                         cursorColor={'#FFF'}
                         />
                     <TouchableOpacity
-                        onPress={() => {this.props.navigation.navigate('Home');}}
+                        onPress={this.register}
                         style={style.btn}>
                         <Text style={style.btnTitle}>Cadastrar</Text>
                     </TouchableOpacity>
@@ -127,4 +143,10 @@ const style = StyleSheet.create({
     },
 });
 
-export default SingUp;
+const mapDispatchToProps = dispatch => {
+    return {
+        onSingUp: user => dispatch(singup(user)),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(SingUp);

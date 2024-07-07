@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faApple } from '@fortawesome/free-brands-svg-icons/faApple';
 import BoxGlass from '../../components/BoxGlass';
 import { connect } from 'react-redux';
-import { login } from '../../store/actions/user';
+import { fetchUser } from '../../store/actions/user';
 
 class SingIn extends Component {
     state = {
@@ -33,7 +33,12 @@ class SingIn extends Component {
     };
 
     login = () => {
-        this.props.onLogin({...this.state});
+        this.props.onLogin({
+            id: 0,
+            name: this.state.name,
+            email: this.state.email,
+            identy: null,
+        });
     };
 
     render() {
@@ -243,9 +248,8 @@ const style = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLogin: user => dispatch(login(user)),
+        onLogin: user => dispatch(fetchUser(user)),
     };
 };
 
-// export default SingIn;
 export default connect(null, mapDispatchToProps)(SingIn);
