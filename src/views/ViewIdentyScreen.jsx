@@ -40,20 +40,30 @@ class ViewIdenty extends Component {
                     <Text style={style.carac}>{this.props.actualIdenty.caracteristica}</Text>
                 </View>
 
-                <View style={style.info}>
-                    <Text style={style.title}>idade</Text>
-                    <Text style={style.idade}>{this.props.actualIdenty.idade} anos</Text>
-                </View>
+                { this.props.actualIdenty.idade !== -1 ?
+                    <View style={style.info}>
+                        <Text style={style.title}>idade</Text>
+                        <Text style={style.idade}>{this.props.actualIdenty.idade} anos</Text>
+                    </View>
+                    : <></>
+                }
 
-                <View style={style.info}>
-                    <Text style={style.title}>gênero</Text>
-                    <Text style={style.genero}>{this.props.actualIdenty.genero}</Text>
-                </View>
+                {this.props.genero ?
+                    <View style={style.info}>
+                        <Text style={style.title}>gênero</Text>
+                        <Text style={style.genero}>{this.props.actualIdenty.genero}</Text>
+                    </View>
+                    : <></>
+                }
 
-                <View style={style.descricaoContainer}>
-                    <Text style={style.title}>descrição</Text>
-                    <Text style={style.descricao}>{this.props.actualIdenty.descricao}</Text>
-                </View>
+                {this.props.descricao === '' ?
+                    <View style={style.descricaoContainer}>
+                        <Text style={style.title}>descrição</Text>
+                        <Text style={style.descricao}>{this.props.actualIdenty.descricao}</Text>
+                    </View>
+                    : <></>
+                }
+
                 <BottomSheet
                     ref={ref => {
                         this.manageIdenty = ref;
@@ -212,5 +222,3 @@ const mapStateToProps = ({actualIdenty}) => {
 };
 
 export default connect(mapStateToProps)(ViewIdenty);
-
-// export default ViewIdenty;
