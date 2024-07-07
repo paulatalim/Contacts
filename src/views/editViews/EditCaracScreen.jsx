@@ -3,12 +3,10 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
-import TagInput from '../../components/tagInput';
-
 import { connect } from 'react-redux';
 import { editIdenty } from '../../store/actions/identys';
 import { changeActualIdenty } from '../../store/actions/viewIdenty';
-
+import TagInput from '../../components/tagInput';
 
 class EditCarac extends Component {
     state = {
@@ -31,7 +29,6 @@ class EditCarac extends Component {
             photo: this.props.actualIdenty.photo,
         };
         this.props.onEdit(item);
-        this.props.onChange(item);
         this.props.navigation.goBack();
     };
 
@@ -97,16 +94,19 @@ const style = StyleSheet.create({
     },
 });
 
-const mapStateToProps = ({actualIdenty}) => {
+const mapStateToProps = ({ user, actualIdenty }) => {
     return {
+        id: user.id,
         actualIdenty: actualIdenty.identy,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onEdit: identy => dispatch(editIdenty(identy)),
-        onChange: identy => dispatch(changeActualIdenty(identy)),
+        onEdit: identy => {
+            dispatch(editIdenty({ id: this.props.id, identy: identy }));
+            dispatch(changeActualIdenty(identy));
+        },
     };
 };
 

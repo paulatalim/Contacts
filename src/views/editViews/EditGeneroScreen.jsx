@@ -24,7 +24,6 @@ class EditGenero extends Component {
             photo: this.props.actualIdenty.photo,
         };
         this.props.onEdit(item);
-        this.props.onChange(item);
         this.props.navigation.goBack();
     };
 
@@ -102,16 +101,19 @@ const style = StyleSheet.create({
     },
 });
 
-const mapStateToProps = ({actualIdenty}) => {
+const mapStateToProps = ({ user, actualIdenty }) => {
     return {
+        id: user.id,
         actualIdenty: actualIdenty.identy,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onEdit: identy => dispatch(editIdenty(identy)),
-        onChange: identy => dispatch(changeActualIdenty(identy)),
+        onEdit: identy => {
+            dispatch(editIdenty({ id: this.props.id, identy: identy }));
+            dispatch(changeActualIdenty(identy));
+        },
     };
 };
 
