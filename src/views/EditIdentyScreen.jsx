@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ImageBackground, TouchableOpacity, Text, PermissionsAndroid, Platform } from 'react-native';
+import {
+    View,
+    StyleSheet,
+    ImageBackground,
+    TouchableOpacity,
+    Text,
+    PermissionsAndroid,
+    Platform,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -7,7 +15,6 @@ import { faImage, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import BottomSheet from '@nonam4/react-native-bottom-sheet';
-
 import Campo from '../components/identyEditInfo';
 
 class EditIdentyScreen extends Component {
@@ -122,7 +129,7 @@ class EditIdentyScreen extends Component {
                 <Campo name="Nome" data={this.props.actualIdenty.name} route="EditarNome" />
                 <Campo name="Pronome" data={this.props.actualIdenty.pronome} route="EditarPronome" />
                 <Campo name="Gênero" data={this.props.actualIdenty.genero} route="EditarGenero" />
-                <Campo name="Idade" data={this.props.actualIdenty.idade} route="EditarIdade" />
+                <Campo name="Idade" data={this.props.actualIdenty.idade !== -1 ? this.props.actualIdenty.idade : ''} route="EditarIdade" />
                 <Campo name="Característica" data={this.props.actualIdenty.caracteristica} route="EditarCaracteristica" />
                 <Campo name="Descrição" data={this.props.actualIdenty.descricao} route="EditarDescricao" />
                 <BottomSheet
@@ -232,7 +239,7 @@ const style = StyleSheet.create({
     },
 });
 
-const mapStateToProps = ({actualIdenty}) => {
+const mapStateToProps = ({ actualIdenty }) => {
     return {
         actualIdenty: actualIdenty.identy,
     };
