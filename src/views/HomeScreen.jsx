@@ -4,13 +4,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
 import { connect } from 'react-redux';
 import { changeActualIdenty } from '../store/actions/viewIdenty';
-
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons/faEllipsisVertical';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { fetchUser } from '../store/actions/user';
 
 class Home extends Component {
+    componentDidMount = () => {
+        this.props.onFetchIdenty({id: this.props.id });
+    };
+
     render() {
         const getIdenty = ({item}) => {
+            if (item === null) {
+                return <></>;
+            }
+
             return (
                 <TouchableOpacity
                     onPress={() => {
@@ -51,7 +59,7 @@ class Home extends Component {
                 <FlatList
                     data={this.props.identy}
                     renderItem={getIdenty}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item ? item.id : -1}
                     />
                 <TouchableOpacity
                     style={style.floatActionButton}
@@ -133,15 +141,17 @@ const style = StyleSheet.create({
     },
 });
 
-const mapStateToProps = ({ identy }) => {
+const mapStateToProps = ({ user }) => {
     return {
-        identy: identy.identys,
+        id: user.id,
+        identy: user.identy,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         onSelectIdenty: identy => dispatch(changeActualIdenty(identy)),
+        onFetchIdenty: user => dispatch(fetchUser(user)),
     };
 };
 
