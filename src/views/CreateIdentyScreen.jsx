@@ -68,20 +68,18 @@ class CreateIdentyScreen extends Component {
     };
 
     pickImage = async () => {
-        const isCameraPermitted = await this.requestCameraPermission();
-        const isStoragePermitted = await this.requestExternalWritePermission();
+        await this.requestCameraPermission();
+        await this.requestExternalWritePermission();
 
-        if (isCameraPermitted && isStoragePermitted) {
-            const result = await launchCamera({
-                mediaType: 'photo',
-                includeBase64: true,
-                maxHeight: 300,
-                maxWidth: 300,
-            });
+        const result = await launchCamera({
+            mediaType: 'photo',
+            includeBase64: true,
+            maxHeight: 300,
+            maxWidth: 300,
+        });
 
-            if (!result.didCancel) {
-                this.setState({ photo: result.assets[0].uri });
-            }
+        if (!result.didCancel) {
+            this.setState({ photo: result.assets[0].uri });
         }
     };
 
