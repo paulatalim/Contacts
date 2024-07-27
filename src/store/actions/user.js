@@ -44,28 +44,22 @@ export const setUser = user => {
 };
 
 export const fetchUser = user => {
-    if (user.id === 0) {
-        return dispatch => {
-            axios.get('/user.json')
-                .catch(err => console.log(err))
-                .then(res => {
-                    const rawUser = res.data;
-
-                    for (let key in rawUser) {
-                        if (rawUser[key].email === user.email) {
-                            dispatch(setUser({ ...rawUser[key], id: key}));
-                            break;
-                        }
-                    }
-                });
-        };
-    }
-
     return dispatch => {
         axios.get('/user.json')
             .catch(err => console.log(err))
             .then(res => {
-                dispatch(setUser({...res.data[user.id], id: user.id}));
+                if (user.id !== 0) {
+                    dispatch(setUser({...res.data[user.id], id: user.id}));
+                }
+
+                const rawUser = res.data;
+
+                for (let key in rawUser) {
+                    if (rawUser[key].email === user.email) {
+                        dispatch(setUser({ ...rawUser[key], id: key}));
+                        break;
+                    }
+                }
             });
     };
 };

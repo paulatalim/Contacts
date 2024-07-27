@@ -1,42 +1,69 @@
-import { EDIT_IDENTY, DELETE_IDENTY } from './actionTypes';
 import { fetchUser } from './user';
+import storage from '@react-native-firebase/storage';
 import axios from 'axios';
 
+const uploadImageToStorage = async (uri) => {
+    const filename = uri.substring(uri.lastIndexOf('/') + 1);
+    const task = storage().ref(filename).putFile(uri);
+
+    try {
+        await task;
+        const url = await storage().ref(filename).getDownloadURL();
+        return url;
+    } catch (e) { console.error(e); }
+
+    return null;
+};
+
+const deleteImageStorage = url => {
+    const uri = url.substring(0, url.indexOf('?'));
+    storage().refFromURL(uri).delete();
+};
+
 export const addIdenty = identy => {
-// axios({
-//     url: 'uploadImage',
-//     baseURL: '',
-//     method: 'post',
-//     data: {
-//         image: identy.photo
-//     }
-// })
-// .catch(err => console.log(err))
-
-
     return dispatch => {
         axios.get(`/user/${identy.id}.json`)
             .catch(err => console.log(err))
-            .then(res => {
+            .then(async res => {
                 const identys = res.data ? res.data.identys || [] : [];
-                identys.push(identy.identy);
+                const img_url = await uploadImageToStorage(identy.identy.photo);
+
+                identys.push({...identy.identy, photo: img_url});
+
                 axios.patch(`/user/${identy.id}.json`, { identys })
                     .catch(err => console.log(err))
-                    .then(result => dispatch(fetchUser(identy)));
+                    .then(() => dispatch(fetchUser({identy})));
             });
     };
 };
 
 export const editIdenty = identy => {
-    return {
-        type: EDIT_IDENTY,
-        payload: identy,
+    return dispatch => {
+        axios.get(`/user/${identy.id}.json`)
+            .catch(err => console.log(err))
+            .then(res => {
+                let identys = res.data ? res.data.identys || [] : [];
+                identys = identys.map(item => item !== null && item.id === identy.identy.id ? identy.identy : item);
+                axios.patch(`/user/${identy.id}.json`, { identys })
+                    .catch(err => console.log(err))
+                    .then(() => dispatch(fetchUser(identy)));
+            });
     };
 };
 
 export const deleteIdenty = identy => {
-    return {
-        type: DELETE_IDENTY,
-        payload: identy,
+    return dispatch => {
+        axios.get(`/user/${identy.id}.json`)
+            .catch(err => console.log(err))
+            .then(async res => {
+                let identys = res.data ? res.data.identys || [] : [];
+
+                deleteImageStorage(identys.filter(item => item !== null && item.id === identy.identy.id)[0].photo);
+
+                identys = identys.filter(item => item !== null && item.id !== identy.identy.id);
+                axios.patch(`/user/${identy.id}.json`, { identys })
+                    .catch(err => console.log(err))
+                    .then(() => dispatch(fetchUser(identy)));
+            });
     };
 };
