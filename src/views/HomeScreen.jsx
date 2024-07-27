@@ -10,7 +10,7 @@ import { fetchUser } from '../store/actions/user';
 
 class Home extends Component {
     componentDidMount = () => {
-        this.props.onFetchIdenty({id: this.props.id });
+        this.props.onFetchIdenty({ id: this.props.id });
     };
 
     render() {
