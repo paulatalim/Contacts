@@ -80,7 +80,7 @@ class CreateIdentyScreen extends Component {
             });
 
             if (!result.didCancel) {
-                this.setState({photo: `data:image/png;base64,${result.assets[0].base64}`});
+                this.setState({ photo: result.assets[0].uri });
             }
         }
     };
@@ -94,7 +94,7 @@ class CreateIdentyScreen extends Component {
         });
 
         if (!result.didCancel) {
-            this.setState({photo: `data:image/png;base64,${result.assets[0].base64}`});
+            this.setState({ photo: result.assets[0].uri });
         }
     };
 
