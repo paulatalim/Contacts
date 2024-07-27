@@ -5,11 +5,17 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { connect } from 'react-redux';
+import { deleteIdenty } from '../store/actions/identys';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import BottomSheet from '@nonam4/react-native-bottom-sheet';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 
 class ViewIdenty extends Component {
+    delete = () => {
+        this.props.onDeleteIdenty({ id: this.props.id, identy: this.props.actualIdenty });
+        this.props.navigation.goBack();
+    };
+
     render() {
         return (
             <ScrollView>
@@ -90,7 +96,7 @@ class ViewIdenty extends Component {
                             <Text style={style.bottomSheetText}>Editar</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => {}} style={style.bottomSheetBtn}>
+                        <TouchableOpacity onPress={() => this.delete()} style={style.bottomSheetBtn}>
                             <FontAwesomeIcon icon={faTrash} size={18} color="rgba(0, 0, 0, 0.6)"/>
                             <Text style={style.bottomSheetText}>Excluir</Text>
                         </TouchableOpacity>
@@ -215,10 +221,17 @@ const style = StyleSheet.create({
     },
 });
 
-const mapStateToProps = ({actualIdenty}) => {
+const mapStateToProps = ({ user, actualIdenty}) => {
     return {
+        id: user.id,
         actualIdenty: actualIdenty.identy,
     };
 };
 
-export default connect(mapStateToProps)(ViewIdenty);
+const mapDispatchToProps = dispatch => {
+    return {
+        onDeleteIdenty: identy => dispatch(deleteIdenty(identy)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewIdenty);
