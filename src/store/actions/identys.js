@@ -26,9 +26,13 @@ export const addIdenty = identy => {
             .catch(err => console.log(err))
             .then(async res => {
                 const identys = res.data ? res.data.identys || [] : [];
-                const img_url = await uploadImageToStorage(identy.identy.photo);
 
-                identys.push({...identy.identy, photo: img_url});
+                if (identy.identy.photo !== '') {
+                    const img_url = await uploadImageToStorage(identy.identy.photo);
+                    identys.push({...identy.identy, photo: img_url});
+                } else {
+                    identys.push(identy.identy);
+                }
 
                 axios.patch(`/user/${identy.id}.json`, { identys })
                     .catch(err => console.log(err))
@@ -58,7 +62,9 @@ export const deleteIdenty = identy => {
             .then(async res => {
                 let identys = res.data ? res.data.identys || [] : [];
 
-                deleteImageStorage(identys.filter(item => item !== null && item.id === identy.identy.id)[0].photo);
+                if (identy.identy.photo !== '') {
+                    deleteImageStorage(identys.filter(item => item !== null && item.id === identy.identy.id)[0].photo);
+                }
 
                 identys = identys.filter(item => item !== null && item.id !== identy.identy.id);
                 axios.patch(`/user/${identy.id}.json`, { identys })
