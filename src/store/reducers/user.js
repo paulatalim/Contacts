@@ -1,8 +1,5 @@
 import {
     USER_LOGGED_OUT,
-    ADD_IDENTY,
-    EDIT_IDENTY,
-    DELETE_IDENTY,
     SET_USER,
 } from '../actions/actionTypes';
 
@@ -30,21 +27,6 @@ const reducer = (state = initState, action) => {
                 name: null,
                 email: null,
                 identy: null,
-            };
-        case ADD_IDENTY:
-            return {
-                ...state,
-                identy: state.identy.concat({...action.payload}),
-            };
-        case EDIT_IDENTY:
-            return {
-                ...state,
-                identy: state.identy.map(item => item.id === action.payload.id ? action.payload : item),
-            };
-        case DELETE_IDENTY:
-            return {
-                ...state,
-                identy: state.identy.filter(identy => identy.id !== action.payload),
             };
         default:
             return state;
