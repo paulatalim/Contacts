@@ -45,9 +45,25 @@ export const editIdenty = identy => {
     return dispatch => {
         axios.get(`/user/${identy.id}.json`)
             .catch(err => console.log(err))
-            .then(res => {
+            .then(async res => {
                 let identys = res.data ? res.data.identys || [] : [];
-                identys = identys.map(item => item !== null && item.id === identy.identy.id ? identy.identy : item);
+                const identyeditphoto = identys.filter(item => item !== null && item.id === identy.identy.id)[0].photo;
+
+                if (identy.identy.photo !== identyeditphoto) {
+                    if (identyeditphoto !== '') {
+                        deleteImageStorage(identyeditphoto);
+                    }
+
+                    if (identy.identy.photo !== '') {
+                        const img_url = await uploadImageToStorage(identy.identy.photo);
+                        identys = identys.map(item => item !== null && item.id === identy.identy.id ? {...identy.identy, photo: img_url} : item);
+                    } else {
+                        identys = identys.map(item => item !== null && item.id === identy.identy.id ? {...identy.identy, photo: ''} : item);
+                    }
+                } else {
+                    identys = identys.map(item => item !== null && item.id === identy.identy.id ? identy.identy : item);
+                }
+
                 axios.patch(`/user/${identy.id}.json`, { identys })
                     .catch(err => console.log(err))
                     .then(() => dispatch(fetchUser(identy)));

@@ -8,6 +8,8 @@ import {
     PermissionsAndroid,
     Platform,
 } from 'react-native';
+import { editIdenty } from '../store/actions/identys';
+import { changeActualIdenty } from '../store/actions/viewIdenty';
 import { connect } from 'react-redux';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -63,20 +65,18 @@ class EditIdentyScreen extends Component {
     };
 
     pickImage = async () => {
-        const isCameraPermitted = await this.requestCameraPermission();
-        const isStoragePermitted = await this.requestExternalWritePermission();
+        await this.requestCameraPermission();
+        await this.requestExternalWritePermission();
 
-        if (isCameraPermitted && isStoragePermitted) {
-            const result = await launchCamera({
-                mediaType: 'photo',
-                maxHeight: 300,
-                maxWidth: 300,
-            });
+        const result = await launchCamera({
+            mediaType: 'photo',
+            maxHeight: 300,
+            maxWidth: 300,
+        });
 
-            if (!result.didCancel) {
-                this.setState({image: result.assets[0].uri});
-                this.save();
-            }
+        if (!result.didCancel) {
+            this.setState({image: result.assets[0].uri});
+            this.save();
         }
     };
 
@@ -94,7 +94,14 @@ class EditIdentyScreen extends Component {
     };
 
     save = async () => {
-        console.log('Imagem adicionada');
+        const item = {
+            id: this.props.id,
+            identy: {
+                ...this.props.actualIdenty,
+                photo: this.state.image,
+            },
+        };
+        this.props.onEdit(item);
     };
 
     render() {
@@ -239,10 +246,20 @@ const style = StyleSheet.create({
     },
 });
 
-const mapStateToProps = ({ actualIdenty }) => {
+const mapStateToProps = ({ user, actualIdenty }) => {
     return {
+        id: user.id,
         actualIdenty: actualIdenty.identy,
     };
 };
 
-export default connect(mapStateToProps)(EditIdentyScreen);
+const mapDispatchToProps = dispatch => {
+    return {
+        onEdit: identy => {
+            dispatch(editIdenty(identy));
+            dispatch(changeActualIdenty(identy.identy));
+        },
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditIdentyScreen);
