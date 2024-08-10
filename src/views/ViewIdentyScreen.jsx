@@ -54,7 +54,7 @@ class ViewIdenty extends Component {
                     : <></>
                 }
 
-                {this.props.genero ?
+                { this.props.actualIdenty.genero !== '' ?
                     <View style={style.info}>
                         <Text style={style.title}>gênero</Text>
                         <Text style={style.genero}>{this.props.actualIdenty.genero}</Text>
@@ -62,7 +62,7 @@ class ViewIdenty extends Component {
                     : <></>
                 }
 
-                {this.props.descricao === '' ?
+                { this.props.actualIdenty.descricao !== '' ?
                     <View style={style.descricaoContainer}>
                         <Text style={style.title}>descrição</Text>
                         <Text style={style.descricao}>{this.props.actualIdenty.descricao}</Text>
