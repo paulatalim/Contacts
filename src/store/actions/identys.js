@@ -36,7 +36,7 @@ export const addIdenty = identy => {
 
                 axios.patch(`/user/${identy.id}.json`, { identys })
                     .catch(err => console.log(err))
-                    .then(() => dispatch(fetchUser({identy})));
+                    .then(() => dispatch(fetchUser(identy)));
             });
     };
 };

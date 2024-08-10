@@ -118,7 +118,7 @@ class CreateIdentyScreen extends Component {
 
     addIdenty = async () => {
         this.props.onAddIdenty({
-            id: this.props.id,
+            ...this.props.user,
             identy: {
                 id: this.props.identy ? this.props.identy[this.props.identy.length - 1].id + 1 : 0,
                 name: this.state.name,
@@ -429,9 +429,7 @@ const style = StyleSheet.create({
 
 const mapStateToProps = ({ user }) => {
     return {
-        id: user.id,
-        name: user.name,
-        email: user.email,
+        user: user,
         identy: user.identy,
     };
 };
