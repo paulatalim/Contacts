@@ -6,7 +6,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
 
 export default ({init = null, save}) => {
-	const [tags, setTags] = useState(init === null ? [] : init.split(', '));
+	const [tags, setTags] = useState(init === null || init === '' ? [] : init.split(', '));
 	const [text, setText] = useState('');
 	const [editIndex, setEditIndex] = useState(null);
 
