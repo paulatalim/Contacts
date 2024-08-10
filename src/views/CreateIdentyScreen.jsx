@@ -107,7 +107,7 @@ class CreateIdentyScreen extends Component {
     };
 
     formatPronome = () => {
-        let str = this.state.pronome[0];
+        let str = this.state.pronome.length > 0 ? this.state.pronome[0] : '';
 
         for (let i = 1; i < this.state.pronome.length; i++) {
             str += ', ' + this.state.pronome[i];
