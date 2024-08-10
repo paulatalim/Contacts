@@ -15,7 +15,8 @@ import { changeActualIdenty } from '../../store/actions/viewIdenty';
 
 class EditPronomeScreen extends Component {
     state = {
-        pronome: this.props.actualIdenty.pronome !== '' ? this.props.actualIdenty.pronome.split(', ') : [],
+        pronome: this.props.actualIdenty.pronome !== '' ? this.props.actualIdenty.pronome.includes(', ') ? this.props.actualIdenty.pronome.split(', ') : [this.props.actualIdenty.pronome] : [],
+        // pronome: [],
         open: false,
     };
 
@@ -43,20 +44,18 @@ class EditPronomeScreen extends Component {
 
     editPronome = async () => {
         const item = {
-            id: this.props.actualIdenty.id,
-            name: this.props.actualIdenty.name,
-            pronome: this.formatPronome(),
-            genero: this.props.actualIdenty.genero,
-            idade: this.props.actualIdenty.idade,
-            caracteristica: this.props.actualIdenty.caracteristica,
-            descricao: this.props.actualIdenty.descricao,
-            photo: this.props.actualIdenty.photo,
+            id: this.props.id,
+            identy: {
+                ...this.props.actualIdenty,
+                pronome: this.formatPronome(),
+            },
         };
         this.props.onEdit(item);
         this.props.navigation.goBack();
     };
 
     render() {
+        console.log(this.props.actualIdenty.pronome)
         return (
             <View style={style.container}>
                 <View style={style.header}>
@@ -174,8 +173,8 @@ const mapStateToProps = ({ user, actualIdenty }) => {
 const mapDispatchToProps = dispatch => {
     return {
         onEdit: identy => {
-            dispatch(editIdenty({ id: this.props.id, identy: identy }));
-            dispatch(changeActualIdenty(identy));
+            dispatch(editIdenty(identy));
+            dispatch(changeActualIdenty(identy.identy));
         },
     };
 };

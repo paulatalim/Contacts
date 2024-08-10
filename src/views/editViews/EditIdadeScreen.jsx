@@ -9,19 +9,16 @@ import { changeActualIdenty } from '../../store/actions/viewIdenty';
 
 class EditIdade extends Component {
     state = {
-        idade: this.props.actualIdenty.idade.toString(),
+        idade: this.props.actualIdenty.idade !== -1 ? this.props.actualIdenty.idade.toString() : '',
     };
 
     editIdade = async () => {
         const item = {
-            id: this.props.actualIdenty.id,
-            name: this.props.actualIdenty.name,
-            pronome: this.props.actualIdenty.pronome,
-            genero: this.props.actualIdenty.genero,
-            idade: parseInt(this.state.idade, 10),
-            caracteristica: this.props.actualIdenty.caracteristica,
-            descricao: this.props.actualIdenty.descricao,
-            photo: this.props.actualIdenty.photo,
+            id: this.props.id,
+            identy: {
+                ...this.props.actualIdenty,
+                idade: this.state.idade ? parseInt(this.state.idade, 10) : -1,
+            },
         };
         this.props.onEdit(item);
         this.props.navigation.goBack();
@@ -111,8 +108,8 @@ const mapStateToProps = ({ user, actualIdenty }) => {
 const mapDispatchToProps = dispatch => {
     return {
         onEdit: identy => {
-            dispatch(editIdenty({ id: this.props.id, identy: identy }));
-            dispatch(changeActualIdenty(identy));
+            dispatch(editIdenty(identy));
+            dispatch(changeActualIdenty(identy.identy));
         },
     };
 };

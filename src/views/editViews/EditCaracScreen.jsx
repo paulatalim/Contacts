@@ -19,14 +19,11 @@ class EditCarac extends Component {
 
     editCaracteristica = async () => {
         const item = {
-            id: this.props.actualIdenty.id,
-            name: this.props.actualIdenty.name,
-            pronome: this.props.actualIdenty.pronome,
-            genero: this.props.actualIdenty.genero,
-            idade: this.props.actualIdenty.idade,
-            caracteristica: this.state.caracteristica,
-            descricao: this.props.actualIdenty.descricao,
-            photo: this.props.actualIdenty.photo,
+            id: this.props.id,
+            identy: {
+                ...this.props.actualIdenty,
+                caracteristica: this.state.caracteristica,
+            },
         };
         this.props.onEdit(item);
         this.props.navigation.goBack();
@@ -104,8 +101,8 @@ const mapStateToProps = ({ user, actualIdenty }) => {
 const mapDispatchToProps = dispatch => {
     return {
         onEdit: identy => {
-            dispatch(editIdenty({ id: this.props.id, identy: identy }));
-            dispatch(changeActualIdenty(identy));
+            dispatch(editIdenty(identy));
+            dispatch(changeActualIdenty(identy.identy));
         },
     };
 };

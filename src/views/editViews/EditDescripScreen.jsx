@@ -14,14 +14,11 @@ class EditDescrip extends Component {
 
     editDescrip = async () => {
         const item = {
-            id: this.props.actualIdenty.id,
-            name: this.props.actualIdenty.name,
-            pronome: this.props.actualIdenty.pronome,
-            genero: this.props.actualIdenty.genero,
-            idade: this.props.actualIdenty.idade,
-            caracteristica: this.props.actualIdenty.caracteristica,
-            descricao: this.state.descrip,
-            photo: this.props.actualIdenty.photo,
+            id: this.props.id,
+            identy: {
+                ...this.props.actualIdenty,
+                descricao: this.state.descrip,
+            },
         };
         this.props.onEdit(item);
         this.props.navigation.goBack();
@@ -111,8 +108,8 @@ const mapStateToProps = ({ user, actualIdenty }) => {
 const mapDispatchToProps = dispatch => {
     return {
         onEdit: identy => {
-            dispatch(editIdenty({ id: this.props.id, identy: identy }));
-            dispatch(changeActualIdenty(identy));
+            dispatch(editIdenty(identy));
+            dispatch(changeActualIdenty(identy.identy));
         },
     };
 };
