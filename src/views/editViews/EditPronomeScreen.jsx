@@ -16,7 +16,6 @@ import { changeActualIdenty } from '../../store/actions/viewIdenty';
 class EditPronomeScreen extends Component {
     state = {
         pronome: this.props.actualIdenty.pronome !== '' ? this.props.actualIdenty.pronome.includes(', ') ? this.props.actualIdenty.pronome.split(', ') : [this.props.actualIdenty.pronome] : [],
-        // pronome: [],
         open: false,
     };
 
@@ -55,7 +54,6 @@ class EditPronomeScreen extends Component {
     };
 
     render() {
-        console.log(this.props.actualIdenty.pronome)
         return (
             <View style={style.container}>
                 <View style={style.header}>
