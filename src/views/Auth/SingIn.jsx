@@ -15,7 +15,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faApple } from '@fortawesome/free-brands-svg-icons/faApple';
 import BoxGlass from '../../components/BoxGlass';
 import { connect } from 'react-redux';
-import { fetchUser } from '../../store/actions/user';
+import { fetchUser, singup } from '../../store/actions/user';
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
+// GoogleSignin.configure({
+//     webClientId: '897362002662-kihdbmlmur6gsj5s3mi7m9o808j0m5s4.apps.googleusercontent.com',
+//     offlineAccess: true,
+// });
 
 class SingIn extends Component {
     state = {
@@ -28,10 +35,6 @@ class SingIn extends Component {
         this.props.onLogin({...this.state});
     };
 
-    googleLogin = () => {
-        this.props.onLogin({...this.state});
-    };
-
     login = () => {
         this.props.onLogin({
             id: 0,
@@ -39,6 +42,34 @@ class SingIn extends Component {
             email: this.state.email,
             identy: null,
         });
+    };
+
+    googleLogin = async () => {
+        try {
+            // Verifica se o dispositivo tem suporte para Google Play
+            await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+
+            // Obtém o ID token do usuário
+            const { idToken } = await GoogleSignin.signIn();
+
+            // Cria uma credencial do Google com o token
+            const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+            // Faz o login no Firebase com a credencial
+            await auth().signInWithCredential(googleCredential);
+
+            console.log('Login com Google realizado com sucesso!');
+
+            this.setState({...this.state, email: idToken});
+            this.props.onGoogleLoginIn({
+                id: 0,
+                name: this.state.name,
+                email: this.state.email,
+                identy: null,
+            });
+        } catch (error) {
+            console.error('Erro ao fazer login com Google: ', error.message);
+        }
     };
 
     render() {
@@ -249,6 +280,7 @@ const style = StyleSheet.create({
 const mapDispatchToProps = dispatch => {
     return {
         onLogin: user => dispatch(fetchUser(user)),
+        onGoogleLoginIn: user => dispatch(singup(user)),
     };
 };
 

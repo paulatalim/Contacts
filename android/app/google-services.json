@@ -13,7 +13,12 @@
           "package_name": "com.identy"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "897362002662-kihdbmlmur6gsj5s3mi7m9o808j0m5s4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD3cwdCNTaMFtiVUMkATZPykYiuR1WhktY"
@@ -21,26 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:897362002662:android:8c771f1fb5ea3f43a83127",
-        "android_client_info": {
-          "package_name": "com.paulatalim.identy"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD3cwdCNTaMFtiVUMkATZPykYiuR1WhktY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "897362002662-kihdbmlmur6gsj5s3mi7m9o808j0m5s4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
