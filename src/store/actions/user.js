@@ -14,7 +14,7 @@ export const singup = user => {
             .then(res => {
                 const rawUser = res.data || [];
 
-                if (rawUser.filter(users => users.email === user.email).length === 0) {
+                if (Object.values(rawUser).filter(users => users.email === user.email).length === 0) {
                     axios.post('/user.json', { ...user })
                         .catch(err => console.log(err))
                         .then(() => {
@@ -24,13 +24,15 @@ export const singup = user => {
                                     const users = result.data;
 
                                     for (let key in users) {
-                                        if (rawUser[key].email === user.email) {
-                                            dispatch(setUser({ ...rawUser[key], id: key}));
+                                        if (users[key].email === user.email) {
+                                            dispatch(setUser({ ...users[key], id: key}));
                                             break;
                                         }
                                     }
                                 });
                     });
+                } else {
+                    fetchUser(user);
                 }
             });
     };
