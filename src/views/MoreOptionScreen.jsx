@@ -3,7 +3,8 @@ import { StyleSheet, TouchableOpacity, Text, View, StatusBar  } from 'react-nati
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons/faRightFromBracket';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
-import DropDownPicker from 'react-native-dropdown-picker';
+// import DropDownPicker from 'react-native-dropdown-picker';
+import auth from '@react-native-firebase/auth';
 import { connect } from 'react-redux';
 import { logout } from '../store/actions/user';
 
@@ -24,10 +25,11 @@ class MoreOptions extends Component {
     }
 
     logout = () => {
+        auth().signOut();
         this.props.onLogout();
     };
 
-   render() {
+    render() {
         return (
             <View style={style.body}>
                 <StatusBar backgroundColor={'#ffffc0'} />
@@ -39,10 +41,13 @@ class MoreOptions extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={style.perfil}>
-                    <Text style={style.name}>{this.props.name}</Text>
-                    <Text style={style.email}>{ this.props.email }</Text>
+                    <Text style={style.name}>{ this.props.name }</Text>
+                    { this.props.email.lenght < 30 ?
+                        <Text style={style.email}>{ this.props.email }</Text>
+                        : <></>
+                    }
                 </View>
-                <View style={style.setting}>
+                {/* <View style={style.setting}>
                     <Text style={style.settingTitle}>Configurações</Text>
                     <View style={style.settingContainer}>
                         <Text style={style.idioma}>Idioma</Text>
@@ -60,7 +65,7 @@ class MoreOptions extends Component {
                             listItemLabelStyle={style.dropDownItemLabelStyle}
                         />
                     </View>
-                </View>
+                </View> */}
                 <TouchableOpacity
                     style={style.logout}
                     onPress={this.logout}
