@@ -19,16 +19,11 @@ import { fetchUser, singup } from '../../store/actions/user';
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-// GoogleSignin.configure({
-//     webClientId: '897362002662-kihdbmlmur6gsj5s3mi7m9o808j0m5s4.apps.googleusercontent.com',
-//     offlineAccess: true,
-// });
-
 class SingIn extends Component {
     state = {
         name: 'Aleatorio',
-        email: 'email@gmail.com',
-        password: '',
+        email: 'jane.doe@example.com',
+        password: 'SuperSecretPassword!',
     };
 
     iosLogin = () => {
@@ -36,12 +31,28 @@ class SingIn extends Component {
     };
 
     login = () => {
-        this.props.onLogin({
-            id: 0,
-            name: this.state.name,
-            email: this.state.email,
-            identy: null,
-        });
+        auth()
+            .signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(() => {
+                this.props.onLogin({
+                    id: 0,
+                    name: this.state.name,
+                    email: this.state.email,
+                    identy: null,
+                });
+                console.log('user singed in');
+            })
+            .catch(error => {
+                if (error.code === 'auth/email-already-in-use') {
+                console.log('That email address is already in use!');
+                }
+
+                if (error.code === 'auth/invalid-email') {
+                console.log('That email address is invalid!');
+                }
+
+                console.error(error);
+            });
     };
 
     googleLogin = async () => {
@@ -61,6 +72,15 @@ class SingIn extends Component {
             console.log('Login com Google realizado com sucesso!');
 
             this.setState({...this.state, email: idToken});
+
+            fetch('https://randomuser.me/api/')
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        this.setState({...this.state, name: result.results[0].name.first});
+                    }
+                );
+
             this.props.onGoogleLoginIn({
                 id: 0,
                 name: this.state.name,

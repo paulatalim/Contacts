@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { connect } from 'react-redux';
 import { singup } from '../../store/actions/user';
+import auth from '@react-native-firebase/auth';
 import BoxGlass from '../../components/BoxGlass';
 
 class SingUp extends Component {
@@ -23,12 +24,28 @@ class SingUp extends Component {
     };
 
     register = () => {
-        this.props.onSingUp({
-            id: 0,
-            name: this.state.name,
-            email: this.state.email,
-            identy: null,
-         });
+        auth()
+            .createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then(() => {
+                this.props.onSingUp({
+                    id: 0,
+                    name: this.state.name,
+                    email: this.state.email,
+                    identy: null,
+                 });
+                console.log('User account created & signed in!');
+            })
+            .catch(error => {
+                if (error.code === 'auth/email-already-in-use') {
+                console.log('That email address is already in use!');
+                }
+
+                if (error.code === 'auth/invalid-email') {
+                console.log('That email address is invalid!');
+                }
+
+                console.error(error);
+            });
     };
 
     render() {
