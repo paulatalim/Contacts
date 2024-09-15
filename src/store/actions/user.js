@@ -32,7 +32,7 @@ export const singup = user => {
                                 });
                     });
                 } else {
-                    fetchUser(user);
+                    dispatch(fetchUser(user));
                 }
             });
     };
