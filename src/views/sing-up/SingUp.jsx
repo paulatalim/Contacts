@@ -14,7 +14,7 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { connect } from 'react-redux';
 import { singup } from '../../store/actions/user';
 import auth from '@react-native-firebase/auth';
-import BoxGlass from '../../components/BoxGlass';
+import BoxGlass from './widget/BoxGlass';
 
 class SingUp extends Component {
     state = {
