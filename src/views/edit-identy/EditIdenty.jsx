@@ -17,7 +17,7 @@ import { faImage, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import BottomSheet from '@nonam4/react-native-bottom-sheet';
-import Campo from './widget/identyEditInfo';
+// import Campo from './widget/identyEditInfo';
 
 class EditContactScreen extends Component {
     state = {
@@ -133,7 +133,7 @@ class EditContactScreen extends Component {
                         }
                     </TouchableOpacity>
                 </View>
-                <Campo name="Nome" data={this.props.actualContact.name} route="EditarNome" />
+                {/* <Campo name="Nome" data={this.props.actualContact.name} route="EditarNome" /> */}
                 {/* <Campo name="Pronome" data={this.props.actualContact.pronome} route="EditarPronome" />
                 <Campo name="Gênero" data={this.props.actualContact.genero} route="EditarGenero" />
                 <Campo name="Idade" data={this.props.actualContact.idade !== -1 ? this.props.actualContact.idade : ''} route="EditarIdade" />

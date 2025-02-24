@@ -98,7 +98,7 @@ class Contact extends Component {
                     }}
                 >
                     <View style={style.bottomSheet}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('IndentidadeEdit')} style={style.bottomSheetBtn}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('/contact/edit')} style={style.bottomSheetBtn}>
                             <FontAwesomeIcon icon={faPen} size={18} color="rgba(0, 0, 0, 0.6)"/>
                             <Text style={style.bottomSheetText}>Editar</Text>
                         </TouchableOpacity>

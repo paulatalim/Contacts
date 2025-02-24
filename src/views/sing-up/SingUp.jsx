@@ -59,7 +59,7 @@ class SingUp extends Component {
                 <View style={style.content}>
                     <View style={style.header}>
                         <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('SingIn')}
+                            onPress={() => this.props.navigation.navigate('/singin')}
                             style={style.btnIcon}
                             >
                             <FontAwesomeIcon icon={faChevronLeft} color="#FFF" size={25} style={style.icon} />

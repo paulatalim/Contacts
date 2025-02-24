@@ -164,7 +164,7 @@ class SingIn extends Component {
                             <TouchableOpacity
                                 style={style.btnCriarConta}
                                 onPress={() => {
-                                    this.props.navigation.navigate('SingUp');
+                                    this.props.navigation.navigate('/singup');
                                 }}
                                 >
                                 <Text style={style.btnCriarContaText}>Criar conta</Text>

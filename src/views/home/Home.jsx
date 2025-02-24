@@ -22,7 +22,6 @@ class Home extends Component {
 
     render() {
         const getContact = ({item}) => {
-            console.log()
             if (item === null) {
                 return <></>;
             }
@@ -30,7 +29,7 @@ class Home extends Component {
                 <TouchableOpacity
                     onPress={() => {
                         this.props.onSelectContact({...item});
-                        this.props.navigation.navigate('VizualizarIdentidade', {id: item.id});
+                        this.props.navigation.navigate('/contact', {id: item.id});
                     }}>
                     <View style={style.identyContainer}>
                         {item.photo !== '' ?
@@ -58,7 +57,7 @@ class Home extends Component {
                     <Text style={style.headerText}>Contatos</Text>
                     <TouchableOpacity
                         style={style.moreOption}
-                        onPress={() => this.props.navigation.navigate('MoreInfo')}
+                        onPress={() => this.props.navigation.navigate('/more')}
                     >
                         <FontAwesomeIcon icon={faEllipsisVertical} color="#000" size={23} style={style.moreOption}/>
                     </TouchableOpacity>
@@ -71,7 +70,7 @@ class Home extends Component {
                 <TouchableOpacity
                     style={style.floatActionButton}
                     onPress={() => {
-                        this.props.navigation.navigate('CriarIdentidade');
+                        this.props.navigation.navigate('/contact/new');
                     }}
                     >
                     <FontAwesomeIcon icon={faAdd} size={30} color="#FFF" />

@@ -6,7 +6,7 @@ import Home from '../views/home/Home';
 import editIndenty from '../views/edit-identy/EditIdenty';
 import newIdenty from '../views/new-identy/NewIdenty';
 import identy from '../views/view-identy/ViewIdenty';
-import editName from '../views/edit-name/EditName';
+// import editName from '../views/edit-name/EditName';
 import SingIn from '../views/sing-in/SingIn';
 import SingUp from '../views/sing-up/SingUp';
 import MoreInfo from '../views/more-option/MoreOption';
@@ -22,17 +22,17 @@ const Routes = props => {
             initialRouteName={isSignedIn ? 'Home' : 'SingIn'}>
             {isSignedIn ? (
                 <>
-                    <Stack.Screen name="Home" component={Home} />
-                    <Stack.Screen name="VizualizarIdentidade" component={identy} />
-                    <Stack.Screen name="IndentidadeEdit" component={editIndenty}/>
-                    <Stack.Screen name="CriarIdentidade" component={newIdenty} />
-                    <Stack.Screen name="EditarNome" component={editName} />
-                    <Stack.Screen name="MoreInfo" component={MoreInfo} />
+                    <Stack.Screen name="/" component={Home} />
+                    <Stack.Screen name="/contact" component={identy} />
+                    <Stack.Screen name="/contact/edit" component={editIndenty}/>
+                    <Stack.Screen name="contact/new" component={newIdenty} />
+                    {/* <Stack.Screen name="EditarNome" component={editName} /> */}
+                    <Stack.Screen name="/more" component={MoreInfo} />
                 </>
             ) : (
                 <>
-                    <Stack.Screen name="SingIn" component={SingIn} />
-                    <Stack.Screen name="SingUp" component={SingUp} />
+                    <Stack.Screen name="/singin" component={SingIn} />
+                    <Stack.Screen name="/singup" component={SingUp} />
                 </>
             )}
         </Stack.Navigator>
