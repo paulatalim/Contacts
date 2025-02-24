@@ -10,15 +10,15 @@ import {
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { changeActualContact } from '../../store/actions/view-contact';
+import { changeActualContact } from '../../domain/actions/view-contact';
 import { faImage, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import BottomSheet from '@nonam4/react-native-bottom-sheet';
-import { editContact } from '../../store/actions/contacts';
+import { editContact } from '../../domain/actions/contacts';
 import { style } from './style/edit-contact-style';
 import { connect } from 'react-redux';
 
-class EditContactScreen extends Component {
+class EditContact extends Component {
     state = {
         image: this.props.actualContact.photo,
     };
@@ -193,4 +193,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditContactScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(EditContact);

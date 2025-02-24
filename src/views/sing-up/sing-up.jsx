@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { singup } from '../../store/actions/user';
+import { singup } from '../../domain/actions/user';
 import auth from '@react-native-firebase/auth';
 import BoxGlass from './widget/BoxGlass';
 import { connect } from 'react-redux';

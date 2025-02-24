@@ -15,7 +15,7 @@ const reducer = (state = initState, action) => {
         case VIEW_CONTACT:
             return {
                 ...state,
-                CONVIEW_CONTACT: action.payload,
+                contact: action.payload,
             };
         default:
             return state;

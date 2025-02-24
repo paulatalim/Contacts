@@ -13,7 +13,7 @@ import {
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faApple } from '@fortawesome/free-brands-svg-icons/faApple';
-import { fetchUser, singup } from '../../store/actions/user';
+import { fetchUser, singup } from '../../domain/actions/user';
 import auth from '@react-native-firebase/auth';
 import BoxGlass from './widget/BoxGlass';
 import { connect } from 'react-redux';

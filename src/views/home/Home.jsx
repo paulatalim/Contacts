@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons/faEllipsisVertical';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { changeActualContact } from '../../store/actions/view-contact';
+import { changeActualContact } from '../../domain/actions/view-contact';
 import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { fetchUser } from '../../store/actions/user';
+import { fetchUser } from '../../domain/actions/user';
 import { style } from './style/home-style';
 import { connect } from 'react-redux';
 

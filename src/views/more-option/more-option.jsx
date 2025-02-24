@@ -8,7 +8,7 @@ import {
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons/faRightFromBracket';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
-import { logout } from '../../store/actions/user';
+import { logout } from '../../domain/actions/user';
 import { style } from './style/more-option-style';
 import auth from '@react-native-firebase/auth';
 import { connect } from 'react-redux';

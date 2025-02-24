@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
-import Stack from './routes';
+import Stack from './shared/routes';
 
 const App = () => {
     SystemNavigationBar.setBarMode('dark', 'both');

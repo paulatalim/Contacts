@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { deleteContact } from '../../store/actions/contacts';
+import { deleteContact } from '../../domain/actions/contacts';
 import BottomSheet from '@nonam4/react-native-bottom-sheet';
 import { style } from './style/contact-style';
 import { connect } from 'react-redux';
@@ -25,7 +25,7 @@ class Contact extends Component {
 
     render() {
         return (
-            <ScrollView>
+            <ScrollView style={style.screen}>
                 <View style={style.principal}>
                     <View style={style.header}>
                         <TouchableOpacity
@@ -33,12 +33,8 @@ class Contact extends Component {
                             >
                             <FontAwesomeIcon icon={faChevronLeft} size={20} color="rgba(0, 0, 0, 0.5)"/>
                         </TouchableOpacity>
-                        <View style={style.headerContent}>
-                            <Text style={style.name}>{this.props.contact.name}</Text>
-                            <Text style={style.pronome}>{this.props.contact.pronome}</Text>
-                        </View>
                         <TouchableOpacity
-                            onPress={() => this.manageIdenty.open()}
+                            onPress={() => this.manageContact.open()}
                             >
                             <FontAwesomeIcon icon={faEllipsisV} size={20} color="rgba(0, 0, 0, 0.5)"/>
                         </TouchableOpacity>
@@ -47,39 +43,18 @@ class Contact extends Component {
                         <Image style={style.img} source={{uri: this.props.contact.photo}} sharedTransionTag="tag" />
 
                         : <View style={style.imgUser}>
-                            <FontAwesomeIcon icon={faUser} color="#fff" size={150}/>
+                            <FontAwesomeIcon icon={faUser} color="#fff" size={50}/>
                         </View>
                     }
-                    <Text style={style.carac}>{this.props.contact.caracteristica}</Text>
+                    <Text style={style.name}>{this.props.contact.name}</Text>
                 </View>
 
-                {/* { this.props.contact.idade !== -1 ?
-                    <View style={style.info}>
-                        <Text style={style.title}>idade</Text>
-                        <Text style={style.idade}>{this.props.contact.idade} anos</Text>
-                    </View>
-                    : <></>
-                }
-
-                { this.props.contact.genero !== '' ?
-                    <View style={style.info}>
-                        <Text style={style.title}>gênero</Text>
-                        <Text style={style.genero}>{this.props.contact.genero}</Text>
-                    </View>
-                    : <></>
-                }
-
-                { this.props.contact.descricao !== '' ?
-                    <View style={style.descricaoContainer}>
-                        <Text style={style.title}>descrição</Text>
-                        <Text style={style.descricao}>{this.props.contact.descricao}</Text>
-                    </View>
-                    : <></>
-                } */}
+                <Text>Telefone</Text>
+                <Text>Email</Text>
 
                 <BottomSheet
                     ref={ref => {
-                        this.manageIdenty = ref;
+                        this.manageContact = ref;
                     }}
                     height={180}
                     closeOnDragDown

@@ -15,7 +15,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 import { faImage } from '@fortawesome/free-regular-svg-icons';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import BottomSheet from '@nonam4/react-native-bottom-sheet';
-import { addContact } from '../../store/actions/contacts';
+import { addContact } from '../../domain/actions/contacts';
 import { style } from './style/new-contact-style';
 import { connect } from 'react-redux';
 
