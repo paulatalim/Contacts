@@ -2,19 +2,14 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { connect } from 'react-redux';
 
-import Home from '../views/HomeScreen';
-import editIndenty from '../views/EditIdentyScreen';
-import newIdenty from '../views/CreateIdentyScreen';
-import identy from '../views/ViewIdentyScreen';
-import editName from '../views/editViews/EditNameSreen';
-import EditCarac from '../views/editViews/EditCaracScreen';
-import EditDescrip from '../views/editViews/EditDescripScreen';
-import EditPronome from '../views/editViews/EditPronomeScreen';
-import editIdade from '../views/editViews/EditIdadeScreen';
-import editGenero from '../views/editViews/EditGeneroScreen';
-import SingIn from '../views/Auth/SingIn';
-import SingUp from '../views/Auth/SingUp';
-import MoreInfo from '../views/MoreOptionScreen';
+import Home from '../views/home/Home';
+import editIndenty from '../views/edit-identy/EditIdenty';
+import newIdenty from '../views/new-identy/NewIdenty';
+import identy from '../views/view-identy/ViewIdenty';
+import editName from '../views/edit-name/EditName';
+import SingIn from '../views/sing-in/SingIn';
+import SingUp from '../views/sing-up/SingUp';
+import MoreInfo from '../views/more-option/MoreOption';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,25 +18,21 @@ const Routes = props => {
 
     return (
         <Stack.Navigator
+            screenOptions={{ headerShown: false }}
             initialRouteName={isSignedIn ? 'Home' : 'SingIn'}>
             {isSignedIn ? (
                 <>
-                    <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-                    <Stack.Screen name="VizualizarIdentidade" component={identy} options={{ headerShown: false }} />
-                    <Stack.Screen name="IndentidadeEdit" component={editIndenty} options={{ headerShown: false }}/>
-                    <Stack.Screen name="CriarIdentidade" component={newIdenty} options={{ headerShown: false }} />
-                    <Stack.Screen name="EditarNome" component={editName} options={{ headerShown: false }} />
-                    <Stack.Screen name="EditarIdade" component={editIdade} options={{ headerShown: false }} />
-                    <Stack.Screen name="EditarGenero" component={editGenero} options={{ headerShown: false }} />
-                    <Stack.Screen name="EditarCaracteristica" component={EditCarac} options={{ headerShown: false }} />
-                    <Stack.Screen name="EditarPronome" component={EditPronome} options={{ headerShown: false }} />
-                    <Stack.Screen name="EditarDescricao" component={EditDescrip} options={{ headerShown: false }} />
-                    <Stack.Screen name="MoreInfo" component={MoreInfo} options={{ headerShown: false }} />
+                    <Stack.Screen name="Home" component={Home} />
+                    <Stack.Screen name="VizualizarIdentidade" component={identy} />
+                    <Stack.Screen name="IndentidadeEdit" component={editIndenty}/>
+                    <Stack.Screen name="CriarIdentidade" component={newIdenty} />
+                    <Stack.Screen name="EditarNome" component={editName} />
+                    <Stack.Screen name="MoreInfo" component={MoreInfo} />
                 </>
             ) : (
                 <>
-                    <Stack.Screen name="SingIn" component={SingIn} options={{ headerShown: false }} />
-                    <Stack.Screen name="SingUp" component={SingUp} options={{ headerShown: false }} />
+                    <Stack.Screen name="SingIn" component={SingIn} />
+                    <Stack.Screen name="SingUp" component={SingUp} />
                 </>
             )}
         </Stack.Navigator>
