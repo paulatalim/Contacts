@@ -3,7 +3,6 @@ import {
     View,
     Text,
     TextInput,
-    StyleSheet,
     ScrollView,
     TouchableOpacity,
     ImageBackground,
@@ -17,6 +16,7 @@ import { faImage } from '@fortawesome/free-regular-svg-icons';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import BottomSheet from '@nonam4/react-native-bottom-sheet';
 import { addContact } from '../../store/actions/contacts';
+import { style } from './style/new-contact-style';
 import { connect } from 'react-redux';
 
 class NewContact extends Component {
@@ -27,12 +27,6 @@ class NewContact extends Component {
         number: '',
         email: '',
     };
-
-    // pronomes = [
-    //     {label: 'Ele/dele', value: 'Ele/dele'},
-    //     {label: 'Ela/dela', value: 'Ela/dela'},
-    //     {label: 'Elu/delu', value: 'Elu/delu'},
-    // ];
 
     requestCameraPermission = async () => {
         if (Platform.OS === 'android') {
@@ -101,26 +95,6 @@ class NewContact extends Component {
         }
     };
 
-    setValue(callback) {
-        this.setState(state => ({
-          pronome: callback(state.pronome),
-        }));
-    }
-
-    // updateCarac = (caracteristica) => {
-    //     this.setState({caracteristica: caracteristica});
-    // };
-
-    // formatPronome = () => {
-    //     let str = this.state.pronome.length > 0 ? this.state.pronome[0] : '';
-
-    //     for (let i = 1; i < this.state.pronome.length; i++) {
-    //         str += ', ' + this.state.pronome[i];
-    //     }
-
-    //     return str;
-    // };
-
     addContact = async () => {
         this.props.onAddContact({
             ...this.props.user,
@@ -174,73 +148,6 @@ class NewContact extends Component {
                     value={this.name}
                     />
 
-                {/* Idade *
-                {/* <TextInput
-                    style={style.input}
-                    placeholder="Idade"
-                    placeholderTextColor={'#787855'}
-                    onChangeText={idade => this.setState({idade: parseInt(idade, 10)})}
-                    value={this.idade}
-                    keyboardType="numeric"
-                    />
-
-                {/* Genero *
-                <TextInput
-                    style={style.input}
-                    placeholder="Gênero"
-                    placeholderTextColor={'#787855'}
-                    onChangeText={gender => this.setState({gender})}
-                    value={this.gender}
-                    autoComplete="gender"
-                    />
-
-                {/* Pronomes *
-                <View style={style.selectView}>
-                    <Text style={style.selectTitle}>Pronomes</Text>
-                    <DropDownPicker
-                        open={this.state.open}
-                        value={this.state.pronome}
-                        items={this.pronomes}
-                        setOpen={open => this.setState({open})}
-                        setValue={value => this.setValue(value)}
-                        multiple
-                        listMode="SCROLLVIEW"
-                        mode="BADGE"
-                        placeholder="Selecionar pronome"
-                        arrowIconStyle={style.dropDownIcon}
-                        style={style.dropDown}
-                        dropDownContainerStyle={style.dropDownContainerStyle}
-                        labelStyle={style.dropDownLabelStyle}
-                        containerStyle={style.dropDownContainer}
-                        listItemLabelStyle={style.dropDownItemLabelStyle}
-                        badgeColors="#ffc700"
-                        badgeDotColors="#FFF"
-                        badgeTextStyle={style.dropDownBadgeTextStyle}
-                    />
-                </View>
-
-                {/* Caracteristicas *
-                <View style={style.selectView}>
-                    <Text style={style.selectTitle}>Características Principais</Text>
-                    <TagInput save={this.updateCarac}/>
-                </View>
-
-                {/* Descricao *
-                <View>
-                    <Text style={style.selectTitle}>Descrição</Text>
-                    <TextInput
-                        style={style.areaText}
-                        placeholder="Descrição da identidade ..."
-                        textAlign="left"
-                        placeholderTextColor={'#787855'}
-                        value={this.descricao}
-                        onChangeText={descricao => this.setState({descricao})}
-                        multiline={true}
-                        numberOfLines={1}
-                        maxLength={200}
-                        />
-                </View> */}
-
                 {/* Botao Salvar */}
                 <TouchableOpacity style={style.button}
                     onPress={() => {
@@ -286,148 +193,6 @@ class NewContact extends Component {
         );
     }
 }
-
-const style = StyleSheet.create({
-    container: {
-        backgroundColor: '#ffffff',
-        paddingBottom: 50,
-        paddingHorizontal: 25,
-        flex: 1,
-    },
-    selectView: {
-        marginBottom: 40,
-    },
-    header: {
-        paddingVertical: 40,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    headerTitle: {
-        color: '#000',
-        fontFamily: 'Roboto',
-        fontWeight: '800',
-        fontSize: 26,
-    },
-    selectTitle: {
-        marginBottom: 10,
-        fontSize: 18,
-        fontWeight: '700',
-        color: '#000',
-    },
-    input: {
-        backgroundColor: '#ffc7004C',
-        borderRadius: 15,
-        padding: 15,
-        marginBottom: 40,
-        color: '#000',
-        fontFamily: 'Roboto',
-        fontWeight: '600',
-        fontSize: 18,
-    },
-    dropDown: {
-        borderColor: 'rgb(0,0,0,0.2)',
-        backgroundColor: '#fffff0',
-    },
-    dropDownContainerStyle: {
-        borderRadius: 20,
-        borderColor: 'rgb(0,0,0,0.2)',
-        backgroundColor: '#fffff0',
-        elevation: 5,
-    },
-    dropDownLabelStyle: {
-        fontSize: 18,
-        fontWeight: '400',
-        color: '#000',
-    },
-    dropDownItemLabelStyle: {
-        fontSize: 18,
-        fontWeight: '400',
-        color: '#000',
-    },
-    dropDownBadgeTextStyle: {
-        color: '#000',
-        fontSize: 18,
-        fontWeight: '600',
-    },
-    dropDownIcon: {
-        tintColor: '#00000090',
-        width: 26,
-    },
-    areaText: {
-        backgroundColor: '#ffc7004C',
-        borderRadius: 15,
-        padding: 20,
-        marginBottom: 60,
-        color: '#000',
-        fontFamily: 'Roboto',
-        fontWeight: '500',
-        fontSize: 18,
-    },
-    button: {
-        backgroundColor: '#ffc700',
-        borderRadius: 50,
-        marginBottom: 100,
-        paddingVertical: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        elevation: 10,
-    },
-    buttonText: {
-        fontFamily: 'Roboto',
-        fontWeight: '900',
-        fontSize: 20,
-        color: '#FFF',
-    },
-    containerImg: {
-        marginBottom: 40,
-        paddingVertical: 15,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    img: {
-        width: 150,
-        height: 150,
-        borderRadius: 75,
-    },
-    imgSty: {
-        borderRadius: 150,
-    },
-    imgFiltro: {
-        backgroundColor: '#0000004D',
-        width: 150,
-        height: 150,
-        borderRadius: 75,
-        display:'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    identyNoImage: {
-        backgroundColor: 'rgba(255, 199, 0, 0.6)',
-        width: 150,
-        height: 150,
-        borderRadius: 100,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    bottomSheet: {
-        flexDirection: 'row',
-        paddingHorizontal: 40,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingVertical: 10,
-    },
-    bottomSheetBtn: {
-        alignItems: 'center',
-        gap: 15,
-    },
-    bottomSheetText: {
-        color: '#000',
-        fontSize: 18,
-        fontWeight: '700',
-    },
-});
 
 const mapStateToProps = ({ user }) => {
     return {

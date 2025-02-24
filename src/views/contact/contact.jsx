@@ -14,7 +14,7 @@ import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { deleteContact } from '../../store/actions/contacts';
 import BottomSheet from '@nonam4/react-native-bottom-sheet';
-import { style } from './style/ViewIdentyStyle';
+import { style } from './style/contact-style';
 import { connect } from 'react-redux';
 
 class Contact extends Component {
