@@ -58,7 +58,6 @@ export const fetchUser = user => {
 
                 for (let key in rawUser) {
                     if (rawUser[key].email === user.email) {
-                        console.log(rawUser[key].contacts)
                         dispatch(setUser({ ...rawUser[key], id: key}));
                         break;
                     }
