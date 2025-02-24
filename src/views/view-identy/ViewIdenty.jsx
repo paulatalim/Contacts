@@ -12,30 +12,30 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { deleteContact } from '../../store/actions/contacts';
 import BottomSheet from '@nonam4/react-native-bottom-sheet';
-import { deleteIdenty } from '../store/actions/identys';
-import Style from './style/ViewIdentyStyle';
+import { style } from './style/ViewIdentyStyle';
 import { connect } from 'react-redux';
 
-class ViewIdenty extends Component {
+class Contact extends Component {
     delete = () => {
-        this.props.onDeleteIdenty({ id: this.props.id, identy: this.props.actualIdenty });
+        this.props.onDeleteContact({ id: this.props.id, contact: this.props.contact });
         this.props.navigation.goBack();
     };
 
     render() {
         return (
             <ScrollView>
-                <View style={Style.principal}>
-                    <View style={Style.header}>
+                <View style={style.principal}>
+                    <View style={style.header}>
                         <TouchableOpacity
                             onPress={() => this.props.navigation.goBack()}
                             >
                             <FontAwesomeIcon icon={faChevronLeft} size={20} color="rgba(0, 0, 0, 0.5)"/>
                         </TouchableOpacity>
-                        <View style={Style.headerContent}>
-                            <Text style={Style.name}>{this.props.actualIdenty.name}</Text>
-                            <Text style={Style.pronome}>{this.props.actualIdenty.pronome}</Text>
+                        <View style={style.headerContent}>
+                            <Text style={style.name}>{this.props.contact.name}</Text>
+                            <Text style={style.pronome}>{this.props.contact.pronome}</Text>
                         </View>
                         <TouchableOpacity
                             onPress={() => this.manageIdenty.open()}
@@ -43,39 +43,39 @@ class ViewIdenty extends Component {
                             <FontAwesomeIcon icon={faEllipsisV} size={20} color="rgba(0, 0, 0, 0.5)"/>
                         </TouchableOpacity>
                     </View>
-                    {this.props.actualIdenty.photo !== '' ?
-                        <Image style={Style.img} source={{uri: this.props.actualIdenty.photo}} sharedTransionTag="tag" />
+                    {this.props.contact.photo !== '' ?
+                        <Image style={style.img} source={{uri: this.props.contact.photo}} sharedTransionTag="tag" />
 
-                        : <View style={Style.imgUser}>
+                        : <View style={style.imgUser}>
                             <FontAwesomeIcon icon={faUser} color="#fff" size={150}/>
                         </View>
                     }
-                    <Text style={Style.carac}>{this.props.actualIdenty.caracteristica}</Text>
+                    <Text style={style.carac}>{this.props.contact.caracteristica}</Text>
                 </View>
 
-                { this.props.actualIdenty.idade !== -1 ?
-                    <View style={Style.info}>
-                        <Text style={Style.title}>idade</Text>
-                        <Text style={Style.idade}>{this.props.actualIdenty.idade} anos</Text>
+                {/* { this.props.contact.idade !== -1 ?
+                    <View style={style.info}>
+                        <Text style={style.title}>idade</Text>
+                        <Text style={style.idade}>{this.props.contact.idade} anos</Text>
                     </View>
                     : <></>
                 }
 
-                { this.props.actualIdenty.genero !== '' ?
-                    <View style={Style.info}>
-                        <Text style={Style.title}>gênero</Text>
-                        <Text style={Style.genero}>{this.props.actualIdenty.genero}</Text>
+                { this.props.contact.genero !== '' ?
+                    <View style={style.info}>
+                        <Text style={style.title}>gênero</Text>
+                        <Text style={style.genero}>{this.props.contact.genero}</Text>
                     </View>
                     : <></>
                 }
 
-                { this.props.actualIdenty.descricao !== '' ?
-                    <View style={Style.descricaoContainer}>
-                        <Text style={Style.title}>descrição</Text>
-                        <Text style={Style.descricao}>{this.props.actualIdenty.descricao}</Text>
+                { this.props.contact.descricao !== '' ?
+                    <View style={style.descricaoContainer}>
+                        <Text style={style.title}>descrição</Text>
+                        <Text style={style.descricao}>{this.props.contact.descricao}</Text>
                     </View>
                     : <></>
-                }
+                } */}
 
                 <BottomSheet
                     ref={ref => {
@@ -97,15 +97,15 @@ class ViewIdenty extends Component {
                         },
                     }}
                 >
-                    <View style={Style.bottomSheet}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('IndentidadeEdit')} style={Style.bottomSheetBtn}>
+                    <View style={style.bottomSheet}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('IndentidadeEdit')} style={style.bottomSheetBtn}>
                             <FontAwesomeIcon icon={faPen} size={18} color="rgba(0, 0, 0, 0.6)"/>
-                            <Text style={Style.bottomSheetText}>Editar</Text>
+                            <Text style={style.bottomSheetText}>Editar</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => this.delete()} style={Style.bottomSheetBtn}>
+                        <TouchableOpacity onPress={() => this.delete()} style={style.bottomSheetBtn}>
                             <FontAwesomeIcon icon={faTrash} size={18} color="rgba(0, 0, 0, 0.6)"/>
-                            <Text style={Style.bottomSheetText}>Excluir</Text>
+                            <Text style={style.bottomSheetText}>Excluir</Text>
                         </TouchableOpacity>
                     </View>
                 </BottomSheet>
@@ -114,17 +114,17 @@ class ViewIdenty extends Component {
     }
 }
 
-const mapStateToProps = ({ user, actualIdenty}) => {
+const mapStateToProps = ({ user, actualContact }) => {
     return {
         id: user.id,
-        actualIdenty: actualIdenty.identy,
+        contact: actualContact.contact,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onDeleteIdenty: identy => dispatch(deleteIdenty(identy)),
+        onDeleteIdenty: identy => dispatch(deleteContact(identy)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewIdenty);
+export default connect(mapStateToProps, mapDispatchToProps)(Contact);

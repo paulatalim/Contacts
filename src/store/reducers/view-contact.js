@@ -1,24 +1,21 @@
-import { VIEW_IDENTY } from '../actions/actionTypes';
+import { VIEW_CONTACT } from '../actions/action-types';
 
 const initState = {
-    identy: {
+    contact: {
         id: -1,
         name: '',
-        pronome: '',
-        genero: '',
-        idade: -1,
-        caracteristica: '',
-        descricao: '',
         photo: '',
+        number: '',
+        email: '',
     },
 };
 
 const reducer = (state = initState, action) => {
     switch (action.type) {
-        case VIEW_IDENTY:
+        case VIEW_CONTACT:
             return {
                 ...state,
-                identy: action.payload,
+                CONVIEW_CONTACT: action.payload,
             };
         default:
             return state;

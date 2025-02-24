@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
-import { connect } from 'react-redux';
-import { changeActualIdenty } from '../store/actions/viewIdenty';
+import {
+    View,
+    FlatList,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    Image,
+} from 'react-native';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons/faEllipsisVertical';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { changeActualContact } from '../../store/actions/view-contact';
+import { faAdd } from '@fortawesome/free-solid-svg-icons/faAdd';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { fetchUser } from '../store/actions/user';
+import { fetchUser } from '../../store/actions/user';
+import { connect } from 'react-redux';
 
 class Home extends Component {
     componentDidMount = () => {
-        this.props.onFetchIdenty({ id: this.props.id });
+        this.props.onFetchContact({ id: this.props.id });
     };
 
     render() {
-        const getIdenty = ({item}) => {
+        const getContact = ({item}) => {
+            console.log()
             if (item === null) {
                 return <></>;
             }
-
             return (
                 <TouchableOpacity
                     onPress={() => {
-                        this.props.onSelectIdenty({...item});
+                        this.props.onSelectContact({...item});
                         this.props.navigation.navigate('VizualizarIdentidade', {id: item.id});
                     }}>
                     <View style={style.identyContainer}>
@@ -38,7 +45,7 @@ class Home extends Component {
                         }
                         <View style={style.identyText}>
                             <Text style={style.identyName}>{item.name}</Text>
-                            <Text style={style.identyCaract}>{item.caracteristica}</Text>
+                            {/* <Text style={style.identyCaract}>{item.caracteristica}</Text> */}
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -48,7 +55,7 @@ class Home extends Component {
         return (
             <>
                 <View style={style.header}>
-                    <Text style={style.headerText}>Identidades</Text>
+                    <Text style={style.headerText}>Contatos</Text>
                     <TouchableOpacity
                         style={style.moreOption}
                         onPress={() => this.props.navigation.navigate('MoreInfo')}
@@ -57,8 +64,8 @@ class Home extends Component {
                     </TouchableOpacity>
                 </View>
                 <FlatList
-                    data={this.props.identy}
-                    renderItem={getIdenty}
+                    data={this.props.contact}
+                    renderItem={getContact}
                     keyExtractor={item => item ? item.id : -1}
                     />
                 <TouchableOpacity
@@ -144,14 +151,14 @@ const style = StyleSheet.create({
 const mapStateToProps = ({ user }) => {
     return {
         id: user.id,
-        identy: user.identy,
+        contact: user.contacts,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSelectIdenty: identy => dispatch(changeActualIdenty(identy)),
-        onFetchIdenty: user => dispatch(fetchUser(user)),
+        onSelectContact: contact => dispatch(changeActualContact(contact)),
+        onFetchContact: user => dispatch(fetchUser(user)),
     };
 };
 

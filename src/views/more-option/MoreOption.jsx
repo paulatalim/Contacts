@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, StatusBar  } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {
+    StyleSheet,
+    TouchableOpacity,
+    Text,
+    View,
+    StatusBar,
+} from 'react-native';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons/faRightFromBracket';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
-// import DropDownPicker from 'react-native-dropdown-picker';
+import { logout } from '../../store/actions/user';
 import auth from '@react-native-firebase/auth';
 import { connect } from 'react-redux';
-import { logout } from '../store/actions/user';
 
 class MoreOptions extends Component {
     state = {

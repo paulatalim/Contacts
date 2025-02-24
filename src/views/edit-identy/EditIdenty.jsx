@@ -8,8 +8,8 @@ import {
     PermissionsAndroid,
     Platform,
 } from 'react-native';
-import { editIdenty } from '../store/actions/identys';
-import { changeActualIdenty } from '../store/actions/viewIdenty';
+import { editContact } from '../../store/actions/contacts';
+import { changeActualContact } from '../../store/actions/view-contact';
 import { connect } from 'react-redux';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -17,11 +17,11 @@ import { faImage, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import BottomSheet from '@nonam4/react-native-bottom-sheet';
-import Campo from '../components/identyEditInfo';
+import Campo from './widget/identyEditInfo';
 
-class EditIdentyScreen extends Component {
+class EditContactScreen extends Component {
     state = {
-        image: this.props.actualIdenty.photo,
+        image: this.props.actualContact.photo,
     };
 
     requestCameraPermission = async () => {
@@ -96,8 +96,8 @@ class EditIdentyScreen extends Component {
     save = async () => {
         const item = {
             id: this.props.id,
-            identy: {
-                ...this.props.actualIdenty,
+            Contact: {
+                ...this.props.actualContact,
                 photo: this.state.image,
             },
         };
@@ -121,24 +121,24 @@ class EditIdentyScreen extends Component {
                 </View>
                 <View style={style.containerImg}>
                     <TouchableOpacity onPress={() => this.takePhoto.open()} >
-                        {this.props.actualIdenty.photo !== '' ?
+                        {this.props.actualContact.photo !== '' ?
                                 <ImageBackground source={{uri: this.state.image}} resizeMode="cover" style={style.img} imageStyle={style.imgSty}>
                                     <View style={style.imgFiltro}>
                                         <FontAwesomeIcon icon={faCamera} color="#FFF" size={40}/>
                                     </View>
                                 </ImageBackground>
-                            : <View style={style.identyNoImage}>
+                            : <View style={style.ContactNoImage}>
                                 <FontAwesomeIcon icon={faUser} color="#fff" size={60}/>
                             </View>
                         }
                     </TouchableOpacity>
                 </View>
-                <Campo name="Nome" data={this.props.actualIdenty.name} route="EditarNome" />
-                <Campo name="Pronome" data={this.props.actualIdenty.pronome} route="EditarPronome" />
-                <Campo name="Gênero" data={this.props.actualIdenty.genero} route="EditarGenero" />
-                <Campo name="Idade" data={this.props.actualIdenty.idade !== -1 ? this.props.actualIdenty.idade : ''} route="EditarIdade" />
-                <Campo name="Característica" data={this.props.actualIdenty.caracteristica} route="EditarCaracteristica" />
-                <Campo name="Descrição" data={this.props.actualIdenty.descricao} route="EditarDescricao" />
+                <Campo name="Nome" data={this.props.actualContact.name} route="EditarNome" />
+                {/* <Campo name="Pronome" data={this.props.actualContact.pronome} route="EditarPronome" />
+                <Campo name="Gênero" data={this.props.actualContact.genero} route="EditarGenero" />
+                <Campo name="Idade" data={this.props.actualContact.idade !== -1 ? this.props.actualContact.idade : ''} route="EditarIdade" />
+                <Campo name="Característica" data={this.props.actualContact.caracteristica} route="EditarCaracteristica" />
+                <Campo name="Descrição" data={this.props.actualContact.descricao} route="EditarDescricao" /> */}
                 <BottomSheet
                     ref={ref => {
                         this.takePhoto = ref;
@@ -220,7 +220,7 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    identyNoImage: {
+    ContactNoImage: {
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
         width: 150,
         height: 150,
@@ -246,20 +246,20 @@ const style = StyleSheet.create({
     },
 });
 
-const mapStateToProps = ({ user, actualIdenty }) => {
+const mapStateToProps = ({ user, actualContact }) => {
     return {
         id: user.id,
-        actualIdenty: actualIdenty.identy,
+        actualContact: actualContact.contact,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onEdit: identy => {
-            dispatch(editIdenty(identy));
-            dispatch(changeActualIdenty(identy.identy));
+        onEdit: contact => {
+            dispatch(editContact(contact));
+            dispatch(changeActualContact(contact.contact));
         },
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditIdentyScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(EditContactScreen);

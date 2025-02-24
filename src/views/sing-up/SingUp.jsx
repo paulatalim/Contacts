@@ -9,12 +9,12 @@ import {
     StatusBar,
     ScrollView,
 } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
-import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { singup } from '../../store/actions/user';
 import auth from '@react-native-firebase/auth';
 import BoxGlass from './widget/BoxGlass';
+import { connect } from 'react-redux';
 
 class SingUp extends Component {
     state = {

@@ -1,13 +1,13 @@
 import {
     USER_LOGGED_OUT,
     SET_USER,
-} from '../actions/actionTypes';
+} from '../actions/action-types';
 
 const initState = {
     id: 0,
     name: null,
     email: null,
-    identy: [],
+    contacts: [],
 };
 
 const reducer = (state = initState, action) => {
@@ -18,7 +18,7 @@ const reducer = (state = initState, action) => {
                 id: action.payload.id,
                 name: action.payload.name,
                 email: action.payload.email,
-                identy: action.payload.identys,
+                contacts: action.payload.contacts,
             };
         case USER_LOGGED_OUT:
             return {
@@ -26,7 +26,7 @@ const reducer = (state = initState, action) => {
                 id: null,
                 name: null,
                 email: null,
-                identy: null,
+                contacts: null,
             };
         default:
             return state;

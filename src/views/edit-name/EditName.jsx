@@ -4,26 +4,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
-import { editIdenty } from '../../store/actions/identys';
-import { changeActualIdenty } from '../../store/actions/viewIdenty';
+import { editContact } from '../../store/actions/contacts';
+import { changeActualContact } from '../../store/actions/view-contact';
 
 class EditNameSreen extends Component {
     state = {
-        name: this.props.actualIdenty.name,
+        name: this.props.actualContact.name,
     };
 
     editName = async () => {
         const item = {
             id: this.props.id,
-            identy: {
-                id: this.props.actualIdenty.id,
+            contact: {
+                id: this.props.actualContact.id,
+                ...this.props.actualContact,
                 name: this.state.name,
-                pronome: this.props.actualIdenty.pronome,
-                genero: this.props.actualIdenty.genero,
-                idade: this.props.actualIdenty.idade,
-                caracteristica: this.props.actualIdenty.caracteristica,
-                descricao: this.props.actualIdenty.descricao,
-                photo: this.props.actualIdenty.photo,
+                // pronome: this.props.actualContact.pronome,
+                // genero: this.props.actualContact.genero,
+                // idade: this.props.actualContact.idade,
+                // caracteristica: this.props.actualContact.caracteristica,
+                // descricao: this.props.actualContact.descricao,
+                photo: this.props.actualContact.photo,
             },
         };
         this.props.onEdit(item);
@@ -102,18 +103,18 @@ const style = StyleSheet.create({
     },
 });
 
-const mapStateToProps = ({ user, actualIdenty }) => {
+const mapStateToProps = ({ user, actualContact }) => {
     return {
         id: user.id,
-        actualIdenty: actualIdenty.identy,
+        actualContact: actualContact.contact,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onEdit: identy => {
-            dispatch(editIdenty(identy));
-            dispatch(changeActualIdenty(identy.identy));
+        onEdit: contact => {
+            dispatch(editContact(contact));
+            dispatch(changeActualContact(contact.contact));
         },
     };
 };

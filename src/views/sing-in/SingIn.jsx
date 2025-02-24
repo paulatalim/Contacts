@@ -11,13 +11,13 @@ import {
     Dimensions,
     StatusBar,
 } from 'react-native';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faApple } from '@fortawesome/free-brands-svg-icons/faApple';
-import BoxGlass from './widget/BoxGlass';
-import { connect } from 'react-redux';
 import { fetchUser, singup } from '../../store/actions/user';
 import auth from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import BoxGlass from './widget/BoxGlass';
+import { connect } from 'react-redux';
 
 class SingIn extends Component {
     state = {

@@ -1,4 +1,4 @@
-import { SET_USER, USER_LOGGED_OUT } from './actionTypes';
+import { SET_USER, USER_LOGGED_OUT } from './action-types';
 import axios from 'axios';
 
 export const logout = () => {
@@ -58,6 +58,7 @@ export const fetchUser = user => {
 
                 for (let key in rawUser) {
                     if (rawUser[key].email === user.email) {
+                        console.log(rawUser[key].contacts)
                         dispatch(setUser({ ...rawUser[key], id: key}));
                         break;
                     }

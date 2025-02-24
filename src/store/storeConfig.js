@@ -6,11 +6,11 @@ import {
 } from 'redux';
 import { thunk } from 'redux-thunk';
 import userReduce from './reducers/user';
-import actualIdentyReduce from './reducers/viewIdenty';
+import actualContactReduce from './reducers/view-contact';
 
 const reducers = combineReducers({
     user: userReduce,
-    actualIdenty: actualIdentyReduce,
+    actualContact: actualContactReduce,
 });
 
 const storeConfig = () => {

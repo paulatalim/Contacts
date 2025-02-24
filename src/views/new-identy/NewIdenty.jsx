@@ -1,33 +1,38 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, ImageBackground, PermissionsAndroid, Platform } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import {
+    View,
+    Text,
+    TextInput,
+    StyleSheet,
+    ScrollView,
+    TouchableOpacity,
+    ImageBackground,
+    PermissionsAndroid,
+    Platform,
+} from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
-import { connect } from 'react-redux';
-import { addIdenty } from '../store/actions/identys';
 import { faImage } from '@fortawesome/free-regular-svg-icons';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import BottomSheet from '@nonam4/react-native-bottom-sheet';
-import TagInput from '../components/tagInput';
+import { addContact } from '../../store/actions/contacts';
+import { connect } from 'react-redux';
 
-class CreateIdentyScreen extends Component {
+class NewContact extends Component {
     state = {
-        open: false,
-        photo: null,
+        id: -1,
         name: '',
-        idade: -1,
-        gender: '',
-        pronome: [],
-        caracteristica: '',
-        descricao: '',
+        photo: '',
+        number: '',
+        email: '',
     };
 
-    pronomes = [
-        {label: 'Ele/dele', value: 'Ele/dele'},
-        {label: 'Ela/dela', value: 'Ela/dela'},
-        {label: 'Elu/delu', value: 'Elu/delu'},
-    ];
+    // pronomes = [
+    //     {label: 'Ele/dele', value: 'Ele/dele'},
+    //     {label: 'Ela/dela', value: 'Ela/dela'},
+    //     {label: 'Elu/delu', value: 'Elu/delu'},
+    // ];
 
     requestCameraPermission = async () => {
         if (Platform.OS === 'android') {
@@ -102,32 +107,29 @@ class CreateIdentyScreen extends Component {
         }));
     }
 
-    updateCarac = (caracteristica) => {
-        this.setState({caracteristica: caracteristica});
-    };
+    // updateCarac = (caracteristica) => {
+    //     this.setState({caracteristica: caracteristica});
+    // };
 
-    formatPronome = () => {
-        let str = this.state.pronome.length > 0 ? this.state.pronome[0] : '';
+    // formatPronome = () => {
+    //     let str = this.state.pronome.length > 0 ? this.state.pronome[0] : '';
 
-        for (let i = 1; i < this.state.pronome.length; i++) {
-            str += ', ' + this.state.pronome[i];
-        }
+    //     for (let i = 1; i < this.state.pronome.length; i++) {
+    //         str += ', ' + this.state.pronome[i];
+    //     }
 
-        return str;
-    };
+    //     return str;
+    // };
 
-    addIdenty = async () => {
-        this.props.onAddIdenty({
+    addContact = async () => {
+        this.props.onAddContact({
             ...this.props.user,
-            identy: {
-                id: this.props.identy ? this.props.identy[this.props.identy.length - 1].id + 1 : 0,
+            contact: {
+                id: this.props.contact ? this.props.contact[this.props.contact.length - 1].id + 1 : 0,
                 name: this.state.name,
-                pronome: this.formatPronome(),
-                genero: this.state.gender,
-                idade: this.state.idade,
-                caracteristica: this.state.caracteristica,
-                descricao: this.state.descricao,
                 photo: this.state.photo != null ? this.state.photo : '',
+                number: this.props.number,
+                email: this.props.email,
             },
         });
     };
@@ -137,7 +139,7 @@ class CreateIdentyScreen extends Component {
             <ScrollView nestedScrollEnabled={this.state.open ? false : true} style={style.container}>
                 {/* Header */}
                 <View style={style.header}>
-                    <Text style={style.headerTitle}>Criar nova identidade</Text>
+                    <Text style={style.headerTitle}>Novo Contato</Text>
                     <TouchableOpacity
                         onPress={() => {
                             this.props.navigation.goBack();
@@ -150,7 +152,7 @@ class CreateIdentyScreen extends Component {
                 {/* Imagem */}
                 <View style={style.containerImg}>
                     <TouchableOpacity onPress={() => this.takePhoto_uri.open()} >
-                        {this.state.photo !== null ?
+                        {this.state.photo !== '' ?
                             <ImageBackground source={{ uri: this.state.photo }} resizeMode="cover" style={style.img} imageStyle={style.imgSty}>
                                 <View style={style.imgFiltro}>
                                     <FontAwesomeIcon icon={faCamera} color="#FFF" size={40}/>
@@ -172,8 +174,8 @@ class CreateIdentyScreen extends Component {
                     value={this.name}
                     />
 
-                {/* Idade */}
-                <TextInput
+                {/* Idade *
+                {/* <TextInput
                     style={style.input}
                     placeholder="Idade"
                     placeholderTextColor={'#787855'}
@@ -182,7 +184,7 @@ class CreateIdentyScreen extends Component {
                     keyboardType="numeric"
                     />
 
-                {/* Genero */}
+                {/* Genero *
                 <TextInput
                     style={style.input}
                     placeholder="Gênero"
@@ -192,7 +194,7 @@ class CreateIdentyScreen extends Component {
                     autoComplete="gender"
                     />
 
-                {/* Pronomes */}
+                {/* Pronomes *
                 <View style={style.selectView}>
                     <Text style={style.selectTitle}>Pronomes</Text>
                     <DropDownPicker
@@ -217,13 +219,13 @@ class CreateIdentyScreen extends Component {
                     />
                 </View>
 
-                {/* Caracteristicas */}
+                {/* Caracteristicas *
                 <View style={style.selectView}>
                     <Text style={style.selectTitle}>Características Principais</Text>
                     <TagInput save={this.updateCarac}/>
                 </View>
 
-                {/* Descricao */}
+                {/* Descricao *
                 <View>
                     <Text style={style.selectTitle}>Descrição</Text>
                     <TextInput
@@ -237,12 +239,12 @@ class CreateIdentyScreen extends Component {
                         numberOfLines={1}
                         maxLength={200}
                         />
-                </View>
+                </View> */}
 
                 {/* Botao Salvar */}
                 <TouchableOpacity style={style.button}
                     onPress={() => {
-                        this.addIdenty();
+                        this.addContact();
                         this.props.navigation.goBack();
                     }}>
                     <Text style={style.buttonText}>Criar</Text>
@@ -430,14 +432,14 @@ const style = StyleSheet.create({
 const mapStateToProps = ({ user }) => {
     return {
         user: user,
-        identy: user.identy,
+        contact: user.contacts,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddIdenty: identy => dispatch(addIdenty(identy)),
+        onAddContact: contact => dispatch(addContact(contact)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateIdentyScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(NewContact);
