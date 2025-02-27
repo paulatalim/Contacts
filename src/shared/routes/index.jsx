@@ -2,13 +2,13 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { connect } from 'react-redux';
 
-import Home from '../../views/home/home';
-import EditContact from '../../views/edit-contact/edit-contact';
-import NewContact from '../../views/new-contact/new-contact';
-import Contact from '../../views/contact/contact';
-import SingIn from '../../views/sing-in/sing-in';
-import SingUp from '../../views/sing-up/sing-up';
-import MoreOption from '../../views/more-option/more-option';
+import Home from '../../presentation/home/home';
+import EditContact from '../../presentation/edit-contact/edit-contact';
+import NewContact from '../../presentation/new-contact/new-contact';
+import Contact from '../../presentation/contact/contact';
+import SingIn from '../../presentation/sing-in/sing-in';
+import SingUp from '../../presentation/sing-up/sing-up';
+import MoreOption from '../../presentation/more-option/more-option';
 
 const Stack = createNativeStackNavigator();
 

@@ -1,0 +1,143 @@
+import { StyleSheet } from 'react-native';
+
+export const style = StyleSheet.create({
+    container: {
+        backgroundColor: '#ffffff',
+        paddingBottom: 50,
+        paddingHorizontal: 25,
+        flex: 1,
+    },
+    selectView: {
+        marginBottom: 40,
+    },
+    header: {
+        paddingVertical: 40,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    headerTitle: {
+        color: '#000',
+        fontFamily: 'Roboto',
+        fontWeight: '800',
+        fontSize: 26,
+    },
+    selectTitle: {
+        marginBottom: 10,
+        fontSize: 18,
+        fontWeight: '700',
+        color: '#000',
+    },
+    input: {
+        backgroundColor: '#ffc7004C',
+        borderRadius: 15,
+        padding: 15,
+        marginBottom: 40,
+        color: '#000',
+        fontFamily: 'Roboto',
+        fontWeight: '600',
+        fontSize: 18,
+    },
+    dropDown: {
+        borderColor: 'rgb(0,0,0,0.2)',
+        backgroundColor: '#fffff0',
+    },
+    dropDownContainerStyle: {
+        borderRadius: 20,
+        borderColor: 'rgb(0,0,0,0.2)',
+        backgroundColor: '#fffff0',
+        elevation: 5,
+    },
+    dropDownLabelStyle: {
+        fontSize: 18,
+        fontWeight: '400',
+        color: '#000',
+    },
+    dropDownItemLabelStyle: {
+        fontSize: 18,
+        fontWeight: '400',
+        color: '#000',
+    },
+    dropDownBadgeTextStyle: {
+        color: '#000',
+        fontSize: 18,
+        fontWeight: '600',
+    },
+    dropDownIcon: {
+        tintColor: '#00000090',
+        width: 26,
+    },
+    areaText: {
+        backgroundColor: '#ffc7004C',
+        borderRadius: 15,
+        padding: 20,
+        marginBottom: 60,
+        color: '#000',
+        fontFamily: 'Roboto',
+        fontWeight: '500',
+        fontSize: 18,
+    },
+    button: {
+        backgroundColor: '#ffc700',
+        borderRadius: 50,
+        marginBottom: 100,
+        paddingVertical: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 10,
+    },
+    buttonText: {
+        fontFamily: 'Roboto',
+        fontWeight: '900',
+        fontSize: 20,
+        color: '#FFF',
+    },
+    containerImg: {
+        marginBottom: 40,
+        paddingVertical: 15,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    img: {
+        width: 150,
+        height: 150,
+        borderRadius: 75,
+    },
+    imgSty: {
+        borderRadius: 150,
+    },
+    imgFiltro: {
+        backgroundColor: '#0000004D',
+        width: 150,
+        height: 150,
+        borderRadius: 75,
+        display:'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    identyNoImage: {
+        backgroundColor: 'rgba(255, 199, 0, 0.6)',
+        width: 150,
+        height: 150,
+        borderRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    bottomSheet: {
+        flexDirection: 'row',
+        paddingHorizontal: 40,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 10,
+    },
+    bottomSheetBtn: {
+        alignItems: 'center',
+        gap: 15,
+    },
+    bottomSheetText: {
+        color: '#000',
+        fontSize: 18,
+        fontWeight: '700',
+    },
+});
