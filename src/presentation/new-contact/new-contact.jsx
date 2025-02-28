@@ -103,8 +103,8 @@ class NewContact extends Component {
                 id: this.props.contact ? this.props.contact[this.props.contact.length - 1].id + 1 : 0,
                 name: this.state.name,
                 photo: this.state.photo != null ? this.state.photo : '',
-                number: this.props.number,
-                email: this.props.email,
+                number: this.state.number,
+                email: this.state.email,
             },
         });
     };
@@ -142,13 +142,36 @@ class NewContact extends Component {
                 </View>
 
                 {/* Nome */}
+                <Text style={style.labelInput}>Nome</Text>
                 <TextInput
                     style={style.input}
                     placeholder="Nome"
                     placeholderTextColor={'#FFF'}
                     onChangeText={name => this.setState({name})}
-                    value={this.name}
-                    />
+                    value={this.state.name}
+                />
+
+                <Text style={style.labelInput}>Telefone</Text>
+                <TextInput
+                    style={style.input}
+                    placeholder="(00) 00000-0000"
+                    placeholderTextColor={'rgba(255, 255, 255, 0.5)'}
+                    cursorColor={'#7300EC'}
+                    keyboardType="numeric"
+                    onChangeText={number => this.setState({number})}
+                    value={this.state.number}
+                />
+
+                <Text style={style.labelInput}>Email</Text>
+                <TextInput
+                    style={style.input}
+                    placeholder="email@gmail.com"
+                    placeholderTextColor={'rgba(255, 255, 255, 0.5)'}
+                    cursorColor={'#7300EC'}
+                    keyboardType="email-address"
+                    onChangeText={email => this.setState({email})}
+                    value={this.state.email}
+                />
 
                 {/* Botao Salvar */}
                 <TouchableOpacity style={style.button}
