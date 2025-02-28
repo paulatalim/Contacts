@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const style = StyleSheet.create({
     body: {
-        backgroundColor: '#ffffc0',
+        backgroundColor: '#000',
         flex: 1,
         paddingHorizontal: 20,
     },
@@ -10,21 +10,20 @@ export const style = StyleSheet.create({
         marginVertical: 20,
     },
     perfil: {
-        backgroundColor: '#FFF',
-        alignItems: 'left',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        alignItems: 'center',
         borderRadius: 10,
-        elevation: 15,
         paddingVertical: 40,
         paddingHorizontal: 20,
         gap: 10,
     },
     name: {
-        color: '#000',
+        color: '#FFF',
         fontSize: 20,
         fontWeight: '600',
     },
     email: {
-        color: '#434343',
+        color: 'rgba(255, 255, 255, 0.9)',
         fontSize: 18,
         fontWeight: '400',
     },
@@ -88,7 +87,7 @@ export const style = StyleSheet.create({
         marginTop: 100,
     },
     logoutButton: {
-        color:'#A00',
+        color:'#7300EC',
         fontSize: 18,
         fontWeight: '600',
         textDecorationLine: 'underline',

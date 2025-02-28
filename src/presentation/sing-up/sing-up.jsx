@@ -11,7 +11,7 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { singup } from '../../domain/actions/user';
 import auth from '@react-native-firebase/auth';
-import BoxGlass from './widget/BoxGlass';
+import BoxGlass from '../../shared/components/BoxGlass';
 import { connect } from 'react-redux';
 import { style } from './style/sing-up-style';
 

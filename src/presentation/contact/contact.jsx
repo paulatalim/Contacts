@@ -4,7 +4,9 @@ import {
     View,
     ScrollView,
     TouchableOpacity,
-    Image }
+    Image,
+    StatusBar,
+}
 from 'react-native';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
@@ -12,10 +14,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { deleteContact } from '../../domain/actions/contacts';
 import BottomSheet from '@nonam4/react-native-bottom-sheet';
 import { style } from './style/contact-style';
 import { connect } from 'react-redux';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 class Contact extends Component {
     delete = () => {
@@ -26,18 +30,32 @@ class Contact extends Component {
     render() {
         return (
             <ScrollView style={style.screen}>
+                <StatusBar backgroundColor={'#000'} />
                 <View style={style.principal}>
                     <View style={style.header}>
                         <TouchableOpacity
                             onPress={() => this.props.navigation.goBack()}
                             >
-                            <FontAwesomeIcon icon={faChevronLeft} size={20} color="rgba(0, 0, 0, 0.5)"/>
+                            <FontAwesomeIcon icon={faChevronLeft} size={20} color="#FFF"/>
                         </TouchableOpacity>
-                        <TouchableOpacity
+                        <View style={style.manageContact}>
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('/contact/edit')}
+                            >
+                                <FontAwesomeIcon icon={faPen} size={18} color="#FFF"/>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => this.delete()}
+                            >
+                                <FontAwesomeIcon icon={faTrash} size={18} color="#FFF"/>
+                            </TouchableOpacity>
+                        </View>
+                        {/* <TouchableOpacity
                             onPress={() => this.manageContact.open()}
                             >
-                            <FontAwesomeIcon icon={faEllipsisV} size={20} color="rgba(0, 0, 0, 0.5)"/>
-                        </TouchableOpacity>
+                            <FontAwesomeIcon icon={faEllipsisV} size={20} color="#FFF"/>
+                        </TouchableOpacity> */}
                     </View>
                     {this.props.contact.photo !== '' ?
                         <Image style={style.img} source={{uri: this.props.contact.photo}} sharedTransionTag="tag" />
@@ -49,10 +67,19 @@ class Contact extends Component {
                     <Text style={style.name}>{this.props.contact.name}</Text>
                 </View>
 
-                <Text>Telefone</Text>
-                <Text>Email</Text>
+                <View style={style.dataContainer}>
+                    <FontAwesomeIcon icon={faPhone} color="#fff"  size={18}/>
+                    <Text style={style.dataText}>(00) 00000-0000</Text>
+                    <View/>
+                </View>
 
-                <BottomSheet
+                <View style={style.dataContainer}>
+                    <FontAwesomeIcon icon={faEnvelope} color="#fff"  size={18}/>
+                    <Text style={style.dataText}>email@gmail.com</Text>
+                    <View/>
+                </View>
+
+                {/* <BottomSheet
                     ref={ref => {
                         this.manageContact = ref;
                     }}
@@ -63,27 +90,27 @@ class Contact extends Component {
                             backgroundColor: 'transparent',
                         },
                         draggableIcon: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
                         },
                         container: {
                             borderTopLeftRadius: 30,
                             borderTopRightRadius: 30,
-                            backgroundColor: '#ffc700',
+                            backgroundColor: '#7300EC',
                         },
                     }}
                 >
                     <View style={style.bottomSheet}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('/contact/edit')} style={style.bottomSheetBtn}>
-                            <FontAwesomeIcon icon={faPen} size={18} color="rgba(0, 0, 0, 0.6)"/>
+                            <FontAwesomeIcon icon={faPen} size={18} color="rgba(255, 255, 255, 0.8)"/>
                             <Text style={style.bottomSheetText}>Editar</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={() => this.delete()} style={style.bottomSheetBtn}>
-                            <FontAwesomeIcon icon={faTrash} size={18} color="rgba(0, 0, 0, 0.6)"/>
+                            <FontAwesomeIcon icon={faTrash} size={18} color="rgba(255, 255, 255, 0.8)"/>
                             <Text style={style.bottomSheetText}>Excluir</Text>
                         </TouchableOpacity>
                     </View>
-                </BottomSheet>
+                </BottomSheet> */}
             </ScrollView>
         );
     }

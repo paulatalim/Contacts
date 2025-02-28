@@ -6,6 +6,7 @@ import {
     Text,
     PermissionsAndroid,
     Platform,
+    TextInput,
 } from 'react-native';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
@@ -20,7 +21,10 @@ import { connect } from 'react-redux';
 
 class EditContact extends Component {
     state = {
+        name: this.props.actualContact.name,
         image: this.props.actualContact.photo,
+        number: this.props.actualContact.number,
+        email: this.props.actualContact.email,
     };
 
     requestCameraPermission = async () => {
@@ -97,7 +101,10 @@ class EditContact extends Component {
             id: this.props.id,
             Contact: {
                 ...this.props.actualContact,
+                name: this.state.name === '' ? this.props.actualContact.name : this.state.name,
                 photo: this.state.image,
+                number:this.state.number === '' ? this.props.actualContact.number : this.state.number,
+                email: this.state.email === '' ? this.props.actualContact.email : this.state.email,
             },
         };
         this.props.onEdit(item);
@@ -111,11 +118,8 @@ class EditContact extends Component {
                         style={style.btnVoltar}
                         onPress={() => {this.props.navigation.goBack();}}
                         >
-                        <FontAwesomeIcon icon={faChevronLeft} size={20} color="rgba(0, 0, 0, 0.6)" />
+                        <FontAwesomeIcon icon={faChevronLeft} size={20} color="rgba(255, 255, 255, 0.6)" />
                     </TouchableOpacity>
-
-                    <Text style={style.title}>editar identidade</Text>
-
                     <View />
                 </View>
                 <View style={style.containerImg}>
@@ -132,6 +136,39 @@ class EditContact extends Component {
                         }
                     </TouchableOpacity>
                 </View>
+                <Text style={style.labelInput}>Nome</Text>
+                <TextInput
+                    style={style.input}
+                    placeholder="Nome"
+                    placeholderTextColor={'#FFF'}
+                    cursorColor={'#7300EC'}
+                    keyboardType="name-phone-pad"
+                    onChangeText={name => this.setState({name})}
+                    value={this.name}
+                />
+
+                <Text style={style.labelInput}>Telefone</Text>
+                <TextInput
+                    style={style.input}
+                    placeholder="(00) 00000-0000"
+                    placeholderTextColor={'#FFF'}
+                    cursorColor={'#7300EC'}
+                    keyboardType="numeric"
+                    onChangeText={number => this.setState({number})}
+                    value={this.number}
+                />
+
+                <Text style={style.labelInput}>Email</Text>
+                <TextInput
+                    style={style.input}
+                    placeholder="email@gmail.com"
+                    placeholderTextColor={'#FFF'}
+                    cursorColor={'#7300EC'}
+                    keyboardType="email-address"
+                    onChangeText={email => this.setState({email})}
+                    value={this.email}
+                />
+
                 {/* <Campo name="Nome" data={this.props.actualContact.name} route="EditarNome" /> */}
                 {/* <Campo name="Pronome" data={this.props.actualContact.pronome} route="EditarPronome" />
                 <Campo name="Gênero" data={this.props.actualContact.genero} route="EditarGenero" />

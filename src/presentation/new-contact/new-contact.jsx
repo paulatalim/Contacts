@@ -8,6 +8,7 @@ import {
     ImageBackground,
     PermissionsAndroid,
     Platform,
+    StatusBar,
 } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -111,6 +112,7 @@ class NewContact extends Component {
     render() {
         return (
             <ScrollView nestedScrollEnabled={this.state.open ? false : true} style={style.container}>
+                <StatusBar backgroundColor={'#000'} />
                 {/* Header */}
                 <View style={style.header}>
                     <Text style={style.headerTitle}>Novo Contato</Text>
@@ -119,7 +121,7 @@ class NewContact extends Component {
                             this.props.navigation.goBack();
                         }}
                         >
-                        <FontAwesomeIcon icon={faXmark} size={27} color="#696969"/>
+                        <FontAwesomeIcon icon={faXmark} size={27} color="rgba(255, 255, 255, 0.8)"/>
                     </TouchableOpacity>
                 </View>
 
@@ -143,7 +145,7 @@ class NewContact extends Component {
                 <TextInput
                     style={style.input}
                     placeholder="Nome"
-                    placeholderTextColor={'#787855'}
+                    placeholderTextColor={'#FFF'}
                     onChangeText={name => this.setState({name})}
                     value={this.name}
                     />
@@ -168,23 +170,23 @@ class NewContact extends Component {
                             backgroundColor: 'transparent',
                         },
                         draggableIcon: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                            backgroundColor: 'rgba(255, 255, 255, 0.6)',
                         },
                         container: {
                             borderTopLeftRadius: 30,
                             borderTopRightRadius: 30,
-                            backgroundColor: '#ffc700',
+                            backgroundColor: '#7300EC',
                         },
                     }}
                 >
                     <View style={style.bottomSheet}>
                         <TouchableOpacity onPress={this.pickImage} style={style.bottomSheetBtn}>
-                            <FontAwesomeIcon icon={faCamera} size={25} color="rgba(0, 0, 0, 0.8)"/>
+                            <FontAwesomeIcon icon={faCamera} size={25} color="rgba(255, 255, 255, 0.8)"/>
                             <Text style={style.bottomSheetText}>Tirar foto</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={this.pickImageLibrary} style={style.bottomSheetBtn}>
-                            <FontAwesomeIcon icon={faImage} size={25} color="rgba(0, 0, 0, 0.8)"/>
+                            <FontAwesomeIcon icon={faImage} size={25} color="rgba(255, 255, 255, 0.8)"/>
                             <Text style={style.bottomSheetText}>Selecionar foto</Text>
                         </TouchableOpacity>
                     </View>

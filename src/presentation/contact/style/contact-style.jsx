@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const style = StyleSheet.create({
     screen: {
-        backgroundColor: '#FFF',
+        backgroundColor: '#000',
     },
     principal: {
         display: 'flex',
@@ -11,6 +11,7 @@ export const style = StyleSheet.create({
         alignItems: 'center',
         height: '50vh',
         marginTop: 50,
+        marginBottom: 30,
     },
     header: {
         width: '100%',
@@ -22,16 +23,15 @@ export const style = StyleSheet.create({
     headerContent: {
         alignItems: 'center',
     },
+    manageContact: {
+        flexDirection: 'row',
+        gap: 25,
+    },
     name: {
         fontFamily:'Montserrat-ExtraBold',
         fontSize: 25,
-        color: '#000',
+        color: '#FFF',
     },
-    // pronome: {
-    //     fontFamily:'Montserrat-Medium',
-    //     fontSize: 22,
-    //     color: '#4D4D4D',
-    // },
     img: {
         width: 100,
         height: 100,
@@ -40,7 +40,7 @@ export const style = StyleSheet.create({
         marginBottom: 30,
     },
     imgUser: {
-        backgroundColor: 'rgba(140, 0, 255, 0.6)',
+        backgroundColor: 'rgba(130, 0, 245, 0.8)',
         borderRadius: 250,
         width: 120,
         height: 120,
@@ -49,70 +49,36 @@ export const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    // carac: {
-    //     marginBottom: 60,
-    //     fontFamily:'Montserrat-Medium',
-    //     fontWeight: '500',
-    //     fontSize: 25,
-    //     color: '#000',
-    // },
-    // info: {
-    //     display: 'flex',
-    //     flexDirection: 'row',
-    //     justifyContent: 'space-between',
-    //     alignItems: 'center',
-    //     paddingVertical: 15,
-    //     paddingHorizontal: 25,
-    // },
-    title: {
-        fontFamily:'Roboto-Bold',
-        fontWeight: '700',
-        fontSize: 20,
-        textTransform: 'capitalize',
-        color: '#000',
-    },
-    // idade: {
-    //     fontFamily:'Roboto',
-    //     fontWeight: '700',
-    //     fontSize: 20,
-    //     color: 'rgba(0, 0, 0, 0.6)',
-    // },
-    // genero: {
-    //     fontFamily:'Roboto',
-    //     fontWeight: '700',
-    //     fontSize: 20,
-    //     textTransform: 'capitalize',
-    //     color: 'rgba(0, 0, 0, 0.6)',
-    // },
-    // descricaoContainer: {
-    //     paddingVertical: 15,
-    //     paddingHorizontal: 25,
-    //     marginTop: 20,
-    //     marginBottom: 50,
-    //     gap: 15,
-    // },
-    // descricao: {
-    //     fontFamily:'Roboto',
-    //     fontWeight: '700',
-    //     fontSize: 18,
-    //     lineHeight: 28,
-    //     textTransform: 'capitalize',
-    //     color: 'rgba(0, 0, 0, 0.6)',
-    // },
-    bottomSheet: {
-        paddingHorizontal: 40,
-        alignItems: 'flex-start',
+    dataContainer: {
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        margin: 20,
+        paddingHorizontal: 30,
         paddingVertical: 20,
-        gap: 40,
-    },
-    bottomSheetBtn: {
-        flexDirection: 'row',
         alignItems: 'center',
-        gap: 30,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderRadius: 15,
     },
-    bottomSheetText: {
-        color: '#000',
-        fontSize: 18,
-        fontWeight: '700',
+    dataText: {
+        color: '#FFF',
+        fontSize: 17,
+        fontFamily: 'Montserrat-Bold',
+        fontWeight: '200',
     },
+    // bottomSheet: {
+    //     paddingHorizontal: 40,
+    //     alignItems: 'flex-start',
+    //     paddingVertical: 20,
+    //     gap: 40,
+    // },
+    // bottomSheetBtn: {
+    //     flexDirection: 'row',
+    //     alignItems: 'center',
+    //     gap: 30,
+    // },
+    // bottomSheetText: {
+    //     color: 'rgba(255, 255, 255, 0.8)',
+    //     fontSize: 18,
+    //     fontWeight: '700',
+    // },
 });

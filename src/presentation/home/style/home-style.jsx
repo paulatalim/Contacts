@@ -1,8 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 export const style = StyleSheet.create({
+    screen: {
+        backgroundColor: '#000',
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+    },
     header: {
-        backgroundColor: '#ffc700',
+        backgroundColor: '#8200F5',
+        marginBottom: 20,
         paddingVertical: 20,
         paddingHorizontal: 25,
         flexDirection: 'row',
@@ -12,11 +18,9 @@ export const style = StyleSheet.create({
     headerText: {
         fontFamily: 'Montserrat-Bold',
         fontSize: 24,
-        color: '#000',
+        color: '#FFF',
     },
-    moreOption: {},
-    moreOptionIcon:{},
-    identyContainer: {
+    contactContainer: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
@@ -25,38 +29,32 @@ export const style = StyleSheet.create({
         paddingHorizontal: 25,
         gap: 20,
     },
-    identyText: {
+    contactText: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
     },
-    identyImage: {
+    contactImage: {
         width: 50,
         height: 50,
         borderRadius: 50,
     },
-    identyNoImage: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    contactNoImage: {
+        backgroundColor: '#8200F5',
         borderRadius: 50,
         width: 50,
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',
     },
-    identyName: {
+    contactName: {
         fontSize: 20,
-        color: '#000',
+        color: '#FFF',
         fontFamily: 'Montserrat-Bold',
-    },
-    identyCaract: {
-        fontSize: 15,
-        color: 'rgba(0, 0, 0, 0.5)',
-        fontFamily: 'Roboto-Bold',
-        fontWeight: '700',
     },
     floatActionButton: {
         position: 'absolute',
-        backgroundColor: '#ffc700',
+        backgroundColor: '#8200F5',
         width: 70,
         height: 70,
         borderRadius: 20,

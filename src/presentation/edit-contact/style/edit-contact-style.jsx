@@ -1,11 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 export const style = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-around',
-        backgroundColor: '#FFF',
+        // justifyContent: 'space-around',
+        backgroundColor: '#000',
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+        paddingHorizontal: 25,
     },
     header: {
         flexDirection: 'row',
@@ -15,14 +18,13 @@ export const style = StyleSheet.create({
         paddingVertical: 50,
     },
     title: {
-        color: '#000',
+        color: '#FFF',
         fontFamily: 'Roboto',
         fontWeight: '800',
         fontSize: 22,
         textTransform: 'capitalize',
     },
     containerImg: {
-        paddingVertical: 50,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -36,7 +38,7 @@ export const style = StyleSheet.create({
         borderRadius: 150,
     },
     imgFiltro: {
-        backgroundColor: '#0000004D',
+        backgroundColor: 'rgba(130, 0, 245, 0.4)',
         width: 150,
         height: 150,
         borderRadius: 75,
@@ -45,12 +47,28 @@ export const style = StyleSheet.create({
         alignItems: 'center',
     },
     ContactNoImage: {
-        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        backgroundColor: 'rgba(130, 0, 245, 0.8)',
         width: 150,
         height: 150,
         borderRadius: 100,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    labelInput: {
+        color: '#fff',
+        fontFamily:'Montserrat-ExtraBold',
+        marginBottom: 15,
+        fontSize: 18,
+    },
+    input: {
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        borderRadius: 15,
+        padding: 15,
+        marginBottom: 25,
+        color: '#FFF',
+        fontFamily: 'Roboto',
+        fontWeight: '600',
+        fontSize: 18,
     },
     bottomSheet: {
         flexDirection: 'row',
@@ -64,7 +82,7 @@ export const style = StyleSheet.create({
         gap: 15,
     },
     bottomSheetText: {
-        color: '#000',
+        color: '#FFF',
         fontSize: 18,
         fontWeight: '700',
     },

@@ -37,7 +37,7 @@ export const style = StyleSheet.create({
         color: '#FFF',
     },
     btnEntrar: {
-        backgroundColor: '#ffc700E5',
+        backgroundColor: '#8200F5',
         borderRadius: 50,
         width: '100%',
         paddingVertical: 15,
@@ -106,7 +106,7 @@ export const style = StyleSheet.create({
         fontSize: 18,
     },
     btnCriarConta: {
-        backgroundColor: '#ffc700E5',
+        backgroundColor: '#8200F5',
         borderRadius: 50,
         paddingVertical: 15,
         justifyContent: 'center',

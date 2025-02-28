@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {
-    View,
-    FlatList,
-    Text,
     TouchableOpacity,
+    StatusBar,
+    FlatList,
     Image,
+    View,
+    Text,
 } from 'react-native';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons/faEllipsisVertical';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -31,19 +32,19 @@ class Home extends Component {
                         this.props.onSelectContact({...item});
                         this.props.navigation.navigate('/contact', {id: item.id});
                     }}>
-                    <View style={style.identyContainer}>
+                    <View style={style.contactContainer}>
                         {item.photo !== '' ?
                             <Image
-                                style={style.identyImage}
+                                style={style.contactImage}
                                 source={{uri: item.photo}}
                                 sharedTransitionTag="tag"
                             />
-                            : <View style={style.identyNoImage}>
+                            : <View style={style.contactNoImage}>
                                 <FontAwesomeIcon icon={faUser} color="#fff" size={25}/>
                             </View>
                         }
-                        <View style={style.identyText}>
-                            <Text style={style.identyName}>{item.name}</Text>
+                        <View style={style.contactText}>
+                            <Text style={style.contactName}>{item.name}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -51,14 +52,14 @@ class Home extends Component {
         };
 
         return (
-            <>
+            <View style={style.screen}>
+                <StatusBar backgroundColor={'#8200F5'} />
                 <View style={style.header}>
                     <Text style={style.headerText}>Contatos</Text>
                     <TouchableOpacity
-                        style={style.moreOption}
                         onPress={() => this.props.navigation.navigate('/more')}
                     >
-                        <FontAwesomeIcon icon={faEllipsisVertical} color="#000" size={23} style={style.moreOption}/>
+                        <FontAwesomeIcon icon={faEllipsisVertical} color="#FFF" size={23}/>
                     </TouchableOpacity>
                 </View>
                 <FlatList
@@ -74,7 +75,7 @@ class Home extends Component {
                     >
                     <FontAwesomeIcon icon={faAdd} size={30} color="#FFF" />
                 </TouchableOpacity>
-            </>
+            </View>
         );
     }
 }

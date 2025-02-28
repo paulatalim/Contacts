@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 import { logout } from '../../domain/actions/user';
 import { style } from './style/more-option-style';
+import { Avatar } from 'react-native-elements';
 import auth from '@react-native-firebase/auth';
 import { connect } from 'react-redux';
 
@@ -37,16 +38,23 @@ class MoreOptions extends Component {
     render() {
         return (
             <View style={style.body}>
-                <StatusBar backgroundColor={'#ffffc0'} />
+                <StatusBar backgroundColor={'#000'} />
                 <View style={style.header}>
                     <TouchableOpacity
                         onPress={() => this.props.navigation.goBack()}
                     >
-                        <FontAwesomeIcon icon={faXmark} size={25} color="rgba(0, 0, 0, 0.6)" />
+                        <FontAwesomeIcon icon={faXmark} size={25} color="rgba(255, 255, 255, 0.8)" />
                     </TouchableOpacity>
                 </View>
                 <View style={style.perfil}>
+                    <Avatar
+                        rounded
+                        size="large"
+                        source={{
+                            uri: 'https://picsum.photos/200'}}
+                    />
                     <Text style={style.name}>{ this.props.name }</Text>
+                    <Text style={style.email}>email@gmail.com</Text>
                     { this.props.email.lenght < 30 ?
                         <Text style={style.email}>{ this.props.email }</Text>
                         : <></>
@@ -75,7 +83,7 @@ class MoreOptions extends Component {
                     style={style.logout}
                     onPress={this.logout}
                 >
-                    <FontAwesomeIcon icon={faRightFromBracket} size={20} color="#A00" />
+                    <FontAwesomeIcon icon={faRightFromBracket} size={20} color="#7300EC" />
                     <Text style={style.logoutButton}>Sair da Conta</Text>
                 </TouchableOpacity>
             </View>
