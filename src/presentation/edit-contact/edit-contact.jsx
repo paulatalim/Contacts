@@ -79,7 +79,6 @@ class EditContact extends Component {
 
         if (!result.didCancel) {
             this.setState({image: result.assets[0].uri});
-            this.save();
         }
     };
 
@@ -92,22 +91,22 @@ class EditContact extends Component {
 
         if (!result.didCancel) {
             this.setState({image: result.assets[0].uri});
-            this.save();
         }
     };
 
     save = async () => {
         const item = {
             id: this.props.id,
-            Contact: {
+            contact: {
                 ...this.props.actualContact,
                 name: this.state.name === '' ? this.props.actualContact.name : this.state.name,
                 photo: this.state.image,
-                number:this.state.number === '' ? this.props.actualContact.number : this.state.number,
-                email: this.state.email === '' ? this.props.actualContact.email : this.state.email,
+                number:this.state.number,
+                email: this.state.email,
             },
         };
         this.props.onEdit(item);
+        this.props.navigation.goBack();
     };
 
     render() {
@@ -124,7 +123,7 @@ class EditContact extends Component {
                 </View>
                 <View style={style.containerImg}>
                     <TouchableOpacity onPress={() => this.takePhoto.open()} >
-                        {this.props.actualContact.photo !== '' ?
+                        {this.state.image !== '' ?
                                 <ImageBackground source={{uri: this.state.image}} resizeMode="cover" style={style.img} imageStyle={style.imgSty}>
                                     <View style={style.imgFiltro}>
                                         <FontAwesomeIcon icon={faCamera} color="#FFF" size={40}/>
@@ -140,41 +139,43 @@ class EditContact extends Component {
                 <TextInput
                     style={style.input}
                     placeholder="Nome"
-                    placeholderTextColor={'#FFF'}
+                    placeholderTextColor={'rgba(255, 255, 255, 0.5)'}
                     cursorColor={'#7300EC'}
                     keyboardType="name-phone-pad"
                     onChangeText={name => this.setState({name})}
-                    value={this.name}
+                    value={this.state.name}
                 />
 
                 <Text style={style.labelInput}>Telefone</Text>
                 <TextInput
                     style={style.input}
                     placeholder="(00) 00000-0000"
-                    placeholderTextColor={'#FFF'}
+                    placeholderTextColor={'rgba(255, 255, 255, 0.5)'}
                     cursorColor={'#7300EC'}
                     keyboardType="numeric"
                     onChangeText={number => this.setState({number})}
-                    value={this.number}
+                    value={this.state.number}
                 />
 
                 <Text style={style.labelInput}>Email</Text>
                 <TextInput
                     style={style.input}
                     placeholder="email@gmail.com"
-                    placeholderTextColor={'#FFF'}
+                    placeholderTextColor={'rgba(255, 255, 255, 0.5)'}
                     cursorColor={'#7300EC'}
                     keyboardType="email-address"
                     onChangeText={email => this.setState({email})}
-                    value={this.email}
+                    value={this.state.email}
                 />
 
-                {/* <Campo name="Nome" data={this.props.actualContact.name} route="EditarNome" /> */}
-                {/* <Campo name="Pronome" data={this.props.actualContact.pronome} route="EditarPronome" />
-                <Campo name="Gênero" data={this.props.actualContact.genero} route="EditarGenero" />
-                <Campo name="Idade" data={this.props.actualContact.idade !== -1 ? this.props.actualContact.idade : ''} route="EditarIdade" />
-                <Campo name="Característica" data={this.props.actualContact.caracteristica} route="EditarCaracteristica" />
-                <Campo name="Descrição" data={this.props.actualContact.descricao} route="EditarDescricao" /> */}
+                <TouchableOpacity
+                    onPress={() => this.save()}
+                >
+                    <View style={style.btnSave}>
+                        <Text style={style.btnSaveText}>Salvar</Text>
+                    </View>
+                </TouchableOpacity>
+
                 <BottomSheet
                     ref={ref => {
                         this.takePhoto = ref;
@@ -186,23 +187,23 @@ class EditContact extends Component {
                             backgroundColor: 'transparent',
                         },
                         draggableIcon: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                            backgroundColor: 'rgba(255, 255, 255, 0.4)',
                         },
                         container: {
                             borderTopLeftRadius: 30,
                             borderTopRightRadius: 30,
-                            backgroundColor: '#ffc700',
+                            backgroundColor: '#8200F5',
                         },
                     }}
                 >
                     <View style={style.bottomSheet}>
                         <TouchableOpacity onPress={this.pickImage} style={style.bottomSheetBtn}>
-                            <FontAwesomeIcon icon={faCamera} size={25} color="rgba(0, 0, 0, 0.8)"/>
+                            <FontAwesomeIcon icon={faCamera} size={25} color="#FFF"/>
                             <Text style={style.bottomSheetText}>Tirar foto</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={this.pickImageLibrary} style={style.bottomSheetBtn}>
-                            <FontAwesomeIcon icon={faImage} size={25} color="rgba(0, 0, 0, 0.8)"/>
+                            <FontAwesomeIcon icon={faImage} size={25} color="#FFF"/>
                             <Text style={style.bottomSheetText}>Selecionar foto</Text>
                         </TouchableOpacity>
                     </View>
@@ -211,8 +212,6 @@ class EditContact extends Component {
         );
     }
 }
-
-
 
 const mapStateToProps = ({ user, actualContact }) => {
     return {

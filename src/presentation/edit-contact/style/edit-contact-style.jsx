@@ -4,7 +4,6 @@ export const style = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'column',
-        // justifyContent: 'space-around',
         backgroundColor: '#000',
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
@@ -68,6 +67,19 @@ export const style = StyleSheet.create({
         color: '#FFF',
         fontFamily: 'Roboto',
         fontWeight: '600',
+        fontSize: 18,
+    },
+    btnSave: {
+        backgroundColor: '#8200F5',
+        borderRadius: 50,
+        paddingVertical: 15,
+        marginHorizontal: 30,
+        marginTop: 10,
+        alignItems: 'center',
+    },
+    btnSaveText: {
+        color: '#fff',
+        fontFamily:'Montserrat-ExtraBold',
         fontSize: 18,
     },
     bottomSheet: {
