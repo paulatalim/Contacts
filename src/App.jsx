@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Stack from './shared/routes';
@@ -8,11 +8,11 @@ const App = () => {
     SystemNavigationBar.setBarMode('dark', 'both');
 
     return (
-        <SafeAreaView style={style.view}>
+        <View style={style.view}>
             <NavigationContainer>
                 <Stack />
             </NavigationContainer>
-        </SafeAreaView>
+        </View>
     );
 };
 
