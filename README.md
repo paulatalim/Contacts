@@ -1,10 +1,10 @@
-# Identy
+# Contacts
 
-Um aplicativo para pessoas com Transtono Dissociativo de Identidade (TDI)
+Um aplicativo de contatos de pessoas
 
 ## Sobre
 
-Esse aplicativo foi um projeto pessoal, criado para aprendizagem de React Native. O app foi desenvolvido com o intuito de que pessoas com TDI monitorem suas personalidades.
+Esse aplicativo foi um projeto pessoal, criado para aprendizagem de React Native. O app foi desenvolvido com o intuito de controlar os contatos de uma pessoa.
 
 # Getting Started
 
